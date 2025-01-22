@@ -1,0 +1,20 @@
+.navbar {
+  font-size: 1rem;
+  background-color: $bg-secondary;
+
+  .link {
+    font-size: 1rem;
+    color: $text-primary;
+    padding: .75rem 2.5rem;
+      display: block;
+      text-decoration: none;
+
+    &.login-btn {
+      background-color: $bg-primary;
+      padding: .5rem 1rem !important;
+      border-radius: 100px;
+    }
+  }
+
+  
+}
