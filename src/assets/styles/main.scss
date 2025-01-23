@@ -1,14 +1,10 @@
 @import "bootstrap/scss/bootstrap";
-
-$bg-primary: #f2f8ff;
-$bg-secondary: #e6effb;
-$text-primary: #0A0A0A;
-$text-secondary: #083d77;
+@import "./variables";
 
 body {
   line-height: 1;
   background-color: $bg-primary;
-  color: $text-primary
+  color: $text-primary;
 }
 
 .brand {
