@@ -9,3 +9,42 @@
     height: 23.25rem;
   }
 }
+
+.home {
+  section {
+    display: flex;
+    flex-direction: column;
+    padding-block: 7.5rem;
+  }
+
+  .find-vet {
+    // width: 100%;
+    aspect-ratio: 1920/986;
+    background-image: url("@/assets/images/home/vet-pointing-at-black-dog.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    align-items: center;
+
+    form {
+      width: 32.875rem;
+      height: 628px;
+      border-radius: 2.5rem;
+      margin-top: 3.5rem;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 120rem) {
+    .find-vet {
+      background-size: auto;
+      background-position: center;
+      overflow: hidden;
+    }
+  }
+
+  .background-pattern {
+    background-image: url("@/assets/images/home/bg-pattern.png");
+    background-size: cover;
+  }
+}
