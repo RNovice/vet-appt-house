@@ -1,20 +1,22 @@
 .navbar {
   font-size: 1rem;
-  background-color: $bg-secondary;
+  background-color: $grey-scale-7;
+  color: $text-primary;
+  z-index: 100;
 
-  .link {
-    font-size: 1rem;
-    color: $text-primary;
-    padding: .75rem 2.5rem;
-      display: block;
-      text-decoration: none;
-
-    &.login-btn {
-      background-color: $bg-primary;
-      padding: .5rem 1rem !important;
-      border-radius: 100px;
+  .brand {
+    .icon-logo {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+    .text-logo {
+      height: 1.25rem;
+      width: 3.75rem;
     }
   }
 
-  
+  .link {
+    padding: 0.75rem 2.5rem;
+    text-decoration: none;
+  }
 }

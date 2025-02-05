@@ -1,10 +1,18 @@
 @import "bootstrap/scss/bootstrap";
-@import "./variables";
+@import "./_reset";
+@import "./_variables";
+@import "./_theme";
 
 body {
   line-height: 1;
   background-color: $bg-primary;
   color: $text-primary;
+  font-family: "Kosugi Maru", sans-serif;
+}
+
+.hv100-with-nav {
+  //nav py-1  + logo 40px
+  height: calc(100vh - 0.5rem * 2 - 40px);
 }
 
 .brand {
@@ -12,8 +20,26 @@ body {
   display: flex;
   align-items: center;
   color: $text-secondary;
-  font-weight: bolder;
+  gap: 0.25rem;
+  user-select: none;
+}
+
+.section-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap-4;
+  margin-inline: auto;
+  color: $text-secondary;
+}
+
+.section-title::before {
+  content: "";
+  width: 3rem;
+  height: 0.25rem;
+  background-color: $text-secondary;
 }
 
 @import "./Navbar";
 @import "./Footer";
+@import "./Home";

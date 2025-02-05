@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div>
       <NavBar />
-      <main style={{ height: "150vh" }} /* tamp style */>
+      <main>
         <Outlet />
       </main>
       <Footer />

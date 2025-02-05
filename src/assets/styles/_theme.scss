@@ -1,0 +1,189 @@
+// background
+.bg-primary {
+  background-color: $bg-primary !important;
+}
+.bg-secondary {
+  background-color: $bg-secondary !important;
+}
+.bg-tertiary {
+  background-color: $bg-tertiary !important;
+}
+.bg-quaternary {
+  background-color: $bg-quaternary !important;
+}
+.bg-error {
+  background-color: $bg-error !important;
+}
+
+// text
+.text-primary {
+  color: $text-primary !important;
+}
+.text-secondary {
+  color: $text-secondary !important;
+}
+.text-tertiary {
+  color: $text-tertiary !important;
+}
+.text-error {
+  color: $text-error !important;
+}
+
+.fs {
+  &-1 {
+    font-size: 2.5rem !important;
+    line-height: 3.75rem;
+  }
+  &-2 {
+    font-size: 2rem !important;
+    line-height: 3rem;
+  }
+  &-3 {
+    font-size: 1.75rem !important;
+    line-height: 2.625rem;
+  }
+  &-4 {
+    font-size: 1.5rem !important;
+    line-height: 2.25rem;
+  }
+  &-5 {
+    font-size: 1.25rem !important;
+    line-height: 1.875rem;
+  }
+  &-6 {
+    font-size: 1rem !important;
+    line-height: 1.5rem;
+  }
+  &-7 {
+    font-size: 0.875rem !important;
+    line-height: 1.375rem;
+  }
+}
+
+h1,
+.h1 {
+  font-size: 2.5rem !important;
+  line-height: 3rem;
+  font-weight: 600;
+}
+h2,
+.h2 {
+  font-size: 2rem !important;
+  line-height: 2.4rem;
+  font-weight: 600;
+}
+h3,
+.h3 {
+  font-size: 1.75rem !important;
+  line-height: 2.1rem;
+  font-weight: 600;
+}
+h4,
+.h4 {
+  font-size: 1.5rem !important;
+  line-height: 1.8rem;
+  font-weight: 600;
+}
+h5,
+.h5 {
+  font-size: 1.25rem !important;
+  line-height: 1.5rem;
+  font-weight: 600;
+}
+h6, .h6 {
+  font-size: 1rem !important;
+  line-height: 1.2rem;
+  font-weight: 500;
+}
+
+// button
+._btn-attr {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn {
+  &-xs {
+    padding: 0.5rem 1rem;
+    border-radius: 6.25rem;
+    gap: 0.5rem;
+    @extend ._btn-attr;
+    @extend .h6;
+  }
+
+  &-s {
+    padding: 0.75rem 1rem;
+    border-radius: 2.5rem;
+    gap: 0.25rem;
+    @extend ._btn-attr;
+    @extend .fs-6;
+  }
+
+  &-m {
+    padding: 0.75rem 1.5rem;
+    border-radius: 2.5rem;
+    gap: 0.5rem;
+    @extend ._btn-attr;
+    @extend .h5;
+  }
+
+  &-l {
+    padding: 1.25rem 0;
+    border-radius: 2.75rem;
+    gap: 0.5rem;
+    @extend ._btn-attr;
+    @extend .h4;
+  }
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background-color: $bg-tertiary;
+  color: $grey-scale-5;
+  &:active {
+    background-color: $bg-tertiary !important;
+    color: $grey-scale-3 !important;
+  }
+}
+.btn-secondary {
+  background-color: $bg-quaternary;
+  color: $text-primary;
+  &:hover {
+    background-color: $secondary-1;
+    color: $text-primary;
+  }
+  &:active {
+    background-color: $secondary-3 !important;
+    color: $text-primary !important;
+  }
+}
+.btn-tertiary {
+  background-color: $bg-primary;
+  color: $text-primary;
+  &:hover {
+    background-color: #e6effb;
+    color: $text-primary;
+  }
+  &:active {
+    background-color: $bg-secondary !important;
+    color: $text-primary !important;
+  }
+}
+
+// layout
+.gap-6 {
+  gap: $gap-6
+}
+.gap-7 {
+  gap: $gap-7
+}
+.gap-8 {
+  gap: $gap-8
+}
