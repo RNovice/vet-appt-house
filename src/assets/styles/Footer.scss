@@ -1,47 +1,21 @@
-/* Footer.scss */
-
 .footer {
   background-color: $bg-secondary;
   padding: 7.5rem 19.5rem;
   position: relative;
 
-  // .container {
-  //   .row {
-  //     h5 {
-  //       margin-bottom: 1rem;
-  //     }
-
-  //     ul {
-  //       list-style: none;
-  //       padding: 0;
-
-  //       li {
-  //         margin-bottom: 0.5rem;
-
-  //         a {
-  //           color: #333;
-  //           text-decoration: none;
-
-  //           &:hover {
-  //             text-decoration: underline;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   .footer-content {
     height: 10.75rem;
     .brand {
-      font-size: 1.5rem;
-      .img {
-        width: 45px;
+      .icon-logo {
+        height: 3.5rem;
+        width: 3.5rem;
+      }
+      .text-logo {
+        height: 1.75rem;
+        width: 5.25rem;
       }
     }
     .copyright {
-      line-height: 24px;
-      font-size: 1rem;
       color: #6f6f6f;
     }
 
@@ -54,14 +28,17 @@
         flex-direction: column;
         gap: 1.5rem;
         font-weight: 500;
-        h5 {
+        h6 {
           padding: 1rem 0;
-          line-height: 1.5rem;
-          font-size: 1rem;
+          margin: 0;
+          .link {
+            margin: 0.025rem 0;
+          }
         }
         ul {
           list-style: none;
           padding: 0;
+          margin: 0;
           font-size: 1rem;
           display: flex;
           flex-direction: column;
@@ -70,7 +47,8 @@
         .link {
           text-decoration: none;
           color: $text-primary;
-          line-height: 1.5rem;
+          display: block;
+          // margin: 0.25rem 0;
         }
       }
     }

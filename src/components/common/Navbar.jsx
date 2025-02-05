@@ -1,14 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logoSvg from "@/assets/images/logo.svg";
+import iconLogoSvg from "@/assets/images/icon-logo.svg";
+import textLogoSvg from "@/assets/images/text-logo.svg";
 
+const linkPathList = [
+  { name: "搜尋獸醫", path: "/" },
+  { name: "快速預約", path: "/" },
+  { name: "最新消息", path: "/" },
+  { name: "關於我們", path: "/" },
+  { name: "寵物管理", path: "/" },
+];
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0">
       <div className="container">
         <NavLink className="brand" to="/">
-          <img src={logoSvg} alt="預獸屋 Logo" />
-          預獸屋
+          <img className="icon-logo" src={iconLogoSvg} alt="預獸屋 Logo icon" />
+          <img className="text-logo" src={textLogoSvg} alt="預獸屋 Logo text" />
         </NavLink>
         <button
           className="navbar-toggler border-0"
@@ -23,33 +31,15 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto">
-            <li className="nav-item">
-              <NavLink className="link" to="/">
-                搜尋獸醫
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="link" to="/">
-                快速預約
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="link" to="/">
-                最新消息
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="link" to="/">
-                關於我們
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="link" to="/">
-                寵物管理
-              </NavLink>
-            </li>
+            {linkPathList.map(({ name, path }, i) => (
+              <li className="nav-item" key={`nav-link-${i}`}>
+                <NavLink className="text-primary h6 d-block link" to={path}>
+                  {name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
-          <NavLink className="link login-btn" to="/auth/login">
+          <NavLink className="btn-xs" to="/auth/login">
             登入
           </NavLink>
         </div>

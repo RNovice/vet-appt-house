@@ -1,8 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logoSvg from "@/assets/images/logo.svg";
+import iconLogoSvg from "@/assets/images/icon-logo.svg";
+import textLogoSvg from "@/assets/images/text-logo.svg";
 import sleepCatPng from "@/assets/images/sleepcat.png";
 
+const linkPathList = [
+  { name: "快速預約", path: "/" },
+  {
+    name: "搜尋醫院",
+    path: "/",
+    children: [
+      { name: "精選醫院", path: "/" },
+      { name: "附近醫院", path: "/" },
+    ],
+  },
+  {
+    name: "所有消息",
+    path: "/",
+    children: [
+      { name: "最新消息", path: "/" },
+      { name: "活動消息", path: "/" },
+      { name: "熱門消息", path: "/" },
+    ],
+  },
+  {
+    name: "關於我們",
+    path: "/",
+    children: [
+      { name: "聯絡我們", path: "/" },
+      { name: "網站特色", path: "/" },
+    ],
+  },
+  {
+    name: "會員中心",
+    path: "/",
+    children: [
+      { name: "我的寵物", path: "/" },
+      { name: "我的預約", path: "/" },
+    ],
+  },
+];
 const Footer = () => {
   return (
     <footer className="footer">
@@ -10,63 +47,41 @@ const Footer = () => {
         <div className="row footer-content">
           <div className="col d-flex flex-column justify-content-between">
             <Link className="brand" to="/">
-              <img src={logoSvg} alt="預獸屋 Logo" />
-              預獸屋
+              <img
+                className="icon-logo"
+                src={iconLogoSvg}
+                alt="預獸屋 Logo icon"
+              />
+              <img
+                className="text-logo"
+                src={textLogoSvg}
+                alt="預獸屋 Logo text"
+              />
             </Link>
-            <div className="copyright">Copyright © 2025 預獸屋</div>
+            <div className="copyright fs-6">Copyright © {new Date().getFullYear()} 預獸屋</div>
           </div>
           <div className="col d-flex">
             <div className="row link-container">
-              <div className="col list">
-                <h5><Link className="link" to="/">快速預約</Link></h5>
-              </div>
-              <div className="col list">
-                <h5>搜尋醫院</h5>
-                <ul>
-                  <li >
-                    <Link className="link" to="/">精選醫院</Link>
-                  </li>
-                  <li >
-                    <Link className="link" to="/">附近醫院</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="col list">
-                <h5>所有消息</h5>
-                <ul>
-                  <li >
-                    <Link className="link" to="/">最新消息</Link>
-                  </li>
-                  <li >
-                    <Link className="link" to="/">活動消息</Link>
-                  </li>
-                  <li >
-                    <Link className="link" to="/">熱門消息</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="col list">
-                <h5>關於我們</h5>
-                <ul>
-                  <li >
-                    <Link className="link" to="/">聯絡我們</Link>
-                  </li>
-                  <li >
-                    <Link className="link" to="/">網站特色</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="col list">
-                <h5>會員中心</h5>
-                <ul>
-                  <li >
-                    <Link className="link" to="/">我的寵物</Link>
-                  </li>
-                  <li >
-                    <Link className="link" to="/">我的預約</Link>
-                  </li>
-                </ul>
-              </div>
+              {linkPathList.map(({ name, path, children }, i) => (
+                <div className="col list" key={`foot-link-${i}`}>
+                  <h6>
+                    <Link className="link" to={path}>
+                      {name}
+                    </Link>
+                  </h6>
+                  {children && (
+                    <ul>
+                      {children.map(({ name, path }, j) => (
+                        <li key={`foot-link-${i}-${j}`}>
+                          <Link className="link fs-6" to={path}>
+                            {name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
