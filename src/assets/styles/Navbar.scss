@@ -1,13 +1,11 @@
 .navbar {
   font-size: 1rem;
-  background-color: $grey-scale-7;
-  color: $text-primary;
   z-index: 100;
 
   .brand {
     .icon-logo {
-      height: 2.5rem;
-      width: 2.5rem;
+      height: 2.75rem;
+      width: 2.75rem;
     }
     .text-logo {
       height: 1.25rem;
@@ -15,8 +13,31 @@
     }
   }
 
-  .link {
-    padding: 0.75rem 2.5rem;
-    text-decoration: none;
+  .tab {
+    position: relative;
+    user-select: none;
+    a {
+      padding: 0.75rem 2.5rem;
+      text-decoration: none;
+    }
+      &:hover::after,
+      &:active::after,
+      &.selected::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        background-image: url("@/assets/images/navbar/tab-footprints.svg");
+        @extend %bg-center;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      &:active::after{
+        background-image: url("@/assets/images/navbar/tab-footprints-2.svg");
+      }
+      &.selected::after{
+        background-image: url("@/assets/images/navbar/tab-footprints-3.svg");
+      }
   }
 }

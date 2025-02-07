@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
-import sleepCatPng from "@/assets/images/sleepcat.png";
+import sleepCatPng from "@/assets/images/sleep-cat.png";
 
 const linkPathList = [
   { name: "快速預約", path: "/" },
@@ -45,7 +45,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="row footer-content">
-          <div className="col d-flex flex-column justify-content-between">
+          <div className="col flex-column justify-content-between">
             <Link className="brand" to="/">
               <img
                 className="icon-logo"
@@ -58,22 +58,30 @@ const Footer = () => {
                 alt="預獸屋 Logo text"
               />
             </Link>
-            <div className="copyright fs-6">Copyright © {new Date().getFullYear()} 預獸屋</div>
+            <div className="copyright fs-6">
+              Copyright © {new Date().getFullYear()} 預獸屋
+            </div>
           </div>
           <div className="col d-flex">
             <div className="row link-container">
               {linkPathList.map(({ name, path, children }, i) => (
-                <div className="col list" key={`foot-link-${i}`}>
+                <div
+                  className="col list text-start p-0 flex-column gap-4"
+                  key={`foot-link-${i}`}
+                >
                   <h6>
-                    <Link className="link" to={path}>
+                    <Link className="link text-decoration-none text-primary d-block" to={path}>
                       {name}
                     </Link>
                   </h6>
                   {children && (
-                    <ul>
+                    <ul className="flex-column gap-1d5">
                       {children.map(({ name, path }, j) => (
                         <li key={`foot-link-${i}-${j}`}>
-                          <Link className="link fs-6" to={path}>
+                          <Link
+                            className="link fs-6 text-decoration-none text-primary d-block"
+                            to={path}
+                          >
                             {name}
                           </Link>
                         </li>
