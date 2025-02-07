@@ -1,6 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 @import "./_reset";
 @import "./_variables";
+@import "./_bootstrap_extend";
 @import "./_theme";
 
 body {
@@ -10,9 +11,13 @@ body {
   font-family: "Kosugi Maru", sans-serif;
 }
 
+main {
+  overflow: hidden;
+}
+
 .hv100-with-nav {
-  //nav py-1  + logo 40px
-  height: calc(100vh - 0.5rem * 2 - 40px);
+  //nav py-1  + logo 44px
+  height: calc(100vh - 0.5rem * 2 - 44px);
 }
 
 .brand {
@@ -20,7 +25,7 @@ body {
   display: flex;
   align-items: center;
   color: $text-secondary;
-  gap: 0.25rem;
+  gap: $gap-1;
   user-select: none;
 }
 

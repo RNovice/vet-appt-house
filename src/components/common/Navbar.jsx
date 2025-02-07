@@ -12,7 +12,7 @@ const linkPathList = [
 ];
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg position-sticky top-0">
+    <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
       <div className="container">
         <NavLink className="brand" to="/">
           <img className="icon-logo" src={iconLogoSvg} alt="預獸屋 Logo icon" />
@@ -32,14 +32,14 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto">
             {linkPathList.map(({ name, path }, i) => (
-              <li className="nav-item" key={`nav-link-${i}`}>
-                <NavLink className="text-primary h6 d-block link" to={path}>
+              <li className="tab nav-item" key={`nav-link-${i}`}>
+                <NavLink className="text-primary h6 d-block" to={path}>
                   {name}
                 </NavLink>
               </li>
             ))}
           </ul>
-          <NavLink className="btn-xs" to="/auth/login">
+          <NavLink className="btn-xs btn-tertiary" to="/auth/login">
             登入
           </NavLink>
         </div>
