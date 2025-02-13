@@ -53,10 +53,6 @@
       transform: translateX(-50%);
       .date-picker {
         width: 100%;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        border: none;
-        outline: none;
       }
       .custom-checkbox {
         padding-block: 0.75rem;
@@ -211,7 +207,7 @@
       padding: 1.25rem 1.25rem 1.5rem 1.25rem;
       gap: 2.25rem;
       &:hover {
-        background-color: $grey-scale-6o;
+        background-color: $grey-scale-6;
       }
       &:has(.btn-s:active) {
         background-color: $grey-scale-7;

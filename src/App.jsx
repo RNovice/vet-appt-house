@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import ToastNotification from "./components/common/ToastNotification";
+import PageLoading from "./components/common/PageLoading";
 import AppRoutes from "./router/AppRoutes";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <RouterProvider router={AppRoutes} />
       <ToastNotification />
+      <PageLoading />
     </>
   );
 }

@@ -1,9 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Select from "react-select";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Icon from "../common/Icon";
+import DatePicker from "../common/DatePicker";
 import DropDownList from "../common/DropDownList";
 
 const SearchForm = () => {
@@ -13,25 +12,26 @@ const SearchForm = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const onSubmit = (data) => {
     console.log(data);
+    console.log(Object.fromEntries(Object.keys(data.checkboxes).map((label) => [label, false])));
+    reset({ city: null, area: null, date: null, time: null, keyword: "", checkboxes: {}});
+    setSelectedDate(null);
   };
 
   const options = [
-    { value: "taipei", label: "台北" },
-    { value: "kaohsiung", label: "高雄" },
+    { value: "台北", label: "台北" },
+    { value: "高雄", label: "高雄" },
   ];
 
   const timeOptions = [
-    { value: "morning", label: "早上" },
-    { value: "afternoon", label: "下午" },
-    { value: "night", label: "晚上" },
+    { value: "早上", label: "早上" },
+    { value: "下午", label: "下午" },
+    { value: "晚上", label: "晚上" },
+    { value: "不限", label: "不限" },
   ];
-
-  const handleReset = () => {
-    reset();
-  };
 
   return (
     <form
@@ -45,60 +45,73 @@ const SearchForm = () => {
             <Controller
               name="city"
               control={control}
-              rules={{ required: "縣市 is required" }}
+              rules={{ required: "必須選擇縣市" }}
               render={({ field }) => (
-                <DropDownList {...field} options={options} />
+                <DropDownList
+                  {...field}
+                  options={options}
+                  placeholder="請選擇縣市"
+                  hasError={errors.city}
+                />
               )}
             />
-            {errors.city && <p>{errors.city.message}</p>}
+            {errors.city && (
+              <p className="text-error fs-6 d-flex align-items-center gap-2">
+                <Icon fileName={"error"} size={20} />
+                {errors.city.message}
+              </p>
+            )}
           </div>
           <div className="flex-column gap-1">
             <label className="h6">地區</label>
             <Controller
               name="area"
               control={control}
-              rules={{ required: "地區 is required" }}
               render={({ field }) => (
-                <DropDownList {...field} options={options} />
+                <DropDownList
+                  {...field}
+                  options={options}
+                  placeholder="請選擇地區"
+                />
               )}
             />
-            {errors.area && <p>{errors.area.message}</p>}
           </div>
         </div>
-        <div className="d-flex  flex-item-fill gap-3">
+        <div className="d-flex flex-item-fill gap-3">
           <div className="flex-column gap-1">
             <label className="h6">日期</label>
             <Controller
               name="date"
               control={control}
-              rules={{ required: "日期 is required" }}
               render={({ field }) => (
                 <DatePicker
-                  className="date-picker fs-6"
-                  placeholderText="請選擇日期"
                   {...field}
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
                 />
               )}
             />
-            {errors.date && <p>{errors.date.message}</p>}
           </div>
           <div className="flex-column gap-1">
             <label className="h6">時段</label>
             <Controller
-              name="timeSlot"
+              name="time"
               control={control}
-              rules={{ required: "時段 is required" }}
               render={({ field }) => (
-                <DropDownList {...field} options={timeOptions} />
+                <DropDownList
+                  {...field}
+                  icon={"clock"}
+                  options={timeOptions}
+                  placeholder="請選擇時段"
+                />
               )}
             />
-            {errors.timeSlot && <p>{errors.timeSlot.message}</p>}
           </div>
         </div>
         <div className="input-field flex-column gap-1">
           <label className="h6">關鍵字搜尋</label>
           <Controller
-            name="searchKeyword"
+            name="keyword"
             control={control}
             render={({ field }) => (
               <input
@@ -131,8 +144,9 @@ const SearchForm = () => {
                   control={control}
                   render={({ field }) => (
                     <input
-                      id={`other-req-checkbox-${i}`}
-                      type="checkbox"
+                    id={`other-req-checkbox-${i}`}
+                    type="checkbox"
+                    checked={field.value}
                       {...field}
                     />
                   )}
@@ -151,7 +165,6 @@ const SearchForm = () => {
           搜尋
           <div style={{ width: "32px" }} />
         </button>
-        {/* <button type="button" onClick={handleReset}>重置</button> */}
       </div>
     </form>
   );

@@ -19,7 +19,7 @@ const Header = () => {
             </Link>
             <Link to="/" className="btn-m btn-secondary d-flex">
               快速預約
-              <Icon fileName={"search"} size={24} />
+              <Icon fileName={"footprint"} size={24} />
             </Link>
           </div>
         </div>
