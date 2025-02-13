@@ -25,14 +25,14 @@ const routes = [
       },
     ],
   },
+  { path: "login", element: <LoginPage /> },
   {
-    path: "auth",
+    path: "admin",
     element: (
       <AuthWrapper isAuthenticated={true}>
         <AuthLayout />
       </AuthWrapper>
     ),
-    children: [{ path: "login", element: <LoginPage /> }],
   },
 ];
 

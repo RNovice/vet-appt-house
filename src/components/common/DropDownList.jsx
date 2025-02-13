@@ -1,47 +1,87 @@
+import { forwardRef } from "react";
 import Select from "react-select";
+import dropDownArrowSvg from "@/assets/icons/drop-down-arrow.svg";
+import clockSvg from "@/assets/icons/clock.svg";
 
-const customStyles = {
-  control: (base, { isFocused, isDisabled, hasError }) => ({
+const customStyles = (hasError) => ({
+  control: (base, { isFocused, isDisabled }) => ({
     ...base,
-    backgroundColor: isDisabled ? "#f8f9fa" : "white",
-    borderColor: hasError
-      ? "#dc3545"
-      : isFocused
-      ? "#80bdff"
-      : "#ced4da",
-    boxShadow: isFocused
-      ? "0 0 0 0.2rem rgba(0, 123, 255, 0.25)"
-      : "none",
     cursor: isDisabled ? "not-allowed" : "pointer",
     borderRadius: "0.5rem",
+    border: "none",
+    outline: hasError
+      ? "1px solid #BA0000"
+      : isFocused
+      ? "1px solid #82AAD6"
+      : "none",
+    padding: "6px 1rem",
   }),
   placeholder: (base) => ({
     ...base,
-    color: "#6c757d",
+    color: hasError ? "#BA0000" : "#595959",
   }),
   menu: (base) => ({
     ...base,
-    zIndex: 9999,
+    boxShadow: "0px 5px 10px 0px #00000040",
+    padding: "0.5rem 0",
+    marginTop: "2px",
+    borderRadius: "0.5rem",
+  }),
+  option: (base, { isSelected }) => ({
+    ...base,
+    padding: "0.5rem 1rem",
+    backgroundColor: isSelected ? "#D5E7Ff" : "inherit",
+    color: "#595959",
+    ":hover": {
+      backgroundColor: "#E6EFFB",
+      color: "#595959",
+    },
   }),
   singleValue: (base) => ({
     ...base,
-    color: "#495057",
+    padding: "0",
+    margin: "0",
+    color: hasError ? "#BA0000" : "#0A0A0A",
   }),
   valueContainer: (base) => ({
     ...base,
-    padding: "8px",
+    padding: "0",
   }),
-}
+});
 
-const DropDownList = ({ options, isDisabled, hasError }) => {
+const DropdownIndicator = ({ selectProps }) => {
+  const isClockIcon = selectProps.icon === "clock";
   return (
-    <Select
-      options={options}
-      styles={customStyles}
-      isDisabled={isDisabled}
-      classNamePrefix={hasError ? "react-select-error" : ""}
-    />
+    <div style={{ padding: "0" }}>
+      <img
+        src={isClockIcon ? clockSvg : dropDownArrowSvg}
+        alt="下拉選單箭頭圖示"
+        width={24}
+        onError={(e) => e.target.classList.add("d-none")}
+        onLoad={(e) => e.target.classList.remove("d-none")}
+      />
+      <span className="img-alt" style={{ padding: "7px", fontSize: "10px" }}>
+        ⯆
+      </span>
+    </div>
   );
 };
+
+const customComponents = { DropdownIndicator, IndicatorSeparator: () => null };
+
+const DropDownList = forwardRef(
+  ({ hasError = false, className = "", ...prop }, ref) => {
+    return (
+      <Select
+        ref={ref}
+        {...prop}
+        className={`fs-6 ${className}`}
+        styles={customStyles(hasError)}
+        components={customComponents}
+        classNamePrefix={hasError ? "react-select-error" : ""}
+      />
+    );
+  }
+);
 
 export default DropDownList;

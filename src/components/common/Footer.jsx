@@ -44,7 +44,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="row footer-content">
+        <div className="row">
           <div className="col flex-column justify-content-between">
             <Link className="brand" to="/">
               <img
@@ -75,7 +75,7 @@ const Footer = () => {
                     </Link>
                   </h6>
                   {children && (
-                    <ul className="flex-column gap-1d5">
+                    <ul className="flex-column gap-1">
                       {children.map(({ name, path }, j) => (
                         <li key={`foot-link-${i}-${j}`}>
                           <Link

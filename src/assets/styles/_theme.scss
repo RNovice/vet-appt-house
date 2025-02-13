@@ -204,7 +204,8 @@ label:has(input.error),
     height: 24px;
     background-image: url("@/assets/icons/uncheck-box.svg");
   }
-  &:has(input[type="checkbox"]:checked)::before {
+  &:has(input[type="checkbox"]:checked)::before
+   {
     background-image: url("@/assets/icons/check-box.svg");
   }
 }
@@ -214,4 +215,57 @@ label:has(input.error),
   display: inline-block;
   mask: no-repeat center;
   background-color: currentColor;
+}
+
+// img
+.img-alt {
+  display: none;
+}
+img.d-none + .img-alt {
+  display: inline;
+}
+
+// date picker
+.date-picker {
+  @extend .fs-6;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  &:focus {
+    outline: 1px solid $primary-blue-4;
+  }
+}
+.date-picker-calendar {
+  @extend .fs-6;
+  user-select: none;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 3px 10px 0px #0000001F;
+  transform: translateY(-8px);
+  .react-datepicker__header {
+    background: transparent;
+    border: none;
+  }
+  .react-datepicker__current-month {
+    @extend .fs-6;
+    font-weight: 400;
+  }
+  .react-datepicker__day-name {
+    color: $grey-scale-3;
+  }
+  .react-datepicker__day--selected {
+    background-color: $bg-tertiary;
+    border-radius: 50%;
+    &:hover{
+      background-color: $bg-tertiary;
+      opacity: 0.7;
+    }
+  }
+  .react-datepicker__day:hover,
+  .react-datepicker__day--keyboard-selected {
+    border-radius: 50%;
+  }
+}
+.react-datepicker__triangle {
+  display: none;
 }

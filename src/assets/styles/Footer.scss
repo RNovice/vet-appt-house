@@ -3,36 +3,28 @@
   padding: 7.5rem 19.5rem;
   position: relative;
 
-  .footer-content {
-    height: 10.75rem;
-    .brand {
-      gap: 5.45px;
-      .icon-logo {
-        height: 3.75rem;
-        width: 3.75rem;
-      }
-      .text-logo {
-        height: 27.27px;
-        width: 81.82px;
-      }
+  .brand {
+    gap: 5.45px;
+    .icon-logo {
+      height: 3.75rem;
+      width: 3.75rem;
     }
-    .copyright {
-      color: #6f6f6f;
+    .text-logo {
+      height: 27.27px;
+      width: 81.82px;
     }
+  }
+  .copyright {
+    color: #6f6f6f;
+  }
 
-    .link-container {
-      width: 53.5rem;
-      .list {
-        h6 {
-          padding: 1rem 0;
-          .link {
-            margin-block: 0.4px;
-          }
-        }
-        ul {
-          .link {
-            margin-block: 0.25rem;
-          }
+  .link-container {
+    width: 53.5rem;
+    .list {
+      h6 {
+        padding: 1rem 0;
+        .link {
+          margin-block: 0.4px;
         }
       }
     }
