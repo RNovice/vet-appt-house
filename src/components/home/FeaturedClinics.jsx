@@ -59,7 +59,6 @@ const clinics = [
 
 const FeaturedClinics = () => {
   const [featuredClinics, setFeaturedClinics] = useState([]);
-  // const [featuredClinics, setFeaturedClinics] = useState([{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},]);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
