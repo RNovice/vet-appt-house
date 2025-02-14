@@ -16,8 +16,14 @@ const SearchForm = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log(Object.fromEntries(Object.keys(data.checkboxes).map((label) => [label, false])));
-    reset({ city: null, area: null, date: null, time: null, keyword: "", checkboxes: {}});
+    reset({
+      city: null,
+      area: null,
+      date: null,
+      time: null,
+      keyword: "",
+      checkboxes: {},
+    });
     setSelectedDate(null);
   };
 
@@ -41,13 +47,16 @@ const SearchForm = () => {
       <div className="flex-column gap-4">
         <div className="d-flex flex-item-fill gap-3">
           <div className="flex-column gap-1">
-            <label className="h6">縣市</label>
+            <label className="h6" htmlFor="find-vet-city">
+              縣市
+            </label>
             <Controller
               name="city"
               control={control}
               rules={{ required: "必須選擇縣市" }}
               render={({ field }) => (
                 <DropDownList
+                  inputId="find-vet-city"
                   {...field}
                   options={options}
                   placeholder="請選擇縣市"
@@ -63,12 +72,15 @@ const SearchForm = () => {
             )}
           </div>
           <div className="flex-column gap-1">
-            <label className="h6">地區</label>
+            <label className="h6" htmlFor="find-vet-area">
+              地區
+            </label>
             <Controller
               name="area"
               control={control}
               render={({ field }) => (
                 <DropDownList
+                  inputId="find-vet-area"
                   {...field}
                   options={options}
                   placeholder="請選擇地區"
@@ -79,12 +91,15 @@ const SearchForm = () => {
         </div>
         <div className="d-flex flex-item-fill gap-3">
           <div className="flex-column gap-1">
-            <label className="h6">日期</label>
+            <label className="h6" htmlFor="find-vet-date">
+              日期
+            </label>
             <Controller
               name="date"
               control={control}
               render={({ field }) => (
                 <DatePicker
+                  id="find-vet-date"
                   {...field}
                   selected={selectedDate}
                   onSelect={setSelectedDate}
@@ -93,12 +108,15 @@ const SearchForm = () => {
             />
           </div>
           <div className="flex-column gap-1">
-            <label className="h6">時段</label>
+            <label className="h6" htmlFor="find-vet-time">
+              時段
+            </label>
             <Controller
               name="time"
               control={control}
               render={({ field }) => (
                 <DropDownList
+                  inputId="find-vet-time"
                   {...field}
                   icon={"clock"}
                   options={timeOptions}
@@ -109,22 +127,26 @@ const SearchForm = () => {
           </div>
         </div>
         <div className="input-field flex-column gap-1">
-          <label className="h6">關鍵字搜尋</label>
+          <label className="h6" htmlFor="find-vet-keyword">
+            關鍵字搜尋
+          </label>
           <Controller
             name="keyword"
             control={control}
             render={({ field }) => (
               <input
+                id="find-vet-keyword"
                 className="input-text-primary"
                 type="text"
                 placeholder="請輸入醫院名稱"
                 {...field}
+                value={field.value ?? ""}
               />
             )}
           />
         </div>
         <div className="flex-column gap-2">
-          <label className="h6">其他需求</label>
+          <span className="h6">其他需求</span>
           <div className="d-flex flex-wrap gap-1d5">
             {[
               "24 小時營業",
@@ -144,9 +166,9 @@ const SearchForm = () => {
                   control={control}
                   render={({ field }) => (
                     <input
-                    id={`other-req-checkbox-${i}`}
-                    type="checkbox"
-                    checked={field.value}
+                      id={`other-req-checkbox-${i}`}
+                      type="checkbox"
+                      checked={field.value ?? false}
                       {...field}
                     />
                   )}

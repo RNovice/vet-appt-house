@@ -2,9 +2,10 @@ import { forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import dateSvg from "@/assets/icons/date.svg";
 
-const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
+const CustomDateInput = forwardRef(({ value, onClick, id }, ref) => (
   <div className="custom-date-picker" onClick={onClick} ref={ref}>
     <input
+      id={id}
       className="date-picker"
       placeholder="請選擇日期"
       type="text"
@@ -24,15 +25,14 @@ const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
   </div>
 ));
 
-const DatePickerWithIcon = ({...props}) => {
-  return (
-    <DatePicker
-      {...props}
-      dateFormat="yyyy/MM/dd"
-      calendarClassName="date-picker-calendar"
-      customInput={<CustomDateInput />}
-    />
-  );
-};
+const CustomDatePicker = forwardRef(({ ...props }, ref) => (
+  <DatePicker
+    ref={ref}
+    {...props}
+    dateFormat="yyyy/MM/dd"
+    calendarClassName="date-picker-calendar"
+    customInput={<CustomDateInput />}
+  />
+));
 
-export default DatePickerWithIcon;
+export default CustomDatePicker;

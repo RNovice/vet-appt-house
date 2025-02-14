@@ -34,6 +34,9 @@
 .text-tertiary {
   color: $text-tertiary !important;
 }
+.text-quaternary {
+  color: $grey-scale-6 !important;
+}
 .text-disabled {
   color: $text-disabled !important;
 }
@@ -174,7 +177,7 @@ label:has(input.error),
     color: $text-disabled;
   }
   &:focus {
-    outline: 1px solid #9747ff;
+    outline: 1px solid $primary-blue-4;
   }
   &:disabled {
     background-color: $bg-disabled;
@@ -186,6 +189,12 @@ label:has(input.error),
     &::placeholder {
       color: $text-error;
     }
+  }
+  &:is(:-webkit-autofill,:autofill) {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $text-primary;
+    box-shadow: inset 0 0 20px 20px $grey-scale-6;
+    @extend .fs-6;
   }
   &-primary {
     background-color: $grey-scale-6;

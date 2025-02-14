@@ -14,7 +14,7 @@ const Header = () => {
             <p className="fs-5">專業醫療輕鬆預約，貼心守護毛孩健康</p>
           </div>
           <div className="d-flex gap-4">
-            <Link to="/" className="btn-m btn-primary">
+            <Link to="/#find-vet" className="btn-m btn-primary">
               搜尋醫院
             </Link>
             <Link to="/" className="btn-m btn-secondary d-flex">
