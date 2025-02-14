@@ -78,7 +78,6 @@ const DropDownList = forwardRef(
         className={`fs-6 ${className}`}
         styles={customStyles(hasError)}
         components={customComponents}
-        classNamePrefix={hasError ? "react-select-error" : ""}
       />
     );
   }

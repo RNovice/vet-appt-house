@@ -1,5 +1,5 @@
 import React from "react";
-import "@/assets/styles/componentStyle/catLoader.scss";
+import "@/assets/styles/component_import_styles/catLoader.scss";
 
 const isLoading = false;
 

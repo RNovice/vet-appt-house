@@ -1,22 +1,59 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
+import Avatar from "./Avatar";
 
 const linkPathList = [
-  { name: "搜尋獸醫", path: "/" },
+  { name: "搜尋獸醫", path: "/#find-vet" },
   { name: "快速預約", path: "/" },
-  { name: "最新消息", path: "/" },
+  { name: "最新消息", path: "/#news" },
   { name: "關於我們", path: "/" },
   { name: "寵物管理", path: "/" },
 ];
+
+const user = null;
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isAboveHeader, setIsAboveHeader] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(".home-header");
+      if (header) {
+        const headerTop = header.offsetHeight;
+        setIsAboveHeader(window.scrollY < headerTop);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsAboveHeader(location.pathname === "/");
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const element = document.getElementById(location.hash?.slice(1));
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.hash]);
+
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
       <div className="container">
         <NavLink className="brand" to="/">
           <img className="icon-logo" src={iconLogoSvg} alt="預獸屋 Logo icon" />
-          <img className="text-logo" src={textLogoSvg} alt="預獸屋 Logo text" />
+          <img
+            className="text-logo"
+            src={textLogoSvg}
+            alt="預獸屋 Logo text"
+            style={{ visibility: isAboveHeader ? "visible" : "hidden" }}
+          />
         </NavLink>
         <button
           className="navbar-toggler border-0"
@@ -39,9 +76,15 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          <NavLink className="btn-xs btn-tertiary" to="/auth/login">
-            登入
-          </NavLink>
+          {user ? (
+            <NavLink className="profile text-decoration-none" to="/auth/login">
+              <Avatar info={user} size={36} />
+            </NavLink>
+          ) : (
+            <NavLink className="btn-xs btn-tertiary" to="/auth/login">
+              登入
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>

@@ -188,15 +188,48 @@
         border: none;
         background-color: transparent;
         padding: 0;
+        perspective: 100px;
+        transition: transform 1s;
         .icon {
           background: $text-secondary;
         }
+        &:hover {
+          transform: rotateX(-180deg);
+          .icon {
+            animation: 0.4s 0.5s ease-in alternate infinite;
+          }
+        }
       }
+      .next-button:hover,
       .prev-button {
-        transform: rotate(90deg);
+        .icon {
+          transform: rotate(90deg);
+          animation-name: forward;
+        }
       }
+
+      .prev-button:hover,
       .next-button {
-        transform: rotate(-90deg);
+        .icon {
+          transform: rotate(-90deg);
+          animation-name: backward;
+        }
+      }
+      @keyframes backward {
+        0% {
+          transform: translateX(0) rotate(-90deg);
+        }
+        100% {
+          transform: translateX(-10px) rotate(-90deg);
+        }
+      }
+      @keyframes forward {
+        0% {
+          transform: translateX(0) rotate(90deg);
+        }
+        100% {
+          transform: translateX(10px) rotate(90deg);
+        }
       }
     }
 

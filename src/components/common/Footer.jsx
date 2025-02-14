@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
 import sleepCatPng from "@/assets/images/sleep-cat.png";
@@ -41,6 +41,8 @@ const linkPathList = [
   },
 ];
 const Footer = () => {
+  const location = useLocation();
+
   return (
     <footer className="footer">
       <div className="container">
@@ -70,7 +72,10 @@ const Footer = () => {
                   key={`foot-link-${i}`}
                 >
                   <h6>
-                    <Link className="link text-decoration-none text-primary d-block" to={path}>
+                    <Link
+                      className="link text-decoration-none text-primary d-block"
+                      to={path}
+                    >
                       {name}
                     </Link>
                   </h6>
@@ -94,7 +99,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <img className="footer-decoration" src={sleepCatPng} />
+      {location.pathname === "/" && (
+        <img className="footer-decoration" src={sleepCatPng} />
+      )}
     </footer>
   );
 };

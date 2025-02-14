@@ -5,19 +5,19 @@ import SearchForm from "../components/home/SearchForm";
 import Services from "../components/home/Services";
 
 const sections = [
-  { title: "我們的服務", className: "site-services", Component: Services },
-  { title: "最新消息", className: "news", Component: News },
+  { title: "我們的服務", id: "site-services", Component: Services },
+  { title: "最新消息", id: "news", Component: News },
   {
     title: "精選特寵院所",
-    className: "featured-clinic",
+    id: "featured-clinic",
     Component: FeaturedClinics,
   },
 ];
 
 const Sections = () => (
   <div className="background-pattern">
-    {sections.map(({ title, className, Component }) => (
-      <section key={className} className={className}>
+    {sections.map(({ title, id, Component }) => (
+      <section key={id} className={id} id={id}>
         <div className="section-title">
           <h3>{title}</h3>
         </div>
@@ -31,7 +31,7 @@ const HomePage = () => {
   return (
     <div className="home">
       <Header />
-      <section className="find-vet">
+      <section className="find-vet" id="find-vet">
         <div className="section-title">
           <h3>找醫院</h3>
         </div>

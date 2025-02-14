@@ -61,6 +61,10 @@ const FeaturedClinics = () => {
   const [featuredClinics, setFeaturedClinics] = useState([]);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+  const [isHover, setIsHover] = useState([true, true]);
 
   useEffect(() => {
     getFeaturedClinics();
@@ -71,49 +75,78 @@ const FeaturedClinics = () => {
   };
   return (
     <div className="container gap-4 d-flex  user-select-none position-relative align-items-center p-0">
-      <Link to="" className="more fs-6 text-secondary text-decoration-none">
-        更多
-      </Link>
-      <button className="prev-button">
-        <Icon fileName="down-arrow" size={40} />
-      </button>
-      <Swiper
-        modules={[Mousewheel, Navigation]}
-        navigation={{ nextEl: ".next-button", prevEl: ".prev-button" }}
-        spaceBetween={16}
-        slidesPerView={"auto"}
-        mousewheel={true}
-        onSwiper={(swiper) => {
-          setTimeout(() => {
-            try {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
-            } catch {}
-          });
-        }}
-      >
-        {featuredClinics.map((clinic) => (
-          <Slide key={clinic.id}>
-            <div className="card border-0">
-              <div className="flex-column gap-3">
-                <img src={clinic.image} alt={clinic.name} />
-                <div className="flex-column gap-1d5">
-                  <h5>{clinic.name}</h5>
-                  <p className="text-tertiary fs-6">{clinic.description}</p>
+      {featuredClinics.length > 0 && (
+        <>
+          <Link to="" className="more fs-6 text-secondary text-decoration-none">
+            更多
+          </Link>
+          <button
+            className="prev-button"
+            style={
+              isBeginning
+                ? { opacity: "0.4", pointerEvents: "none" }
+                : undefined
+            }
+            onMouseEnter={() => setIsHover((pre) => [false, pre[1]])}
+            onMouseLeave={() => setIsHover((pre) => [true, pre[1]])}
+          >
+            <Icon
+              fileName={isHover[0] ? "down-arrow" : "footprint"}
+              size={40}
+            />
+          </button>
+          <Swiper
+            modules={[Mousewheel, Navigation]}
+            navigation={{ nextEl: ".next-button", prevEl: ".prev-button" }}
+            spaceBetween={16}
+            slidesPerView={"auto"}
+            mousewheel={true}
+            onSwiper={(swiper) => {
+              try {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+                swiperRef.current = swiper;
+                setIsBeginning(swiper.isBeginning);
+                setIsEnd(swiper.isEnd);
+                swiper.on("slideChange", () => {
+                  setIsBeginning(swiper.isBeginning);
+                  setIsEnd(swiper.isEnd);
+                });
+              } catch {}
+            }}
+          >
+            {featuredClinics.map((clinic) => (
+              <Slide key={clinic.id}>
+                <div className="card border-0">
+                  <div className="flex-column gap-3">
+                    <img src={clinic.image} alt={clinic.name} />
+                    <div className="flex-column gap-1d5">
+                      <h5>{clinic.name}</h5>
+                      <p className="text-tertiary fs-6">{clinic.description}</p>
+                    </div>
+                  </div>
+                  <Link to={``} className="btn-s btn-primary">
+                    立即預約
+                  </Link>
                 </div>
-              </div>
-              <Link to={``} className="btn-s btn-primary">
-                立即預約
-              </Link>
-            </div>
-          </Slide>
-        ))}
-      </Swiper>
-      <button className="next-button">
-        <Icon fileName="down-arrow" size={40} />
-      </button>
+              </Slide>
+            ))}
+          </Swiper>
+          <button
+            className="next-button"
+            style={
+              isEnd ? { opacity: "0.4", pointerEvents: "none" } : undefined
+            }
+            onMouseEnter={() => setIsHover((pre) => [pre[0], false])}
+            onMouseLeave={() => setIsHover((pre) => [pre[0], true])}
+          >
+            <Icon
+              fileName={isHover[1] ? "down-arrow" : "footprint"}
+              size={40}
+            />
+          </button>
+        </>
+      )}
     </div>
   );
 };
