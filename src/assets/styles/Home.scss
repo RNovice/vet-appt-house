@@ -1,14 +1,45 @@
 .home-header {
   user-select: none;
-  .logo {
-    height: 6.75rem;
-    width: 21.25rem;
+  .container {
+    gap: 7.5rem;
+    @include mobile {
+      gap: 5.25rem;
+    }
+  }
+  .title {
+    gap: 1.5rem;
+    @include mobile {
+      gap: 2.5rem;
+    }
+    .logo {
+      width: 340px;
+      height: 108px;
+      @include mobile {
+        width: 60px;
+        height: 180px;
+      }
+    }
+  }
+  .content {
+    gap: 3rem;
+    @include mobile {
+      gap: 3.75rem;
+    }
+  }
+  .action {
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   .hero-container {
-    .img {
-      width: 53.357rem;
-      height: 23.25rem;
+    img {
+      width: 854px;
+      height: 372px;
+      @include mobile {
+        width: 212px;
+        height: 90px;
+      }
     }
     position: relative;
     &::after {
@@ -21,6 +52,9 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
+      @include mobile {
+        content: none;
+      }
     }
     &.deco-1::after {
       background-image: url("@/assets/images/home/deco-glasses.png");
@@ -36,21 +70,48 @@
     display: flex;
     flex-direction: column;
     padding-block: 7.5rem;
+    @include mobile {
+      padding-block: 2.5rem 3.75rem;
+      padding-inline: 0.75rem;
+    }
   }
 
   .find-vet {
-    aspect-ratio: 1920/986;
     background-image: url("@/assets/images/home/vet-pointing-black-dog.png");
     @extend %bg-center;
     align-items: center;
+    @media (max-width: 120rem) {
+      background-size: auto;
+      overflow: hidden;
+    }
+    @include mobile {
+      background-image: url("@/assets/images/home/bg-footprints.png");
+      backdrop-filter: invert(1);
+      background-size: cover;
+    }
 
     form {
+      $width:32.875rem;
       padding: 3.75rem;
       gap: 2.25rem;
-      width: 32.875rem;
+      width: $width;
       border-radius: 2.5rem;
       margin-top: 3.5rem;
       transform: translateX(-50%);
+      @media (max-width: calc($width *2 + 19.5rem)) {
+        transform: unset;
+      }
+      @include mobile {
+        border-radius: 1.25rem;
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        gap: 1.5rem;
+        max-width: 30rem;
+        width: unset;
+        .row-group {
+          flex-direction: column;
+        }
+      }
       .date-picker {
         width: 100%;
       }
@@ -61,11 +122,6 @@
         line-height: 21.48px;
         font-family: "Roboto";
       }
-    }
-
-    @media (max-width: 120rem) {
-      background-size: auto;
-      overflow: hidden;
     }
   }
 

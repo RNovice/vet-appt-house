@@ -1,10 +1,18 @@
-import React from "react";
-import "@/assets/styles/component_import_styles/catLoader.scss";
+import CatLoading from "./CatLoading";
+import { useAppState } from "@/context/AppStateContext";
 
-const isLoading = false;
+function easterEggType() {
+  const rand = Math.random();
+
+  if (rand < 0.97) return 1;
+  if (rand < 0.99) return 2;
+  if (rand < 0.995) return 3;
+  return 4;
+}
 
 const PageLoading = () => {
-  return isLoading ? (
+  const { isPageLoading } = useAppState();
+  return isPageLoading ? (
     <div
       className="d-flex flex-column justify-content-center align-items-center position-fixed"
       style={{
@@ -13,13 +21,7 @@ const PageLoading = () => {
         zIndex: 100,
       }}
     >
-      <div className="cat-loader cat3" style={{ width: 200 }}>
-        <div className="cat__body"></div>
-        <div className="cat__body"></div>
-        <div className="cat__body"></div>
-        <div className="cat__tail"></div>
-        <div className="cat__head"></div>
-      </div>
+      <CatLoading type={easterEggType()} />
     </div>
   ) : (
     <></>

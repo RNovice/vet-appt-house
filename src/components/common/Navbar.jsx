@@ -46,13 +46,22 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
       <div className="container">
-        <NavLink className="brand" to="/">
+        <NavLink
+          className="brand"
+          to="/"
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              behavior: location.pathname === "/" ? "smooth" : "instant",
+            })
+          }
+        >
           <img className="icon-logo" src={iconLogoSvg} alt="預獸屋 Logo icon" />
           <img
             className="text-logo"
             src={textLogoSvg}
             alt="預獸屋 Logo text"
-            style={{ visibility: isAboveHeader ? "visible" : "hidden" }}
+            style={isAboveHeader ? { visibility: "hidden" } : undefined}
           />
         </NavLink>
         <button

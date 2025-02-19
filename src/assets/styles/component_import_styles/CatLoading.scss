@@ -30,7 +30,7 @@
     height: 50%;
     background-size: 200%;
     background-repeat: no-repeat;
-    background-image: url('@/assets/images/loading-cat.png');
+    background-image: url('@/assets/images/loading-cat1.png');
   }
 }
 
@@ -81,6 +81,12 @@
 }
 
 
+
+.cat1 {
+  ::before {
+    background-image: url('@/assets/images/loading-cat1.png');
+  }
+}
 
 .cat2 {
   ::before {
