@@ -32,13 +32,13 @@ const UserForm = () => {
               </div>
               <div className="row g-3 mb-3 g-lg-4 mb-lg-4">
                 <div className="col-lg-6">
-                  <label for="name" className="form-label">
+                  <label htmlFor="name" className="form-label">
                     姓名
                   </label>
                   <input type="text" className="form-control" id="name" />
                 </div>
                 <div className="col">
-                  <label for="phone" className="form-label">
+                  <label htmlFor="phone" className="form-label">
                     電話
                   </label>
                   <input type="text" className="form-control" id="phone" />
@@ -46,13 +46,13 @@ const UserForm = () => {
               </div>
               <div className="row g-3 mb-3 g-lg-4 mb-lg-4">
                 <div className="col-lg-6">
-                  <label for="birthday" className="form-label">
+                  <label htmlFor="birthday" className="form-label">
                     生日
                   </label>
                   <input type="date" className="form-control" id="birthday" />
                 </div>
                 <div className="col">
-                  <label for="gender" className="form-label">
+                  <label htmlFor="gender" className="form-label">
                     性別
                   </label>
                   <select id="gender" className="form-select">
@@ -63,7 +63,7 @@ const UserForm = () => {
               </div>
               <div className="row g-3 mb-4 g-lg-4 mb-lg-0">
                 <div className="col-lg-6">
-                  <label for="gender" className="form-label">
+                  <label htmlFor="gender" className="form-label">
                     地址
                   </label>
                   <div className="row g-3">

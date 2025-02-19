@@ -1,4 +1,3 @@
-import "../../assets/styles/User.scss";
 import Icon from "../common/Icon";
 
 function BtnEdit({ customStyle }) {
