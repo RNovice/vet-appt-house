@@ -9,15 +9,33 @@ body {
   background-color: $bg-primary;
   color: $text-primary;
   font-family: "Kosugi Maru", sans-serif;
+  overflow-x: hidden;
 }
 
 main {
   overflow: hidden;
 }
 
+::-webkit-scrollbar {
+  background-color: $bg-primary;
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $bg-primary;
+  border-radius: 20px;
+  background-image: url('@/assets/images/scrollbar/dog-head.png'), url('@/assets/images/scrollbar/dog-body.png');
+  background-position: top center, center center;
+  background-repeat: no-repeat, repeat-y;
+  background-size: 18px;
+}
+
 .hv100-with-nav {
-  //nav py-1  + logo 44px
-  height: calc(100vh - 0.5rem * 2 - 44px);
+  min-height: $hv100-with-nav;
+}
+
+.hv100-with-nav-force {
+  max-height: $hv100-with-nav;
 }
 
 .brand {

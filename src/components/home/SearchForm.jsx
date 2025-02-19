@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Icon from "../common/Icon";
 import DatePicker from "../common/DatePicker";
 import DropDownList from "../common/DropDownList";
+import { useMobile } from "@/context/MobileContext";
 
 const SearchForm = () => {
   const {
@@ -13,6 +14,7 @@ const SearchForm = () => {
     formState: { errors },
   } = useForm();
   const [selectedDate, setSelectedDate] = useState(null);
+  const isMobile = useMobile();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -45,7 +47,7 @@ const SearchForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex-column gap-4">
-        <div className="d-flex flex-item-fill gap-3">
+        <div className="row-group d-flex flex-item-fill gap-3">
           <div className="flex-column gap-1">
             <label className="h6" htmlFor="find-vet-city">
               縣市
@@ -89,7 +91,7 @@ const SearchForm = () => {
             />
           </div>
         </div>
-        <div className="d-flex flex-item-fill gap-3">
+        <div className="row-group d-flex flex-item-fill gap-3">
           <div className="flex-column gap-1">
             <label className="h6" htmlFor="find-vet-date">
               日期
@@ -180,7 +182,9 @@ const SearchForm = () => {
         </div>
 
         <button
-          className="btn-l btn-primary d-flex justify-content-center"
+          className={`btn-${
+            isMobile ? "m" : "l"
+          } btn-primary d-flex justify-content-center`}
           type="submit"
         >
           <Icon fileName={"search"} size={32} />

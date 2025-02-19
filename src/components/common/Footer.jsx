@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useMobile } from "@/context/MobileContext";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
 import sleepCatPng from "@/assets/images/sleep-cat.png";
@@ -42,6 +43,7 @@ const linkPathList = [
 ];
 const Footer = () => {
   const location = useLocation();
+  const isMobile = useMobile();
 
   return (
     <footer className="footer">
@@ -99,7 +101,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {location.pathname === "/" && (
+      {location.pathname === "/" && !isMobile && (
         <img className="footer-decoration" src={sleepCatPng} />
       )}
     </footer>

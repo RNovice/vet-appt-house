@@ -16,6 +16,7 @@ $grey-scale-6o: #ffffffcc;
 $grey-scale-7: #ffffff80;
 
 $error-1: #ba0000;
+$reminder: #ffebeb;
 $secondary-1: #fff27c;
 $secondary-2: #ffef61;
 $secondary-3: #fdee6b;
@@ -37,6 +38,10 @@ $line-primary: $primary-blue-5;
 $line-secondary: $primary-blue-0;
 $line-error: $error-1;
 
+$breakpoint: 768px;
+//nav py-1  + logo 44px
+$hv100-with-nav: calc(100vh - 0.5rem * 2 - 44px);
+
 $gap-1: 0.25rem;
 $gap-2: 0.5rem;
 $gap-3: 1rem;
@@ -46,4 +51,4 @@ $gap-6: 4.5rem;
 $gap-7: 6rem;
 $gap-8: 7.5rem;
 
-$gap-1d5: 0.75rem
+$gap-1d5: 0.75rem;
