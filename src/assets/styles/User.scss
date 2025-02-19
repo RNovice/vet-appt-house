@@ -8,62 +8,65 @@
 //**********************
 // utils
 //**********************
-.bg-reminder{
-    background-color: #FFEBEB;
-}
+.user, .userPrts, .userAppointments{
 
-.text-grey-scale-2{
-    color: $grey-scale-2;
-}
-
-.text-grey-scale-3{
-    color: $grey-scale-3;
-}
-
-.btn-outline-primary {
-    color: $grey-scale-1 !important;
-    border-color: $grey-scale-1 !important;
-
-    svg path{
-        fill: $grey-scale-1 !important;
+    .bg-reminder{
+        background-color: #FFEBEB;
     }
-    &:active,&:hover,&:focus-visible{
-        color: #fff !important;
-        background-color: $grey-scale-1 !important;
-
-        svg path{
-            fill: #fff !important;
+    
+    .text-grey-scale-2{
+        color: $grey-scale-2;
+    }
+    
+    .text-grey-scale-3{
+        color: $grey-scale-3;
+    }
+    
+    .btn-outline-primary {
+        color: $grey-scale-1 !important;
+        border-color: $grey-scale-1 !important;
+    
+        // svg path{
+        //     fill: $grey-scale-1 !important;
+        // }
+        &:active,&:hover,&:focus-visible{
+            color: #fff !important;
+            background-color: $grey-scale-1 !important;
+    
+            // svg path{
+            //     fill: #fff !important;
+            // }
+        }
+        &:focus-visible{
+            box-shadow: 0 0 0 0.25rem 
+            rgba(89, 89, 89, .5) !important;
         }
     }
-    &:focus-visible{
-        box-shadow: 0 0 0 0.25rem 
-        rgba(89, 89, 89, .5) !important;
+    
+    .btn-primary{
+        font-weight: 600;
+        color: #fff !important;
+        border-color: $grey-scale-1 !important;
+        &:hover{
+            color: $grey-scale-3 !important;
+        }
     }
-}
-
-.btn-primary{
-    font-weight: 600;
-    color: #fff !important;
-    border-color: $grey-scale-1 !important;
-    &:hover{
-        color: $grey-scale-3 !important;
-    }
-}
-
-.btn-light{
-    font-weight: 400 !important;
-    color: $grey-scale-1 !important;
-    border: none !important;
-    background-color: $grey-scale-5 !important;
-    &:hover{
+    
+    .btn-light{
+        font-weight: 400 !important;
+        color: $grey-scale-1 !important;
         border: none !important;
-        background-color: $grey-scale-4 !important;
+        background-color: $grey-scale-5 !important;
+        &:hover{
+            border: none !important;
+            background-color: $grey-scale-4 !important;
+        }
     }
-}
-
-a {
-    color:$primary-blue-2 !important;
-    text-decoration: none !important;
+    
+    a {
+        color:$primary-blue-2 !important;
+        text-decoration: none !important;
+    }
 }
 
 //**********************
