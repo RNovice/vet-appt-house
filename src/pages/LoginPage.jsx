@@ -21,9 +21,12 @@ export default function LoginPage() {
           <h3 className="text-center mb-3">登入</h3>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-field flex-column gap-1 mb-3">
-              <label className="form-label">電子郵件</label>
+              <label className="form-label" htmlFor="login-page-email">
+                電子郵件
+              </label>
               <input
                 type="email"
+                id="login-page-email"
                 className={`input-text-primary ${errors.email ? "error" : ""}`}
                 {...register("email", {
                   required: "請輸入電子郵件",
@@ -41,9 +44,12 @@ export default function LoginPage() {
               )}
             </div>
             <div className="input-field flex-column gap-1 mb-3">
-              <label className="form-label">密碼</label>
+              <label className="form-label" htmlFor="login-page-password">
+                密碼
+              </label>
               <input
                 type="password"
+                id="login-page-password"
                 className={`input-text-primary ${
                   errors.password ? "error" : ""
                 }`}
