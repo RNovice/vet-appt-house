@@ -1,13 +1,28 @@
+import { useState, useEffect } from "react";
 import BtnEdit from "./BtnEdit";
+import axios from "axios";
 
-import userImg from "@/assets/images/user/user.png";
+const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 const UserForm = () => {
+  const [userData, setUserData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const url = `${BACKEND_HOST}/users/2`;
+        const res = await axios.get(url);
+        setUserData(res.data);
+      } catch (error) {
+        console.log("取得使用者資料失敗");
+      }
+    })();
+  }, []);
+
   return (
     <>
       <div className="user bg-cover">
         <div className="container">
-          <h2 className="title mb-4 mb-lg-5">Welcome, 王美美</h2>
+          <h2 className="title mb-4 mb-lg-5">Welcome, {userData.name}</h2>
           <div className="card p-3 p-lg-5 border-0 rounded-4">
             <form action="">
               <div className="row mb-4">
@@ -15,15 +30,15 @@ const UserForm = () => {
                   <div className="me-1 me-lg-4">
                     <img
                       className="rounded-circle object-fit-cover"
-                      src={userImg}
+                      src={userData.imageUrl}
                       width="100"
                       height="100"
                       alt=""
                     />
                   </div>
                   <div>
-                    <p className="mb-1">王美美</p>
-                    <p className="text-grey-scale-2"> wangwangmei@gmail.com</p>
+                    <p className="mb-1">{userData.name}</p>
+                    <p className="text-grey-scale-2"> {userData.email}</p>
                   </div>
                 </div>
                 <div className="col text-end d-none d-lg-block">
