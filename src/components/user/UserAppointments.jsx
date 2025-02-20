@@ -1,75 +1,27 @@
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
 import { Mousewheel, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import CardAppoint from "./CardAppoint";
+import axios from "axios";
+
+const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 const UserAppointments = () => {
-  const datas = [
-    {
-      id: 1,
-      petName: "強哥",
-      appointmentTime: "2024-12-24 11:00-12:00AM",
-      status: "已預約",
-      vetClinicName: "春風動物醫院",
-    },
-    {
-      id: 2,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已預約",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 3,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已預約",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 4,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已到診",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 5,
-      petName: "強哥",
-      appointmentTime: "2024-12-24 11:00-12:00AM",
-      status: "已到診",
-      vetClinicName: "春風動物醫院",
-    },
-    {
-      id: 6,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已到診",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 7,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已取消",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 8,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已取消",
-      vetClinicName: "吱吱動物醫院",
-    },
-    {
-      id: 9,
-      petName: "一姊",
-      appointmentTime: "2024-12-13 15:00-16:00PM",
-      status: "已取消",
-      vetClinicName: "吱吱動物醫院",
-    },
-  ];
+  const [appointmentsData, setAppointmentsData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const url = `${BACKEND_HOST}/appointments?usersId=2&_expand=users&_expand=vetClinics&_expand=pets`;
+        const res = await axios.get(url);
+        setAppointmentsData(res.data);
+      } catch (error) {
+        console.log("取得預約資料失敗");
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -78,7 +30,7 @@ const UserAppointments = () => {
           <div className="d-flex align-items-end justify-content-between mb-5">
             <div></div>
             <h3 className="section-title text-secondary">預約紀錄</h3>
-            {datas && datas.length > 0 ? (
+            {appointmentsData && appointmentsData.length > 0 ? (
               <a className="fs-6 d-none d-lg-block" href="/">
                 查看全部
               </a>
@@ -87,7 +39,7 @@ const UserAppointments = () => {
             )}
           </div>
 
-          {datas && datas.length == 0 ? (
+          {appointmentsData && appointmentsData.length == 0 ? (
             <p className="text-center">目前沒有預約資料</p>
           ) : (
             <>
@@ -104,7 +56,7 @@ const UserAppointments = () => {
                         slidesPerView={"auto"}
                         mousewheel={true}
                       >
-                        {datas
+                        {appointmentsData
                           .filter((item) => item.status == "已預約")
                           .map((item) => (
                             <Slide key={item.id}>
@@ -125,7 +77,7 @@ const UserAppointments = () => {
                         slidesPerView={"auto"}
                         mousewheel={true}
                       >
-                        {datas
+                        {appointmentsData
                           .filter((item) => item.status == "已到診")
                           .map((item) => (
                             <Slide key={item.id}>
@@ -146,7 +98,7 @@ const UserAppointments = () => {
                         slidesPerView={"auto"}
                         mousewheel={true}
                       >
-                        {datas
+                        {appointmentsData
                           .filter((item) => item.status == "已取消")
                           .map((item) => (
                             <Slide key={item.id}>
@@ -184,7 +136,7 @@ const UserAppointments = () => {
                       slidesPerView={"auto"}
                       mousewheel={true}
                     >
-                      {datas.map((item) => (
+                      {appointmentsData.map((item) => (
                         <Slide key={item.id}>
                           <CardAppoint data={item} />
                         </Slide>

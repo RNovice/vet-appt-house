@@ -1,8 +1,8 @@
 import Icon from "../common/Icon";
 
 function CardAppoint({ data }) {
-  const _date = data.appointmentTime.split(" ")[0];
-  const _time = data.appointmentTime.split(" ")[1];
+  const _date = data.appointmentDateTime.split(" ")[0];
+  const _time = data.appointmentDateTime.split(" ")[1];
 
   let styleDateBg = " bg-disabled text-center py-2 px-4 rounded-2 ";
   let styleAppointStatus = " appoint-status ";
@@ -13,7 +13,7 @@ function CardAppoint({ data }) {
 
   return (
     <div className="card p-3 rounded-4 border-0" style={{ width: "21rem" }}>
-      <div class="card-body p-0">
+      <div className="card-body p-0">
         {/* 上方 */}
         <div className="d-flex align-items-center">
           <div className={styleDateBg}>
@@ -21,8 +21,8 @@ function CardAppoint({ data }) {
             <p className="fs-5 fw-bold">24</p>
           </div>
           <div className="ms-3">
-            <p className="mb-2">{data.petName}</p>
-            <p>{data.vetClinicName}</p>
+            <p className="mb-2">{data.pets?.name}</p>
+            <p>{data.vetClinics?.name}</p>
           </div>
           <div className="ms-auto mb-auto">
             <div className={styleAppointStatus}>{data.status}</div>

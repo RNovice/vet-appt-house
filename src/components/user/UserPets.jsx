@@ -1,45 +1,27 @@
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
 import { Mousewheel, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import axios from "axios";
 import Icon from "../common/Icon";
 
-import pet1 from "@/assets/images/user/pet-1.png";
-import pet2 from "@/assets/images/user/pet-2.png";
-import pet3 from "@/assets/images/user/pet-3.png";
-import pet4 from "@/assets/images/user/pet-4.png";
+const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 const UserPets = () => {
-  const datas = [
-    {
-      id: 1,
-      name: "一姊",
-      age: "3個月",
-      gender: "female",
-      image: pet1,
-    },
-    {
-      id: 2,
-      name: "波妞",
-      age: "4歲",
-      gender: "female",
-      image: pet2,
-    },
-    {
-      id: 3,
-      name: "寶寶",
-      age: "1個月",
-      gender: "female",
-      image: pet3,
-    },
-    {
-      id: 4,
-      name: "強哥",
-      age: "10歲",
-      gender: "male",
-      image: pet4,
-    },
-  ];
+  const [petsData, setPetsData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const url = `${BACKEND_HOST}/users/2/pets?userId=2`;
+        const res = await axios.get(url);
+        setPetsData(res.data);
+      } catch (error) {
+        console.log("取得寵物資料失敗");
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -48,7 +30,7 @@ const UserPets = () => {
           <div className="d-flex align-items-end justify-content-between mb-5">
             <div></div>
             <h3 className="section-title text-secondary">我的寵物</h3>
-            {datas && datas.length > 0 ? (
+            {petsData && petsData.length > 0 ? (
               <a className="fs-6 d-none d-lg-block" href="/">
                 查看全部
               </a>
@@ -57,7 +39,7 @@ const UserPets = () => {
             )}
           </div>
           {/*  */}
-          {datas && datas.length == 0 ? (
+          {petsData && petsData.length == 0 ? (
             <a role="button">
               <div className="card p-3 rounded-4 border-0">
                 <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
@@ -87,11 +69,11 @@ const UserPets = () => {
                 </div>
                 <div className="col">
                   <div className="row row-cols-1 row-cols-lg-4 g-3">
-                    {datas.map((item) => (
+                    {petsData.map((item) => (
                       <div className="col" key={item.id}>
                         <div className="card p-3 rounded-4 border-0 ">
                           <img
-                            src={item.image}
+                            src={item.imageUrl}
                             className="card-img-top rounded-3 object-fit-cover"
                             alt=""
                             height={200}
