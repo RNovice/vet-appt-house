@@ -17,17 +17,20 @@ main {
 }
 
 ::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
   background-color: $bg-primary;
-  width: 20px;
+  background-image: linear-gradient($bg-secondary $nav-height,$bg-primary $nav-height);
+
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $bg-primary;
+  background-color: $primary-blue-5;
+  border: 1px solid $primary-blue-4;
   border-radius: 20px;
-  background-image: url('@/assets/images/scrollbar/dog-head.png'), url('@/assets/images/scrollbar/dog-body.png');
-  background-position: top center, center center;
-  background-repeat: no-repeat, repeat-y;
-  background-size: 18px;
+  
 }
 
 .hv100-with-nav {

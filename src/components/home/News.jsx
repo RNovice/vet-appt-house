@@ -1,13 +1,41 @@
 import { useEffect, useState } from "react";
 import catPigCatPng from "@/assets/images/home/cat-pig-cat.png";
+import { useMobile } from "@/context/MobileContext";
+
+const MobileNewsCard = ({ data, index }) => {
+  return (
+    <div className="news-card flex-column gap-4">
+      <h6>{data.subtitle}</h6>
+      <input
+        className="d-none"
+        type="checkbox"
+        id={`news-read-more-${index}`}
+      />
+      <p className="fs-6">{data.content}</p>
+      <label
+        className="text-end text-tertiary user-select-none"
+        htmlFor={`news-read-more-${index}`}
+        role="button"
+      >
+        Read more
+      </label>
+    </div>
+  );
+};
 
 const News = () => {
   const [news, setNews] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [mobileCurrentCard, setMobileCurrentCard] = useState(3);
+  const isMobile = useMobile();
 
   useEffect(() => {
     getNews();
   }, []);
+
+  useEffect(() => {
+    setMobileCurrentCard(3)
+  }, [isMobile]);
 
   const getNews = async () => {
     const data = [
@@ -47,7 +75,23 @@ const News = () => {
     setNews(data);
     setSelected(data[0]);
   };
-  return (
+
+  return isMobile ? (
+    <div className="news-container flex-column gap-1d5 align-items-center mt-4">
+      {news.slice(0, mobileCurrentCard).map((data, i) => (
+        <MobileNewsCard data={data} key={`mobile-news-card-${i}`} index={i} />
+      ))}
+      {news.length > mobileCurrentCard && (
+        <div
+          className="view-more mt-4 fs-6 text-secondary user-select-none"
+          role="button"
+          onClick={() => setMobileCurrentCard((pre) => pre + 1)}
+        >
+          查看更多
+        </div>
+      )}
+    </div>
+  ) : (
     <div className="news-board d-flex mx-auto">
       <aside>
         {news.map((item) => (
