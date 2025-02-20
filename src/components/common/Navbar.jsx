@@ -86,11 +86,11 @@ const Navbar = () => {
             ))}
           </ul>
           {user ? (
-            <NavLink className="profile text-decoration-none" to="/auth/login">
+            <NavLink className="profile text-decoration-none" to="/user">
               <Avatar info={user} size={36} />
             </NavLink>
           ) : (
-            <NavLink className="btn-xs btn-tertiary" to="/auth/login">
+            <NavLink className="btn-xs btn-tertiary" to="/login">
               登入
             </NavLink>
           )}
