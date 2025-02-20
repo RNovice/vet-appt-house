@@ -41,68 +41,67 @@ const linkPathList = [
     ],
   },
 ];
+
+const copyright = (
+  <div className="copyright fs-6">
+    Copyright © {new Date().getFullYear()} 預獸屋
+  </div>
+);
+
+const brand = (
+  <Link className="brand" to="/">
+    <img className="icon-logo" src={iconLogoSvg} alt="預獸屋 Logo icon" />
+    <img className="text-logo" src={textLogoSvg} alt="預獸屋 Logo text" />
+  </Link>
+);
+const FooterLinks = ({ isMobile }) => (
+  <div className={`d-flex ${isMobile ? "gap-1 flex-wrap justify-content-center" : "link-container"}`}>
+    {linkPathList.map(({ name, path, children }, i) => (
+      <div className={isMobile ? "mobile-link" : "col list p-0 flex-column gap-4"} key={i}>
+        <h6>
+          <Link className="link text-decoration-none text-primary d-block" to={path}>
+            {name}
+          </Link>
+        </h6>
+        {!isMobile && children && (
+          <ul className="flex-column gap-1">
+            {children.map(({ name, path }, j) => (
+              <li key={j}>
+                <Link className="link fs-6 text-decoration-none text-primary d-block" to={path}>
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
+  </div>
+);
+
 const Footer = () => {
   const location = useLocation();
   const isMobile = useMobile();
 
   return (
     <footer className="footer">
-      <div className="container">
-        <div className="row">
-          <div className="col flex-column justify-content-between">
-            <Link className="brand" to="/">
-              <img
-                className="icon-logo"
-                src={iconLogoSvg}
-                alt="預獸屋 Logo icon"
-              />
-              <img
-                className="text-logo"
-                src={textLogoSvg}
-                alt="預獸屋 Logo text"
-              />
-            </Link>
-            <div className="copyright fs-6">
-              Copyright © {new Date().getFullYear()} 預獸屋
+      {isMobile ? (
+        <>
+          {brand}
+          <FooterLinks isMobile />
+          {copyright}
+        </>
+      ) : (
+        <>
+          <div className="d-flex justify-content-between">
+            <div className="footer-left flex-column justify-content-between">
+              {brand}
+              {copyright}
             </div>
+            <FooterLinks />
           </div>
-          <div className="col d-flex">
-            <div className="row link-container">
-              {linkPathList.map(({ name, path, children }, i) => (
-                <div
-                  className="col list text-start p-0 flex-column gap-4"
-                  key={`foot-link-${i}`}
-                >
-                  <h6>
-                    <Link
-                      className="link text-decoration-none text-primary d-block"
-                      to={path}
-                    >
-                      {name}
-                    </Link>
-                  </h6>
-                  {children && (
-                    <ul className="flex-column gap-1">
-                      {children.map(({ name, path }, j) => (
-                        <li key={`foot-link-${i}-${j}`}>
-                          <Link
-                            className="link fs-6 text-decoration-none text-primary d-block"
-                            to={path}
-                          >
-                            {name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      {location.pathname === "/" && !isMobile && (
-        <img className="footer-decoration" src={sleepCatPng} />
+          {location.pathname === "/" && <img className="footer-decoration" src={sleepCatPng} />}
+        </>
       )}
     </footer>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useMobile } from "@/context/MobileContext";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
 import { Mousewheel, Navigation } from "swiper/modules";
@@ -12,7 +13,7 @@ import featuredClinic4Png from "@/assets/images/home/featured-clinic-4.png";
 import featuredClinic5Png from "@/assets/images/home/featured-clinic-5.png";
 import featuredClinic6Png from "@/assets/images/home/featured-clinic-6.png";
 
-const clinics = [
+const rawClinics = [
   {
     id: 1,
     name: "秘境野生動物專科醫院",
@@ -57,25 +58,53 @@ const clinics = [
   },
 ];
 
+const ClinicCard = ({ clinic }) => {
+  return (
+    <div className="card border-0">
+      <div className="flex-column gap-3">
+        <img src={clinic.image} alt={clinic.name} />
+        <div className="flex-column gap-1d5">
+          <h5>{clinic.name}</h5>
+          <p className="text-tertiary fs-6">{clinic.description}</p>
+        </div>
+      </div>
+      <Link to="" className="btn-s btn-primary">
+        立即預約
+      </Link>
+    </div>
+  );
+};
+
 const FeaturedClinics = () => {
-  const [featuredClinics, setFeaturedClinics] = useState([]);
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const [clinics, setClinics] = useState([]);
   const swiperRef = useRef(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [isHover, setIsHover] = useState([true, true]);
+  const isMobile = useMobile();
 
   useEffect(() => {
     getFeaturedClinics();
   }, []);
 
   const getFeaturedClinics = async () => {
-    setFeaturedClinics(clinics);
+    setClinics(rawClinics);
   };
-  return (
+  return isMobile ? (
+    <div className="flex-column gap-2 align-items-center mt-4">
+      {clinics.slice(0, 3).map((clinic, i) => (
+        <ClinicCard clinic={clinic} key={`mobile-featured-clinic-${i}`} />
+      ))}
+      <Link
+        className="view-more mt-4 fs-6 text-secondary user-select-none"
+        to="/"
+      >
+        查看更多
+      </Link>
+    </div>
+  ) : (
     <div className="container gap-4 d-flex  user-select-none position-relative align-items-center p-0">
-      {featuredClinics.length > 0 && (
+      {clinics.length > 0 && (
         <>
           <Link to="" className="more fs-6 text-secondary text-decoration-none">
             更多
@@ -103,8 +132,6 @@ const FeaturedClinics = () => {
             mousewheel={true}
             onSwiper={(swiper) => {
               try {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
                 swiperRef.current = swiper;
                 setIsBeginning(swiper.isBeginning);
                 setIsEnd(swiper.isEnd);
@@ -115,20 +142,9 @@ const FeaturedClinics = () => {
               } catch {}
             }}
           >
-            {featuredClinics.map((clinic) => (
+            {clinics.map((clinic) => (
               <Slide key={clinic.id}>
-                <div className="card border-0">
-                  <div className="flex-column gap-3">
-                    <img src={clinic.image} alt={clinic.name} />
-                    <div className="flex-column gap-1d5">
-                      <h5>{clinic.name}</h5>
-                      <p className="text-tertiary fs-6">{clinic.description}</p>
-                    </div>
-                  </div>
-                  <Link to={``} className="btn-s btn-primary">
-                    立即預約
-                  </Link>
-                </div>
+                <ClinicCard clinic={clinic} />
               </Slide>
             ))}
           </Swiper>
