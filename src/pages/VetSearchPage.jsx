@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import { useMobile } from "@/context/MobileContext";
 import DropDownList from "@/components/common/DropDownList";
 import DatePicker from "@/components/common/DatePicker";
 import Icon from "@/components/common/Icon";
@@ -8,6 +9,7 @@ import Icon from "@/components/common/Icon";
 const VetSearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const isMobile = useMobile();
   const [selectedDate, setSelectedDate] = useState(null);
   const [results, setResults] = useState([]);
   const {
@@ -47,6 +49,10 @@ const VetSearchPage = () => {
   const onSubmit = (data) => {
     const query = new URLSearchParams(data).toString();
     navigate(`/search/result?${query}`);
+    if (isMobile) {
+      const resultEle = document.querySelector(".clinic-results");
+      resultEle && resultEle.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {

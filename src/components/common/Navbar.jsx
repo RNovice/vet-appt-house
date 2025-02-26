@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
@@ -21,6 +21,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isAboveHeader, setIsAboveHeader] = useState(true);
+  const navMenuRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +78,7 @@ const Navbar = () => {
           />
         </NavLink>
         <button
+          ref={navMenuRef}
           className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
@@ -84,6 +86,7 @@ const Navbar = () => {
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={() => navMenuRef.current.focus()}
         >
           {/* <span className="navbar-toggler-icon"></span> */}
           <div className="nav-menu flex-column align-items-center text-secondary">
