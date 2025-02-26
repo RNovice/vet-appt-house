@@ -35,14 +35,14 @@ const VetTimeTable = ({result}) => {
                         result["businessHours"].map((hour,i)=>
                              (
                                 <tr key={i} className="fz-20 lh-15 h-60 text-center roboto borderBottom-1">
-                                <td className="pt-4">{i===0?'09:00-12:00':i===1?'14:00-17:00':'19:00-22:00'}</td>
-                                <td className="pt-4">{hour[0]?'O':'休'}</td>
-                                <td className="pt-4">{hour[1]?'O':'休'}</td>
-                                <td className="pt-4">{hour[2]?'O':'休'}</td>
-                                <td className="pt-4">{hour[3]?'O':'休'}</td>
-                                <td className="pt-4">{hour[4]?'O':'休'}</td>
-                                <td className="pt-4">{hour[5]?'O':'休'}</td>
-                                <td className="pt-4">{hour[6]?'O':'休'}</td>
+                                <td className="pt-3">{i===0?'09:00-12:00':i===1?'14:00-17:00':'19:00-22:00'}</td>
+                                <td className="pt-3">{hour[0]?'O':'休'}</td>
+                                <td className="pt-3">{hour[1]?'O':'休'}</td>
+                                <td className="pt-3">{hour[2]?'O':'休'}</td>
+                                <td className="pt-3">{hour[3]?'O':'休'}</td>
+                                <td className="pt-3">{hour[4]?'O':'休'}</td>
+                                <td className="pt-3">{hour[5]?'O':'休'}</td>
+                                <td className="pt-3">{hour[6]?'O':'休'}</td>
                                 </tr>))
                     }
                 </tbody>
