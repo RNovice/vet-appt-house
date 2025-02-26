@@ -195,8 +195,12 @@
     .news-board {
       $radius: 2.5rem;
       margin-top: 5rem;
-      max-width: 67.25rem;
+      width: 67.25rem;
       position: relative;
+      @media (max-width: $break-xl) {
+        max-width: 67.25rem;
+        width: 100%;
+      }
       aside {
         border: 2px solid $line-primary;
         border-top-left-radius: $radius;

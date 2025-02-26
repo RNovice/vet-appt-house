@@ -3,9 +3,13 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
 import Avatar from "./Avatar";
+import clawMarksTop from "@/assets/images/navbar/claw-marks1.svg";
+import clawMarksMiddle from "@/assets/images/navbar/claw-marks2.svg";
+import clawMarksBottom from "@/assets/images/navbar/claw-marks3.svg";
+import Icon from "./Icon";
 
 const linkPathList = [
-  { name: "搜尋獸醫", path: "/#find-vet" },
+  { name: "搜尋獸醫", path: "/search" },
   { name: "快速預約", path: "/" },
   { name: "最新消息", path: "/#news" },
   { name: "關於我們", path: "/" },
@@ -42,6 +46,14 @@ const Navbar = () => {
       navigate(location.pathname, { replace: true });
     }
   }, [location.hash]);
+  const computedTo = (path) =>
+    path === "/search"
+      ? location.pathname === "/"
+        ? "/#find-vet"
+        : location.pathname === "/search/result"
+        ? location
+        : path
+      : path;
 
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
@@ -73,13 +85,34 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          {/* <span className="navbar-toggler-icon"></span> */}
+          <div className="nav-menu flex-column align-items-center text-secondary">
+            <Icon className="cw-t" src={clawMarksTop} width={40} height={7.5} />
+            <Icon
+              className="cw-m"
+              src={clawMarksMiddle}
+              width={40}
+              height={7.5}
+            />
+            <Icon
+              className="cw-b"
+              src={clawMarksBottom}
+              width={40}
+              height={7.5}
+            />
+          </div>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div
+          className="collapse-content collapse navbar-collapse"
+          id="navbarNav"
+        >
           <ul className="navbar-nav mx-auto">
             {linkPathList.map(({ name, path }, i) => (
               <li className="tab nav-item" key={`nav-link-${i}`}>
-                <NavLink className="text-primary h6 d-block" to={path}>
+                <NavLink
+                  className="text-primary h6 d-block"
+                  to={computedTo(path)}
+                >
                   {name}
                 </NavLink>
               </li>
