@@ -7,13 +7,21 @@ import VeterinaryPage from "../pages/VeterinaryPage";
 import UserPage from "../pages/UserPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
+import VetSearchPage from "../pages/VetSearchPage";
 
-const routes = [
+const createRouter =
+  process.env.NODE_ENV === "production"
+    ? createHashRouter
+    : createBrowserRouter;
+
+export default createRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "search", element: <VetSearchPage />},
+      { path: "search/result", element: <VetSearchPage /> },
       { path: "veterinary", element: <VeterinaryPage /> },
       {
         path: "user",
@@ -34,11 +42,4 @@ const routes = [
       </AuthWrapper>
     ),
   },
-];
-
-const AppRoutes =
-  process.env.NODE_ENV === "production"
-    ? createHashRouter(routes)
-    : createBrowserRouter(routes);
-
-export default AppRoutes;
+]);

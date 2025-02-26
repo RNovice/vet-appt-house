@@ -1,0 +1,144 @@
+.vet-search {
+  background-image: url("@/assets/images/home/bg-pattern.png");
+  @extend %bg-center;
+  background-color: #fff3;
+  background-blend-mode: lighten;
+  padding: 3rem 5rem;
+  @include mobile {
+    padding-inline: 1.5rem;
+  }
+
+  .vet-search-container {
+    max-width: 80rem;
+  }
+
+  form {
+    min-width: 18rem;
+    padding: 1.5rem 2rem 1rem;
+    border-radius: 1.5rem;
+    display: grid;
+    gap: 0.5rem 1.5rem;
+    grid-template-columns: 160px 160px minmax(160px, 1fr) 40px;
+    grid-template-areas:
+      "item1 item2 item3 button"
+      "item4 item5 item6 button";
+
+    @for $i from 1 through 6 {
+      .grid-item-#{$i} {
+        grid-area: item#{$i};
+      }
+    }
+
+    button {
+      padding: 0.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .grid-button {
+      grid-row: span 2;
+      grid-area: button;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .btn-2 {
+      align-self: center;
+      flex: 1;
+      display: none;
+    }
+
+    .checkbox-group {
+      gap: 0 1rem;
+    }
+    @media (min-width: $break-xxl) {
+      grid-template-columns: 160px 160px minmax(160px, 1fr);
+      grid-template-areas:
+        "item1 item2 item3"
+        "item4 item5 item6";
+
+      .btn-2 {
+        display: flex;
+      }
+      .grid-button {
+        display: none;
+      }
+    }
+    @mixin vertical-form {
+      gap: 1rem;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "item1"
+        "item2"
+        "item3"
+        "item4"
+        "item5"
+        "item6"
+        "button";
+
+      .grid-button {
+        padding: 0.5rem;
+        grid-row: unset;
+        flex-direction: row;
+      }
+    }
+    &.no-results {
+      @include vertical-form;
+      max-width: 448px;
+      margin-top: 64px;
+      .btn-2 {
+        display: none;
+      }
+      .grid-button {
+        display: flex;
+      }
+    }
+    @media (max-width: 900px) {
+      @include vertical-form;
+    }
+  }
+
+  .clinic-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+    .clinic-card {
+      background-color: $grey-scale-7;
+      background-image: url("@/assets/images/search/vet-logo.png");
+      background-blend-mode: overlay;
+      background-repeat: no-repeat;
+      background-size: auto 50%;
+      background-position: right 0.5rem bottom 0.5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid $primary-blue-4;
+      &:hover {
+        background-color: $primary-blue-6;
+        background-blend-mode: darken;
+      }
+      rt {
+        text-align: left;
+        font-size: 60%;
+        color: $grey-scale-3;
+      }
+      .tag {
+        background-color: transparent;
+        backdrop-filter: blur(2px);
+        border: 1px solid $primary-blue-4;
+        color: $primary-blue-4;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 1rem;
+        user-select: none;
+      }
+      .view-detail {
+        color: #38e;
+        &:hover{
+          color: #259;
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,80 @@
     }
   }
 
+  @media (max-width: $break-lg) {
+    .collapse-content:active,
+    .navbar-toggler:focus + .collapse-content {
+      width: 100%;
+      position: absolute;
+      bottom: 1px;
+      left: 0;
+      transform: translateY(100%);
+      background-color: $bg-secondary;
+      box-shadow: 0 0.3rem 0.5rem rgba(54, 54, 54, 0.05);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 16px;
+      transform-origin: 0 0;
+      animation: nav-collapse 0.2s linear forwards;
+    }
+  }
+  @keyframes nav-collapse {
+    0% {
+      transform: translateY(100%) scaleY(0);
+    }
+    100% {
+      transform: translateY(100%) scaleY(1);
+    }
+  }
+
+  .navbar-toggler {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    position: relative;
+
+    .nav-menu {
+      transform: rotate(12deg);
+      gap: 2px;
+    }
+    &:focus {
+      pointer-events: none;
+      box-shadow: none;
+      .cw-m {
+        opacity: 0;
+      }
+      .cw-t {
+        position: absolute;
+        top: 50%;
+        animation: closeBtnTop 0.2s linear forwards;
+        // transform-origin: 100%;
+      }
+      .cw-b {
+        position: absolute;
+        top: 50%;
+        transform: scaleX(0);
+        animation: closeBtnBottom 0.2s 0.2s linear forwards;
+        // transform-origin: 0;
+      }
+    }
+    @keyframes closeBtnTop {
+      0% {
+        transform: rotate(calc(-45deg - 12deg)) translateY(-50%) scaleX(0);
+      }
+      100% {
+        transform: rotate(calc(-45deg - 12deg)) translateY(-50%) scaleX(1);
+      }
+    }
+    @keyframes closeBtnBottom {
+      0% {
+        transform: rotate(calc(45deg - 12deg)) translateY(-50%) scaleX(0);
+      }
+      100% {
+        transform: rotate(calc(45deg - 12deg)) translateY(-50%) scaleX(1);
+      }
+    }
+  }
+
   .tab {
     position: relative;
     user-select: none;

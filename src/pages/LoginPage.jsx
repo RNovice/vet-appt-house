@@ -25,6 +25,7 @@ export default function LoginPage() {
                 電子郵件
               </label>
               <input
+                autoComplete="email"
                 type="email"
                 id="login-page-email"
                 className={`input-text-primary ${errors.email ? "error" : ""}`}
