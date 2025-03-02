@@ -3,7 +3,7 @@ const VetServiceCards = ({result}) => {
         {
             title:"多物種專業診療",
             content: "專治狗、貓、鳥、兔，針對不同寵物需求，提供全面且細緻的專業醫療服務。",
-            imgUrl:"../src/assets/images/veterinary/6.png",
+            imgUrl:"../src/assets/images/veterinary/6.jpg",
             status:result.services.length>3
         },
         {
