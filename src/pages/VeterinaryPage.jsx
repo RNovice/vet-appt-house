@@ -8,6 +8,8 @@ import VetTimeTable from "../components/veterinary/vetTimeTable";
 import banner01 from "@/assets/images/veterinary/banner01.png";
 import banner02 from "@/assets/images/veterinary/banner02.png";
 import banner03 from "@/assets/images/veterinary/banner03.png";
+import backgroundImage from "@/assets/images/veterinary/8.jpg";
+
 
   const images = [
     banner01,
@@ -125,7 +127,7 @@ const VeterinaryPage = () => {
   },[])
 
   return result && result.name && (<>
-    <section className="veterinaryHeader position-relative">
+    <section className="veterinaryHeader position-relative" style={{backgroundImage: `url(${backgroundImage})`}}>
       <div className="container">
         <div className="bubble position-absolute bottom-138">
           <img src="../src/assets/images/veterinary/bubble.png" className="bubbleJpg" alt="bubble.png" />
