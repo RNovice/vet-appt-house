@@ -4,13 +4,13 @@ const VetServiceCards = ({result}) => {
             title:"多物種專業診療",
             content: "專治狗、貓、鳥、兔，針對不同寵物需求，提供全面且細緻的專業醫療服務。",
             imgUrl:"../src/assets/images/veterinary/6.jpg",
-            status:result.services.length>3
+            status:result.hasExoticPetTreat
         },
         {
             title:"多科專業診療",
             content: "涵蓋一般內科、外科與皮膚科等多項醫療服務，以專業診療方案照顧毛孩的全方位健康需求。",
             imgUrl:"../src/assets/images/veterinary/1.jpg",
-            status:result.treatedAnimals.length>3
+            status:result.hasMultiDisTreat
         },    
         {
             title:"到府出診",
@@ -25,8 +25,6 @@ const VetServiceCards = ({result}) => {
             status:result.hasEmergency
         }
     ]
-
-   console.log(services)
 
     return (
         <>

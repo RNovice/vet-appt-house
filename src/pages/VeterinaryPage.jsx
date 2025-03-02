@@ -15,7 +15,6 @@ import banner03 from "@/assets/images/veterinary/banner03.png";
     banner03
   ];
   
-
 const VeterinaryPage = () => {
   const [result, setResult] = useState({
       "id": 4387,
