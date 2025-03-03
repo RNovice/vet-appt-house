@@ -10,13 +10,11 @@ import banner02 from "@/assets/images/veterinary/banner02.png";
 import banner03 from "@/assets/images/veterinary/banner03.png";
 import backgroundImage from "@/assets/images/veterinary/8.jpg";
 
-
   const images = [
     banner01,
     banner02,
     banner03
   ];
-  const url = 'http://localhost:3000'
   
   const VeterinaryPage = () => {
     const [treatedAnimals,setTreatedAnimals] = useState([]);
@@ -111,14 +109,16 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
           
           const fetchData = async() => {
             try{
-                const clinicsData =  await axios.get(`http://localhost:3000/vetClinics/${urlParams['id']}`)
-                const treatedAnimalsData =  await axios.get(`http://localhost:3000/treatedAnimals`)
-                const servicesData =  await axios.get(`http://localhost:3000/services`)
-                const mainImagesData =  await axios.get(`http://localhost:3000/mainImages`)
+                const clinicsData =  await axios.get(`https://vet-appt-house-backend.onrender.com/vetClinics/${urlParams['id']}`)
+                const treatedAnimalsData =  await axios.get(`https://vet-appt-house-backend.onrender.com/treatedAnimals`)
+                const servicesData =  await axios.get(`https://vet-appt-house-backend.onrender.com/services`)
+/*                 const mainImagesData =  await axios.get(`http://localhost:3000/mainImages`) */
 
                 setTreatedAnimals(treatedAnimalsData.data)
                 setClinicsServices(servicesData.data)
-                setMainImage(mainImagesData.data[clinicsData.data.imageUrl].url)
+                
+                /* setMainImage(mainImagesData.data[clinicsData.data.imageUrl].url) */
+                setMainImage('https://raw.githubusercontent.com/cyberseris/2025_images/refs/heads/main/react_project/7.jpg')
                 setResult(clinicsData.data)
 
             }catch(err){
@@ -138,7 +138,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
     },[])
 
     return result && result.name && (<>
-      <section className="veterinaryHeader position-relative" style={{backgroundImage: `url(${mainImage?mainImage:backgroundImage})`}}>
+      <section className="veterinaryHeader position-relative" style={{backgroundImage: `url(${mainImage?mainImage:backgroundImage})`, opacity:'0.8'}}>
         <div className="container">
           <div className="bubble position-absolute bottom-138">
             <img src="../src/assets/images/veterinary/bubble.png" className="bubbleJpg" alt="bubble.png" />
@@ -163,7 +163,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
               <span className="mb-3 h-20">
                 <h6 className="roboto fz-16 lh-12">專業關懷，您最信賴的選擇</h6>
               </span>
-              <Link to="/" className="btn-m btn-primary w-135">
+              <Link to="/" className="btn btn-m btn-primary w-135">
                   立即預約
               </Link>
             </div>

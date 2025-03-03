@@ -15,15 +15,92 @@
     margin: 0 auto;
     width: 100%;
     height: 62.75rem;
-    /* background-image: url('../images/veterinary/8.jpg'); */
     background-size: 100% 100%;
-    /*  object-fit: cover; */
+     object-fit: cover;
+    @include mobile{
+        height: 50.75rem;
+    }
+    .container{
+        @include mobile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.bubble {
+    position: relative;
+
+    .bubbleJpg {
+        width: 32.875rem !important;
+        height: 22.6875rem !important;
+
+        @include mobile {
+            display: none;
+        }
+    }
+
+    .vetBannerTitle {
+        position: absolute;
+        left: 6.875rem;
+        top: 3.75rem;
+
+        @include mobile {
+            text-align: center;
+            position: static;  
+            h5{
+                margin-bottom: 3rem !important;
+            }
+            .btn-m{
+                margin: 0 auto;
+                margin-top: 6rem !important;
+            }
+        }
+    }
+
+    .bannerJpg {
+        position: absolute;
+        z-index: 3;
+        left: -20.3125rem;
+        bottom: -8.4375rem;
+
+        .image {
+            width: 122.5rem;
+            height: 67.5rem;
+        }
+
+        @include mobile {
+            display: none;
+        }
+    }
+
+    @include mobile {
+        position: static;
+    }
+
 }
 
 .vetService {
     .container {
-        height: 46.875rem;
+        min-height: 46.875rem;
         padding: 7.5rem 0rem;
+            .serviceCard{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .card {
+                        max-width: 21.9375rem !important;
+                        height: 25rem !important;
+                        margin-bottom: 1.5rem;
+                    }
+            }
+
+        @include mobile{
+            height: auto !important;
+            padding: 2.5rem 0.75rem; 
+        }
     }
 }
 
@@ -31,30 +108,66 @@
     .container {
         height: 40.625rem;
         padding: 7.5rem 0rem;
+
+        @media (max-width:'992px') {
+            height: 62.5rem;
+            padding: 2.5rem 0.75rem 0 0;
+        }
     }
 }
 
 .vetTimeTable {
     display: flex;
-    height: 22.5rem;
+    height: auto;
     padding: 1.5rem;
-    gap: 1.5rem;
     border-radius: 1.75rem;
+    margin: 0 auto;
+    background-color: $primary-blue-5;
+
+    @media(max-width:992px) {
+        flex-direction: column;
+        max-width: 21.9375rem;
+        padding: 0 0.75rem;
+        background-color: $primary-blue-6;
+    }
 
     .timeTable-L {
-        width: 24.5rem;
-        height: 19.5rem;
         padding: 0.75rem 1.5rem;
+
+        @media(max-width:992px) {
+            order: 2; 
+            max-width: 21.9375rem;
+        }
 
         .VeterinaryInfo {
             width: 17.75rem;
-            height: 16.625rem;
+            height: 13.1875rem;
+            /* height: 16.625rem; */
         }
     }
 
     .timeTable-R {
+        order: 1;
         width: 52rem;
         padding: 0.75rem 1.5rem;
+
+        .table-desktop{
+            @media(max-width:992px) {
+                display: none;
+            }
+        }
+
+        .table-mobile {
+            display: none;
+            @media(max-width:992px) {
+                display: block;
+            }
+        }
+
+        @media(max-width:992px){
+            order: 1;
+            max-width: 20.4375rem;
+        }
     }
 }
 
@@ -71,38 +184,15 @@
 
 .petsMarquee {
     width: 100% !important;
-    height: 26.25rem !important;
-
+    height: auto;
+    /* height: 26.25rem !important; */
+    margin-bottom: 3.75rem;
     .container {
         padding: 3.75rem 7.5rem 0 0 !important;
     }
-}
-
-.bubble {
-    position: relative;
-
-    .bubbleJpg {
-        width: 32.875rem !important;
-        height: 22.6875rem !important;
-    }
-
-    .vetBannerTitle {
-        position: absolute;
-        left: 6.875rem;
-        top: 3.75rem;
-    }
-
-    .bannerJpg {
-        position: absolute;
-        z-index: 3;
-        left: -20.3125rem;
-        bottom: -8.4375rem;
-
-        .image {
-            width: 122.5rem;
-            height: 67.5rem;
-        }
-    }
+/*     @media(max-width:992px) {
+        margin-bottom: 60px;
+    } */
 }
 
 .veterinaryTime {
@@ -116,6 +206,15 @@
 
 .marquee {
     min-width: 81rem !important;
+    .marqueeImg{
+        width: 15rem;
+        height: 15rem;
+
+        @media(max-width:992px) {
+            width: 7.5rem;
+            height: 7.5rem;
+        }
+    }
 }
 
 .primary-blue-5 {
@@ -125,6 +224,7 @@
 .lh-12 {
     line-height: 1.2 !important;
 }
+
 
 .lh-15 {
     line-height: 1.5 !important;
@@ -214,6 +314,10 @@
     width: 8.4375rem;
 }
 
+.w-70 {
+    width: 4.75rem;
+}
+
 .w-306 {
     width: 19.125rem;
 }
@@ -246,10 +350,6 @@
     margin-bottom: 1rem !important;
 }
 
-.img-240 {
-    width: 15rem;
-    height: 15rem;
-}
 
 .borderRadius-20 {
     border-radius: 1.25rem;

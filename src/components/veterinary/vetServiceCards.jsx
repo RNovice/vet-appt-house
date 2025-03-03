@@ -22,7 +22,7 @@ const VetServiceCards = ({result,clinicsServices,treatedAnimals}) => {
         },
         {
             title:"多科專業診療",
-            content: `涵蓋${servicesString.join("、")}等多項醫療服務，以專業診療方案照顧毛孩的全方位健康需求。`,
+            content: `涵蓋${servicesString.slice(0,5).join("、")}等多項醫療服務，以專業診療方案照顧毛孩的全方位健康需求。`,
             imgUrl:result.imagesUrl[1],
             status:result.hasMultiDisTreat
         },    
@@ -46,7 +46,7 @@ const VetServiceCards = ({result,clinicsServices,treatedAnimals}) => {
                 {
                     services.map((service,i)=>{
                         return service.status ? (
-                            <div className="col-md-3" key={i}>
+                            <div className="serviceCard col-md-6 col-xl-3" key={i}>
                                 <div className="card primary-blue-5 border-0 h-100">
                                     <img src={service.imgUrl} className="card-img-top h-240 borderRadius-20" alt="#" />
                                     <div className="card-body p-24 d-flex flex-column">
