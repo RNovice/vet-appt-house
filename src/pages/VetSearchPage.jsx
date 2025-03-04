@@ -1,288 +1,135 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { useMobile } from "@/context/MobileContext";
 import DropDownList from "@/components/common/DropDownList";
 import DatePicker from "@/components/common/DatePicker";
+import Paginator from "../components/common/Paginator";
 import Icon from "@/components/common/Icon";
+import { cities, cityQueryDistricts as districts } from "@/utils/constants";
+import { toQueryString, toApiQueryString } from "@/utils/common";
+import api from "@/services/api";
+
+const cityOptions = cities.map(({ city }) => ({ label: city, value: city }));
 
 const VetSearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const isMobile = useMobile();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [distOptions, setDistOptions] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [results, setResults] = useState([]);
   const {
     control,
     handleSubmit,
-    reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm();
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  //   reset({
-  //     city: null,
-  //     area: null,
-  //     date: null,
-  //     time: null,
-  //     keyword: "",
-  //     checkboxes: {},
-  //   });
-  //   setSelectedDate(null);
-  // };
-
-  const options = [
-    { value: "台北", label: "台北" },
-    { value: "高雄", label: "高雄" },
-  ];
+  const city = watch("city");
+  const area = watch("area");
 
   const timeOptions = [
-    { value: "早上", label: "早上" },
-    { value: "下午", label: "下午" },
-    { value: "晚上", label: "晚上" },
-    { value: "不限", label: "不限" },
+    { value: "AM", label: "09:00 - 12:00" },
+    { value: "PM", label: "14:00 - 17:00" },
+    { value: "EV", label: "19:00 - 22:00" },
   ];
 
   const isResultPage = location.pathname.includes("/search/result");
 
-  const onSubmit = (data) => {
-    const query = new URLSearchParams(data).toString();
-    navigate(`/search/result?${query}`);
-    if (isMobile) {
-      const resultEle = document.querySelector(".clinic-results");
-      resultEle && resultEle.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
     if (isResultPage) {
-      const queryParams = new URLSearchParams(location.search);
-      const searchParams = Object.fromEntries(queryParams.entries());
-      fetchResults(searchParams);
-    }
-  }, [location.search]);
+      const params = Object.fromEntries(searchParams);
 
-  const fetchResults = async (params) => {
-    setResults([
-      {
-        id: 1,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 2,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 3,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          // "24HR營業",
-          // "夜間急診",
-          // "現場掛號",
-          // "電話預約",
-          // "機車停車",
-          // "汽車停車",
-        ],
-      },
-      {
-        id: 11,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 21,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 31,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-      {
-        id: 12,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 22,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 32,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-      {
-        id: 13,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 23,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 33,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-      {
-        id: 131,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 231,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 331,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-      {
-        id: 132,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 232,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 332,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-      {
-        id: 134,
-        name: "台北動物醫院",
-        city: "台北市",
-        district: "信義區",
-        phone: "02-1234-5678",
-        tags: ["24HR營業", "夜間急診"],
-      },
-      {
-        id: 234,
-        name: "高雄寵物診所",
-        city: "高雄市",
-        district: "前鎮區",
-        phone: "07-8765-4321",
-        tags: ["電話預約", "汽車停車"],
-      },
-      {
-        id: 334,
-        name: "台中寵物診所",
-        city: "台中市",
-        district: "西區",
-        phone: "05-8765-4321",
-        tags: [
-          "24HR營業",
-          "夜間急診",
-          "現場掛號",
-          "電話預約",
-          "機車停車",
-          "汽車停車",
-        ],
-      },
-    ]);
+      for (const [key, value] of Object.entries(params)) {
+        if (!value) continue;
+
+        switch (key) {
+          case "city":
+          case "area":
+            setValue(key, { label: value, value });
+            break;
+          case "time":
+            setValue(
+              key,
+              timeOptions.find((o) => o.value === value)
+            );
+            break;
+          case "keyword":
+            setValue(key, value);
+            break;
+          case "date":
+            const date = new Date(value);
+            setSelectedDate(date);
+            setValue(key, date);
+            break;
+          case "other":
+            value
+              .split(",")
+              .forEach((req) => setValue(`checkboxes.${req}`, true));
+            break;
+        }
+      }
+    }
+    fetchResults();
+  }, []);
+
+  useEffect(() => {
+    const params = Object.fromEntries(searchParams);
+    if (
+      city?.value &&
+      !(params?.city === city?.value && params?.area === area?.value)
+    )
+      setValue("area", null);
+    setDistOptions(
+      city?.value
+        ? districts[city.value].map(({ dist }) => ({
+            label: dist,
+            value: dist,
+          }))
+        : null
+    );
+  }, [city]);
+
+  useEffect(() => {
+    fetchResults();
+  }, [searchParams]);
+
+  const onSubmit = async (data) => {
+    const query = toQueryString(data);
+    setSearchParams(query);
+  };
+
+  const fetchResults = async (page = 1) => {
+    try {
+      const params = Object.fromEntries(searchParams);
+      const query = toApiQueryString(params);
+      const {
+        data: {
+          data,
+          pagination: { totalPages, current },
+        },
+      } = await api.get(
+        `/vetClinics?limit=${isMobile ? 8 : 12}&tag=true&page=${page}&${query}`
+      );
+      setResults(data);
+      setCurrentPage(current);
+      setTotalPages(totalPages);
+      if (isMobile) {
+        const resultEle = document.querySelector(".clinic-results");
+        resultEle && resultEle.scrollIntoView({ behavior: "smooth" });
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -310,9 +157,12 @@ const VetSearchPage = () => {
                 <DropDownList
                   inputId="find-vet-city"
                   {...field}
-                  options={options}
+                  options={cityOptions}
                   placeholder="請選擇縣市"
                   hasError={errors.city}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
                 />
               )}
             />
@@ -326,10 +176,14 @@ const VetSearchPage = () => {
               control={control}
               render={({ field }) => (
                 <DropDownList
+                  isDisabled={distOptions === null}
                   inputId="find-vet-area"
                   {...field}
-                  options={options}
-                  placeholder="請選擇地區"
+                  options={distOptions}
+                  placeholder={
+                    distOptions === null ? "請先選擇縣市" : "請選擇地區"
+                  }
+                  isClearable
                 />
               )}
             />
@@ -372,7 +226,11 @@ const VetSearchPage = () => {
                   id="find-vet-date"
                   {...field}
                   selected={selectedDate}
-                  onSelect={setSelectedDate}
+                  onChange={(date) => {
+                    setSelectedDate(date);
+                    setValue("date", date);
+                  }}
+                  isClearable
                 />
               )}
             />
@@ -391,6 +249,7 @@ const VetSearchPage = () => {
                   icon={"clock"}
                   options={timeOptions}
                   placeholder="請選擇時段"
+                  isClearable
                 />
               )}
             />
@@ -401,8 +260,8 @@ const VetSearchPage = () => {
               "夜間急診",
               "現場掛號",
               "電話預約",
-              "機車停車",
-              "汽車停車",
+              "停車空間",
+              "特寵診療",
             ].map((label, i) => (
               <label
                 className="custom-checkbox d-flex align-items-center gap-1"
@@ -436,8 +295,12 @@ const VetSearchPage = () => {
         {isResultPage && (
           <div className="clinic-results w-100 mx-auto">
             {results.map((clinic) => (
-              <div key={clinic.id} className="clinic-card flex-column gap-2">
-                <ruby className="h5">
+              <div
+                key={clinic.id}
+                title={clinic.name}
+                className="clinic-card flex-column gap-2"
+              >
+                <ruby className="clinic-name h5">
                   {clinic.name} <rp>(</rp>
                   <rt>
                     {clinic.city} {clinic.district}
@@ -446,23 +309,36 @@ const VetSearchPage = () => {
                 </ruby>
                 <p className="h6 text-tertiary d-flex align-items-center gap-1">
                   <Icon fileName="phone" size={15} />
-                  {clinic.phone}
+                  {clinic.tel || "電話尚未提供"}
                 </p>
                 <div className="tags d-flex flex-wrap gap-1">
-                  {clinic.tags.map((tag) => (
+                  {clinic.tags?.map((tag) => (
                     <span key={tag} className="tag">
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div className="mt-auto pt-1">
-                  <Link className="view-detail fs-6" to="/veterinary">
+                  <span
+                    className="view-detail fs-6"
+                    onClick={() =>
+                      navigate(`/veterinary/${clinic.id}`, { state: clinic })
+                    }
+                  >
                     查看詳細資料
-                  </Link>
+                  </span>
                 </div>
               </div>
             ))}
           </div>
+        )}
+        {totalPages > 1 && (
+          <Paginator
+            className="mt-4"
+            currentPage={currentPage}
+            onPageChange={fetchResults}
+            totalPages={totalPages}
+          />
         )}
       </div>
     </div>

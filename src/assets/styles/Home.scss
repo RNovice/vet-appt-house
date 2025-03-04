@@ -205,6 +205,9 @@
         border: 2px solid $line-primary;
         border-top-left-radius: $radius;
         border-bottom-left-radius: $radius;
+        .news-empty {
+          height: 496px;
+        }
         div {
           cursor: pointer;
           padding: calc(2.5rem - 0.9px) 2.5rem;

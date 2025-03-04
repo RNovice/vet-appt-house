@@ -18,7 +18,7 @@
     border-radius: 1.5rem;
     display: grid;
     gap: 0.5rem 1.5rem;
-    grid-template-columns: 160px 160px minmax(160px, 1fr) 40px;
+    grid-template-columns: 180px 180px minmax(180px, 1fr) 40px;
     grid-template-areas:
       "item1 item2 item3 button"
       "item4 item5 item6 button";
@@ -51,7 +51,7 @@
       gap: 0.25rem 1rem;
     }
     @media (min-width: $break-xxl) {
-      grid-template-columns: 160px 160px minmax(160px, 1fr);
+      grid-template-columns: 180px 180px minmax(180px, 1fr);
       grid-template-areas:
         "item1 item2 item3"
         "item4 item5 item6";
@@ -94,11 +94,11 @@
       .grid-button {
         display: flex;
       }
-      @include mobile  {
+      @include mobile {
         margin-top: unset;
       }
     }
-    @media (max-width: 900px) {
+    @media (max-width: 910px) {
       @include vertical-form;
     }
   }
@@ -125,12 +125,22 @@
         background-color: $primary-blue-6;
         background-blend-mode: darken;
       }
+      .clinic-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+      }
       rt {
         text-align: left;
         font-size: 60%;
         color: $grey-scale-3;
       }
+      .tags {
+        height: 50px;
+      }
       .tag {
+        align-self: self-start;
         background-color: transparent;
         backdrop-filter: blur(2px);
         border: 1px solid $primary-blue-4;
@@ -141,8 +151,9 @@
         user-select: none;
       }
       .view-detail {
+        cursor: pointer;
         color: #38e;
-        &:hover{
+        &:hover {
           color: #259;
         }
       }

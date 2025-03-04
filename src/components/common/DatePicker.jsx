@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import dateSvg from "@/assets/icons/date.svg";
 
 const CustomDateInput = forwardRef(({ value, onClick, id }, ref) => (
