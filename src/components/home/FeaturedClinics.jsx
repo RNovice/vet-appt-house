@@ -12,6 +12,7 @@ import featuredClinic3Png from "@/assets/images/home/featured-clinic-3.png";
 import featuredClinic4Png from "@/assets/images/home/featured-clinic-4.png";
 import featuredClinic5Png from "@/assets/images/home/featured-clinic-5.png";
 import featuredClinic6Png from "@/assets/images/home/featured-clinic-6.png";
+import api from "../../services/api";
 
 const rawClinics = [
   {
@@ -88,7 +89,10 @@ const FeaturedClinics = () => {
   }, []);
 
   const getFeaturedClinics = async () => {
-    setClinics(rawClinics);
+    const {
+      data: { data },
+    } = await api("/vetClinics?limit=6&req=hasExoticPetTreat");
+    setClinics(rawClinics.map((c, i) => ({ ...c, ...data[i] })));
   };
   return isMobile ? (
     <div className="flex-column gap-2 align-items-center mt-4">
@@ -97,7 +101,7 @@ const FeaturedClinics = () => {
       ))}
       <Link
         className="view-more mt-4 fs-6 text-secondary user-select-none"
-        to="/"
+        to="/search/result?other=特寵診療"
       >
         查看更多
       </Link>
@@ -106,7 +110,10 @@ const FeaturedClinics = () => {
     <div className="container gap-4 d-flex  user-select-none position-relative align-items-center p-0">
       {clinics.length > 0 && (
         <>
-          <Link to="" className="more fs-6 text-secondary text-decoration-none">
+          <Link
+            to="/search/result?other=特寵診療"
+            className="more fs-6 text-secondary text-decoration-none"
+          >
             更多
           </Link>
           <button

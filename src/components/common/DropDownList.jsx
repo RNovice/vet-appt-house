@@ -7,6 +7,8 @@ const customStyles = (hasError) => ({
   control: (base, { isFocused, isDisabled }) => ({
     ...base,
     cursor: isDisabled ? "not-allowed" : "pointer",
+    userSelect: isDisabled ? "none" : "default",
+    backgroundColor: isDisabled ? " #f9f9f9" : "#ffffff",
     borderRadius: "0.5rem",
     border: "none",
     outline: hasError
@@ -16,9 +18,9 @@ const customStyles = (hasError) => ({
       : "none",
     padding: "6px 1rem",
   }),
-  placeholder: (base) => ({
+  placeholder: (base, { isDisabled }) => ({
     ...base,
-    color: hasError ? "#BA0000" : "#595959",
+    color: isDisabled ? "#9b9b9b" : hasError ? "#BA0000" : "#595959",
   }),
   menu: (base) => ({
     ...base,
@@ -46,6 +48,10 @@ const customStyles = (hasError) => ({
   valueContainer: (base) => ({
     ...base,
     padding: "0",
+  }),
+  clearIndicator: (base, state) => ({
+    ...base,
+    padding: "2px",
   }),
 });
 

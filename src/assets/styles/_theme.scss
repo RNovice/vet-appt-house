@@ -263,7 +263,7 @@ img.d-none + .img-alt {
 .date-picker {
   width: 100%;
   @extend .fs-6;
-  padding: 0.5rem 1rem;
+  padding: 10px 1rem;
   border-radius: 0.5rem;
   border: none;
   &:focus {
@@ -303,4 +303,22 @@ img.d-none + .img-alt {
 }
 .react-datepicker__triangle {
   display: none;
+}
+.react-datepicker__close-icon {
+  position: absolute;
+  top: 50%;
+  right: calc(1rem + 24px);
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+}
+
+.react-datepicker__close-icon::after {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
+  background-color: transparent !important;
+}
+.react-datepicker__close-icon:hover::after {
+  color: $grey-scale-3 !important;
 }

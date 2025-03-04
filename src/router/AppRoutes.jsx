@@ -8,6 +8,7 @@ import UserPage from "../pages/UserPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
 import VetSearchPage from "../pages/VetSearchPage";
+import NotFound from "../pages/NotFound";
 
 const createRouter =
   process.env.NODE_ENV === "production"
@@ -20,7 +21,7 @@ export default createRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "search", element: <VetSearchPage />},
+      { path: "search", element: <VetSearchPage /> },
       { path: "search/result", element: <VetSearchPage /> },
       { path: "veterinary", element: <VeterinaryPage /> },
       {
@@ -41,5 +42,9 @@ export default createRouter([
         <AuthLayout />
       </AuthWrapper>
     ),
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

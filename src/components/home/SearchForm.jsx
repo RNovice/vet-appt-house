@@ -1,23 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 import Icon from "../common/Icon";
 import DatePicker from "../common/DatePicker";
 import DropDownList from "../common/DropDownList";
 import { useMobile } from "@/context/MobileContext";
+import { cities, cityQueryDistricts as districts } from "@/utils/constants";
+import { toQueryString } from "@/utils/common";
+
+const cityOptions = cities.map(({ city }) => ({ label: city, value: city }));
 
 const SearchForm = () => {
   const {
     control,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [distOptions, setDistOptions] = useState(null);
   const isMobile = useMobile();
+  const navigate = useNavigate();
+  const city = watch("city");
+
+  useEffect(() => {
+    setValue("area", null);
+    setDistOptions(
+      city?.value
+        ? districts[city.value].map(({ dist }) => ({
+            label: dist,
+            value: dist,
+          }))
+        : null
+    );
+  }, [city]);
 
   const onSubmit = (data) => {
     console.log(data);
+    const query = toQueryString(data);
+    navigate(`/search/result?${query}`);
     reset({
       city: null,
       area: null,
@@ -29,16 +52,10 @@ const SearchForm = () => {
     setSelectedDate(null);
   };
 
-  const options = [
-    { value: "台北", label: "台北" },
-    { value: "高雄", label: "高雄" },
-  ];
-
   const timeOptions = [
-    { value: "早上", label: "早上" },
-    { value: "下午", label: "下午" },
-    { value: "晚上", label: "晚上" },
-    { value: "不限", label: "不限" },
+    { value: "AM", label: "09:00 - 12:00" },
+    { value: "PM", label: "14:00 - 17:00" },
+    { value: "EV", label: "19:00 - 22:00" },
   ];
 
   return (
@@ -60,9 +77,12 @@ const SearchForm = () => {
                 <DropDownList
                   inputId="find-vet-city"
                   {...field}
-                  options={options}
+                  options={cityOptions}
                   placeholder="請選擇縣市"
                   hasError={errors.city}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
                 />
               )}
             />
@@ -82,10 +102,13 @@ const SearchForm = () => {
               control={control}
               render={({ field }) => (
                 <DropDownList
+                  isDisabled={distOptions === null}
                   inputId="find-vet-area"
                   {...field}
-                  options={options}
-                  placeholder="請選擇地區"
+                  options={distOptions}
+                  placeholder={
+                    distOptions === null ? "請先選擇縣市" : "請選擇地區"
+                  }
                 />
               )}
             />
@@ -151,12 +174,12 @@ const SearchForm = () => {
           <span className="h6">其他需求</span>
           <div className="d-flex flex-wrap gap-1d5">
             {[
-              "24 小時營業",
+              "24HR營業",
               "夜間急診",
               "現場掛號",
               "電話預約",
-              "機車停車",
-              "汽車停車",
+              "停車空間",
+              "特寵診療",
             ].map((label, i) => (
               <label
                 className="custom-checkbox d-flex align-items-center gap-2"
