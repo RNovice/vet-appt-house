@@ -18,9 +18,9 @@ const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
  */
 const UserForm = () => {
   // 狀態管理
-  const [userData, setUserData] = useState({});
-  const [currentCity, setCurrentCity] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
+  const [userData, setUserData] = useState({}); // 用於儲存使用者資料
+  const [currentCity, setCurrentCity] = useState(""); // 用於儲存當前選擇的城市
+  const [isEditing, setIsEditing] = useState(false); // 用於控制表單是否可編輯
 
   // 表單控制
   const {
