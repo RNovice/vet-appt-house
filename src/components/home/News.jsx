@@ -5,7 +5,7 @@ import api from "@/services/api";
 
 const MobileNewsCard = ({ data, index }) => {
   return (
-    <div className="news-card flex-column gap-4">
+    <div className="news-card flex-column gap-4" data-aos="fade-right">
       <h6>{data.subtitle}</h6>
       <input
         className="d-none"
@@ -72,7 +72,7 @@ const News = () => {
       )}
     </div>
   ) : (
-    <div className="news-board d-flex mx-auto">
+    <div className="news-board d-flex mx-auto" data-aos="fade-right">
       <aside>
         {news.length > 0 ? (
           news.map((item) => (

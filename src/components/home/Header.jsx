@@ -19,15 +19,25 @@ const Header = () => {
               src={isMobile ? textLogoVerticalSvg : textLogoSvg}
               alt="預獸屋 Text Logo"
             />
-            <p className="fs-5">
+            <p className="fs-5" data-aos="fade-up">
               專業醫療輕鬆預約{isMobile ? <br /> : "，"}貼心守護毛孩健康
             </p>
           </div>
           <div className="action d-flex gap-4">
-            <Link to="/#find-vet" className="btn-m btn-primary">
+            <Link
+              to="/#find-vet"
+              className="btn-m btn-primary"
+              data-aos="fade-right"
+              data-aos-delay="300"
+            >
               搜尋醫院
             </Link>
-            <Link to="/" className="btn-m btn-secondary d-flex">
+            <Link
+              to="/"
+              className="btn-m btn-secondary d-flex"
+              data-aos="fade-left"
+              data-aos-delay={isMobile ? 600 : 300}
+            >
               快速預約
               <Icon fileName={"footprint"} size={24} />
             </Link>

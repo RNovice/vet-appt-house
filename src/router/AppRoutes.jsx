@@ -9,6 +9,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
 import VetSearchPage from "../pages/VetSearchPage";
 import NotFound from "../pages/NotFound";
+import AboutUs from "../pages/AboutUs";
+import Redirect from "../pages/Redirect";
 
 const createRouter =
   process.env.NODE_ENV === "production"
@@ -32,6 +34,8 @@ export default createRouter([
           </ProtectedRoute>
         ),
       },
+      { path: "about-us", element: <AboutUs /> },
+      { path: "nearby", element: <Redirect /> },
     ],
   },
   { path: "login", element: <LoginPage /> },

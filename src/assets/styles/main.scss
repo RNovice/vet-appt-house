@@ -43,6 +43,10 @@ body::-webkit-scrollbar-track {
   max-height: $hv100-with-nav;
 }
 
+.hv100-nav-n-foot {
+  min-height: $hv100-nav-n-foot;
+}
+
 .brand {
   text-decoration: none;
   display: flex;
