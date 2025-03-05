@@ -7,13 +7,14 @@ import clawMarksTop from "@/assets/images/navbar/claw-marks1.svg";
 import clawMarksMiddle from "@/assets/images/navbar/claw-marks2.svg";
 import clawMarksBottom from "@/assets/images/navbar/claw-marks3.svg";
 import Icon from "./Icon";
+import { computedTo } from "../../utils/common";
 
 const linkPathList = [
   { name: "搜尋獸醫", path: "/search" },
   { name: "快速預約", path: "/" },
   { name: "最新消息", path: "/#news" },
-  { name: "關於我們", path: "/" },
-  { name: "寵物管理", path: "/" },
+  { name: "關於我們", path: "/about-us" },
+  { name: "寵物管理", path: "/user#pets" },
 ];
 
 const user = null;
@@ -41,20 +42,15 @@ const Navbar = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const element = document.getElementById(location.hash?.slice(1));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      navigate(location.pathname, { replace: true });
+    if (location.hash) {
+      const element = document.getElementById(location.hash?.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
-  }, [location.hash]);
-  const computedTo = (path) =>
-    path === "/search"
-      ? location.pathname === "/"
-        ? "/#find-vet"
-        : location.pathname === "/search/result"
-        ? location
-        : path
-      : path;
+  }, [location]);
 
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
@@ -114,7 +110,7 @@ const Navbar = () => {
               <li className="tab nav-item" key={`nav-link-${i}`}>
                 <NavLink
                   className="text-primary h6 d-block"
-                  to={computedTo(path)}
+                  to={computedTo(path, location)}
                 >
                   {name}
                 </NavLink>

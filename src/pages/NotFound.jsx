@@ -6,7 +6,7 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => navigate("/"), 30000);
+    const timer = setTimeout(() => navigate("/"), 10000);
     return () => clearTimeout(timer);
   }, [navigate]);
 
@@ -20,7 +20,7 @@ const NotFound = () => {
         <p className="text-muted mb-2">
           你所尋找的頁面不存在本站
           <br />
-          30秒後自動轉跳至首頁
+          10秒後自動轉跳至首頁
         </p>
         <button className="btn btn-primary" onClick={() => navigate("/")}>
           返回首頁

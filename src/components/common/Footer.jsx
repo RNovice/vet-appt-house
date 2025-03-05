@@ -4,40 +4,41 @@ import { useMobile } from "@/context/MobileContext";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";
 import textLogoSvg from "@/assets/images/text-logo.svg";
 import sleepCatPng from "@/assets/images/sleep-cat.png";
+import { computedTo } from "../../utils/common";
 
 const linkPathList = [
   { name: "快速預約", path: "/" },
   {
     name: "搜尋醫院",
-    path: "/",
+    path: "/search",
     children: [
-      { name: "精選醫院", path: "/" },
-      { name: "附近醫院", path: "/" },
+      { name: "精選醫院", path: "/#featured-clinic" },
+      { name: "附近醫院", path: "/nearby" },
     ],
   },
   {
     name: "所有消息",
-    path: "/",
+    path: "/#news",
     children: [
-      { name: "最新消息", path: "/" },
-      { name: "活動消息", path: "/" },
-      { name: "熱門消息", path: "/" },
+      { name: "最新消息", path: "/#news" },
+      { name: "活動消息", path: "/#news" },
+      { name: "熱門消息", path: "/#news" },
     ],
   },
   {
     name: "關於我們",
-    path: "/",
+    path: "/about-us",
     children: [
-      { name: "聯絡我們", path: "/" },
-      { name: "網站特色", path: "/" },
+      { name: "聯絡我們", path: "/about-us" },
+      { name: "網站特色", path: "/#site-services" },
     ],
   },
   {
     name: "會員中心",
-    path: "/",
+    path: "/user",
     children: [
-      { name: "我的寵物", path: "/" },
-      { name: "我的預約", path: "/" },
+      { name: "我的寵物", path: "/user#pets" },
+      { name: "我的預約", path: "/user#appointments" },
     ],
   },
 ];
@@ -54,12 +55,12 @@ const brand = (
     <img className="text-logo" src={textLogoSvg} alt="預獸屋 Logo text" />
   </Link>
 );
-const FooterLinks = ({ isMobile }) => (
+const FooterLinks = ({ isMobile, location }) => (
   <div className={`d-flex ${isMobile ? "gap-1 flex-wrap justify-content-center" : "link-container"}`}>
     {linkPathList.map(({ name, path, children }, i) => (
       <div className={isMobile ? "mobile-link" : "col list p-0 flex-column gap-4"} key={i}>
         <h6>
-          <Link className="link text-decoration-none text-primary d-block" to={path}>
+          <Link className="link text-decoration-none text-primary d-block" to={computedTo(path, location)}>
             {name}
           </Link>
         </h6>
@@ -67,7 +68,7 @@ const FooterLinks = ({ isMobile }) => (
           <ul className="flex-column gap-1">
             {children.map(({ name, path }, j) => (
               <li key={j}>
-                <Link className="link fs-6 text-decoration-none text-primary d-block" to={path}>
+                <Link className="link fs-6 text-decoration-none text-primary d-block" to={computedTo(path, location)}>
                   {name}
                 </Link>
               </li>
@@ -88,7 +89,7 @@ const Footer = () => {
       {isMobile ? (
         <>
           {brand}
-          <FooterLinks isMobile />
+          <FooterLinks isMobile location={location} />
           {copyright}
         </>
       ) : (
@@ -98,7 +99,7 @@ const Footer = () => {
               {brand}
               {copyright}
             </div>
-            <FooterLinks />
+            <FooterLinks location={location} />
           </div>
           {location.pathname === "/" && <img className="footer-decoration" src={sleepCatPng} />}
         </>

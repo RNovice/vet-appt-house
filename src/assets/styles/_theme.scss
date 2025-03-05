@@ -259,6 +259,23 @@ img.d-none + .img-alt {
   display: inline;
 }
 
+// toast
+.toast-primary {
+  background-color: $bg-secondary !important;
+  color: $text-secondary !important;
+  .Toastify__close-button svg {
+    fill: $text-secondary
+  }
+}
+.toast-success {
+  background-color: #2b2 !important;
+  color: #eee !important;
+}
+.toast-error {
+  background-color: $bg-error !important;
+  color: #eee !important;
+}
+
 // date picker
 .date-picker {
   width: 100%;

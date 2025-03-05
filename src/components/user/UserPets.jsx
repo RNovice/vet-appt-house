@@ -25,7 +25,7 @@ const UserPets = () => {
 
   return (
     <>
-      <div className="userPrts bg-cover">
+      <div className="userPrts bg-cover" id="pets">
         <div className="container">
           <div className="d-flex align-items-end justify-content-between mb-5">
             <div></div>

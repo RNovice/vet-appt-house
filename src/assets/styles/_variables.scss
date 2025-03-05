@@ -47,6 +47,7 @@ $breakpoint: $break-md;
 //nav py-1  + logo 44px
 $nav-height: calc(0.5rem * 2 + 44px);
 $hv100-with-nav: calc(100vh - $nav-height);
+$hv100-nav-n-foot: calc($hv100-with-nav - 396px);
 
 $gap-1: 0.25rem;
 $gap-2: 0.5rem;

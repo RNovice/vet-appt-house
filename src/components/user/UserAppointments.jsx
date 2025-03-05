@@ -40,7 +40,7 @@ const UserAppointments = () => {
 
   return (
     <>
-      <div className="userAppointments bg-cover">
+      <div className="userAppointments bg-cover" id="appointments">
         <div className="container">
           <div className="d-flex align-items-end justify-content-between mb-5">
             <div></div>

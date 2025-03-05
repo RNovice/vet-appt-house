@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { useMobile } from "@/context/MobileContext";
 import DropDownList from "@/components/common/DropDownList";
@@ -105,7 +100,7 @@ const VetSearchPage = () => {
 
   const onSubmit = async (data) => {
     const query = toQueryString(data);
-    setSearchParams(query);
+    isResultPage ? setSearchParams(query) : navigate(`/search/result?${query}`);
   };
 
   const fetchResults = async (page = 1) => {
@@ -293,52 +288,54 @@ const VetSearchPage = () => {
           </div>
         </form>
         {isResultPage && (
-          <div className="clinic-results w-100 mx-auto">
-            {results.map((clinic) => (
-              <div
-                key={clinic.id}
-                title={clinic.name}
-                className="clinic-card flex-column gap-2"
-              >
-                <ruby className="clinic-name h5">
-                  {clinic.name} <rp>(</rp>
-                  <rt>
-                    {clinic.city} {clinic.district}
-                  </rt>
-                  <rp>)</rp>
-                </ruby>
-                <p className="h6 text-tertiary d-flex align-items-center gap-1">
-                  <Icon fileName="phone" size={15} />
-                  {clinic.tel || "電話尚未提供"}
-                </p>
-                <div className="tags d-flex flex-wrap gap-1">
-                  {clinic.tags?.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
+          <>
+            <div className="clinic-results w-100 mx-auto">
+              {results.map((clinic) => (
+                <div
+                  key={clinic.id}
+                  title={clinic.name}
+                  className="clinic-card flex-column gap-2"
+                >
+                  <ruby className="clinic-name h5">
+                    {clinic.name} <rp>(</rp>
+                    <rt>
+                      {clinic.city} {clinic.district}
+                    </rt>
+                    <rp>)</rp>
+                  </ruby>
+                  <p className="h6 text-tertiary d-flex align-items-center gap-1">
+                    <Icon fileName="phone" size={15} />
+                    {clinic.tel || "電話尚未提供"}
+                  </p>
+                  <div className="tags d-flex flex-wrap gap-1">
+                    {clinic.tags?.map((tag) => (
+                      <span key={tag} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto pt-1">
+                    <span
+                      className="view-detail fs-6"
+                      onClick={() =>
+                        navigate(`/veterinary/${clinic.id}`, { state: clinic })
+                      }
+                    >
+                      查看詳細資料
                     </span>
-                  ))}
+                  </div>
                 </div>
-                <div className="mt-auto pt-1">
-                  <span
-                    className="view-detail fs-6"
-                    onClick={() =>
-                      navigate(`/veterinary/${clinic.id}`, { state: clinic })
-                    }
-                  >
-                    查看詳細資料
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-        {totalPages > 1 && (
-          <Paginator
-            className="mt-4"
-            currentPage={currentPage}
-            onPageChange={fetchResults}
-            totalPages={totalPages}
-          />
+              ))}
+            </div>
+            {totalPages > 1 && (
+              <Paginator
+                className="mt-4"
+                currentPage={currentPage}
+                onPageChange={fetchResults}
+                totalPages={totalPages}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

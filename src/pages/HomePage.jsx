@@ -18,7 +18,7 @@ const Sections = () => (
   <div className="background-pattern">
     {sections.map(({ title, id, Component }) => (
       <section key={id} className={id} id={id}>
-        <div className="section-title">
+        <div className="section-title" data-aos="flip-left">
           <h3>{title}</h3>
         </div>
         <Component />
@@ -32,7 +32,7 @@ const HomePage = () => {
     <div className="home">
       <Header />
       <section className="find-vet" id="find-vet">
-        <div className="section-title">
+        <div className="section-title" data-aos="flip-left">
           <h3>找醫院</h3>
         </div>
         <SearchForm />

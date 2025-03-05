@@ -64,3 +64,12 @@ export const toApiQueryString = (data) => {
 
   return params.toString();
 }
+
+export const computedTo = (path, location) =>
+  path === "/search"
+    ? location.pathname === "/"
+      ? "/#find-vet"
+      : location.pathname === "/search/result"
+        ? location
+        : path
+    : path;
