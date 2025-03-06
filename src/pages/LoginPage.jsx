@@ -1,16 +1,36 @@
 import { useForm } from "react-hook-form";
 import Icon from "../components/common/Icon";
 import Navbar from "../components/common/NavBar";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Login Data:", data);
+  // 處理登入
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(`${BACKEND_HOST}/login`, {
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.data) {
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("登入失敗:", error);
+      alert("登入失敗，請檢查帳號密碼是否正確");
+    }
   };
 
   return (
