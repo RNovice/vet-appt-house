@@ -17,7 +17,7 @@ const UserAppointments = () => {
     try {
       const url = `${BACKEND_HOST}/appointments?usersId=2&_expand=users&_expand=vetClinics&_expand=pets`;
       const res = await axios.get(url);
-      console.log("API Response:", res.data);
+      //console.log("API Response:", res.data);
       setAppointmentsData(res.data);
     } catch (error) {
       console.log("取得預約資料失敗");
@@ -58,6 +58,7 @@ const UserAppointments = () => {
             <p className="text-center">目前沒有預約資料</p>
           ) : (
             <>
+              {/* 手機版 */}
               <div className="row d-lg-none">
                 <div className="col">
                   <div className="row g-3 mb-5">
@@ -72,49 +73,13 @@ const UserAppointments = () => {
                         mousewheel={true}
                       >
                         {appointmentsData
-                          .filter((item) => item.status == "已預約")
-                          .map((item) => (
-                            <Slide key={item.id}>
-                              <CardAppoint data={item} />
-                            </Slide>
-                          ))}
-                      </Swiper>
-                    </div>
-                  </div>
-                  <div className="row g-3 mb-5">
-                    <div className="col-12">
-                      <h5 className="d-lg-none">已到診</h5>
-                    </div>
-                    <div className="col">
-                      <Swiper
-                        modules={[Mousewheel]}
-                        spaceBetween={16}
-                        slidesPerView={"auto"}
-                        mousewheel={true}
-                      >
-                        {appointmentsData
-                          .filter((item) => item.status == "已到診")
-                          .map((item) => (
-                            <Slide key={item.id}>
-                              <CardAppoint data={item} />
-                            </Slide>
-                          ))}
-                      </Swiper>
-                    </div>
-                  </div>
-                  <div className="row g-3 mb-5">
-                    <div className="col-12">
-                      <h5 className="d-lg-none">已取消</h5>
-                    </div>
-                    <div className="col">
-                      <Swiper
-                        modules={[Mousewheel]}
-                        spaceBetween={16}
-                        slidesPerView={"auto"}
-                        mousewheel={true}
-                      >
-                        {appointmentsData
-                          .filter((item) => item.status == "已取消")
+                          .sort((a, b) => {
+                            if (a.status === "已預約" && b.status !== "已預約")
+                              return -1;
+                            if (a.status !== "已預約" && b.status === "已預約")
+                              return 1;
+                            return 0;
+                          })
                           .map((item) => (
                             <Slide key={item.id}>
                               <CardAppoint data={item} />
@@ -125,6 +90,8 @@ const UserAppointments = () => {
                   </div>
                 </div>
               </div>
+
+              {/* 電腦版 */}
               <div className="d-none d-lg-block">
                 <ul className="appoint-tags d-flex mb-4">
                   <li>
@@ -169,11 +136,32 @@ const UserAppointments = () => {
                       slidesPerView={"auto"}
                       mousewheel={true}
                     >
-                      {filteredData.map((item) => (
-                        <Slide key={item.id}>
-                          <CardAppoint data={item} />
-                        </Slide>
-                      ))}
+                      {activeTab === "已預約"
+                        ? appointmentsData
+                            .sort((a, b) => {
+                              if (
+                                a.status === "已預約" &&
+                                b.status !== "已預約"
+                              )
+                                return -1;
+                              if (
+                                a.status !== "已預約" &&
+                                b.status === "已預約"
+                              )
+                                return 1;
+                              return 0;
+                            })
+                            .map((item) => (
+                              <Slide key={item.id}>
+                                <CardAppoint data={item} />
+                              </Slide>
+                            ))
+                        : filteredData.map((item) => (
+                            // 已到診,已取消
+                            <Slide key={item.id}>
+                              <CardAppoint data={item} />
+                            </Slide>
+                          ))}
                     </Swiper>
                   </div>
                 </div>
