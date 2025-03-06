@@ -48,7 +48,7 @@ const VetServiceCards = ({result,clinicsServices,treatedAnimals}) => {
                         return service.status ? (
                             <div className="serviceCard col-md-6 col-xl-3" key={i}>
                                 <div className="card primary-blue-5 border-0 h-100">
-                                    <img src={service.imgUrl} className="card-img-top h-240 borderRadius-20" alt="#" />
+                                    <img src={service.imgUrl} className="card-img-top borderRadius-20" alt="#" />
                                     <div className="card-body p-24 d-flex flex-column">
                                         <span className="card-title roboto fz-20 lh-15 fw-600 mb-16">{service.title}</span>
                                         <span className="card-text roboto fz-16 lh-15 fw-400">{service.content}</span>

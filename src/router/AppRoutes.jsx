@@ -7,6 +7,7 @@ import VeterinaryPage from "../pages/VeterinaryPage";
 import UserPage from "../pages/UserPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
+import BookingPage from "../pages/BookingPage";
 
 const routes = [
   {
@@ -26,6 +27,7 @@ const routes = [
     ],
   },
   { path: "login", element: <LoginPage /> },
+  { path: "booking", element: <BookingPage /> },
   {
     path: "admin",
     element: (

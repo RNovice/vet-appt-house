@@ -10,6 +10,8 @@ import banner02 from "@/assets/images/veterinary/banner02.png";
 import banner03 from "@/assets/images/veterinary/banner03.png";
 import backgroundImage from "@/assets/images/veterinary/8.jpg";
 
+
+
   const images = [
     banner01,
     banner02,
@@ -20,7 +22,11 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
     const [treatedAnimals,setTreatedAnimals] = useState([]);
     const [clinicsServices,setClinicsServices] = useState([]);
     const [mainImage,setMainImage] = useState([]);
-    const [result, setResult] = useState({
+    const [result, setResult] = useState({});
+
+
+
+   /*  {
       "id": 4387,
       "city": "高雄市",
       "district": "新興區",
@@ -95,7 +101,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
       "MCParking": true,
       "CarParking": false,
       "hasMultiDisTreat":true
-    });
+    } */
 
     useEffect(()=>{
         const url = location.href
@@ -194,6 +200,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
           <PetsMarquee />
         </div>
       </section>
+
     </>);
 };
 

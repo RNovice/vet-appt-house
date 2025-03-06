@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 const VetTimeTable = ({result}) => {
+    console.log("VetTimeTable result",result)
     return (
         <>
             <div className="vetTimeTable d-flex">
@@ -44,7 +45,7 @@ const VetTimeTable = ({result}) => {
                                     <td key={hourIndex} className='col-3 pt-3 w-76'>
                                         {hourIndex === 0
                                             ?['一','二','三','四','五','六','日'][index]
-                                            :'O'
+                                            :[result["businessHours"][hourIndex-1][0]?'O':'休',result["businessHours"][hourIndex-1][1]?'O':'休',result["businessHours"][hourIndex-1][2]?'O':'休',result["businessHours"][hourIndex-1][3]?'O':'休',result["businessHours"][hourIndex-1][4]?'O':'休',result["businessHours"][hourIndex-1][5]?'O':'休',result["businessHours"][hourIndex-1][6]?'O':'休'][index]
                                         }
                                     </td>
                                 ))
