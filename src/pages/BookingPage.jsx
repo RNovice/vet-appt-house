@@ -269,13 +269,13 @@ export default function BookingPage() {
                   <label className="form-label" htmlFor="species">
                     預約物種
                   </label>
-                  <span id="species" className="form-control-plaintext">{speciesLabels[state.submitData.species]}</span>
+                  <span id="species" className="form-control-plaintext">{speciesLabels[state.submitData.species-1]}</span>
                 </div>
                 <div className="mb-3">
                   <label className="form-label" htmlFor="category">
                     預約科別
                   </label>
-                  <span id="category" className="form-control-plaintext">{departmentLabels[state.submitData.department]}</span>
+                  <span id="category" className="form-control-plaintext">{departmentLabels[state.submitData.department-1]}</span>
                 </div>
                 <div className="mb-3">
                   <label className="form-label" htmlFor="appointment-date">
