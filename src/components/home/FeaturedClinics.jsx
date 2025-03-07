@@ -77,7 +77,7 @@ const ClinicCard = ({ clinic }) => {
 };
 
 const FeaturedClinics = () => {
-  const [clinics, setClinics] = useState([]);
+  const [clinics, setClinics] = useState(rawClinics);
   const swiperRef = useRef(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);

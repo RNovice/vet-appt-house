@@ -14,7 +14,7 @@ const linkPathList = [
   { name: "快速預約", path: "/" },
   { name: "最新消息", path: "/#news" },
   { name: "關於我們", path: "/about-us" },
-  { name: "寵物管理", path: "/user#pets" },
+  { name: "寵物管理", path: "/user/pets" },
 ];
 
 const user = null;
@@ -46,11 +46,13 @@ const Navbar = () => {
       const element = document.getElementById(location.hash?.slice(1));
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
+        navigate(location.pathname, { replace: true, state: { hash: true } });
       }
     } else {
+      if (location.state?.hash) return;
       window.scrollTo({ top: 0, behavior: "instant" });
     }
-  }, [location]);
+  }, [location.pathname, location.hash]);
 
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">

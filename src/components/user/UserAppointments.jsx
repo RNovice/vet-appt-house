@@ -15,7 +15,7 @@ const UserAppointments = () => {
   // 使用 useCallback 包裝 API 調用函數
   const fetchAppointments = useCallback(async () => {
     try {
-      const url = `${BACKEND_HOST}/appointments?usersId=2&_expand=users&_expand=vetClinics&_expand=pets`;
+      const url = `${BACKEND_HOST}/appointments?userId=2&_expand=user&_expand=vetClinic&_expand=pet`;
       const res = await axios.get(url);
       //console.log("API Response:", res.data);
       setAppointmentsData(res.data);

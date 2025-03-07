@@ -17,12 +17,12 @@ const NotFound = () => {
           404 <img src={LogoSvg} alt="Site Logo" style={{ width: "50px" }} />
         </h1>
         <h2 className="mb-3">Page Not Found</h2>
-        <p className="text-muted mb-2">
+        <p className="text-muted mb-3">
           你所尋找的頁面不存在本站
           <br />
           10秒後自動轉跳至首頁
         </p>
-        <button className="btn btn-primary" onClick={() => navigate("/")}>
+        <button className="btn btn-primary border-0" onClick={() => navigate("/")}>
           返回首頁
         </button>
       </div>
