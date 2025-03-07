@@ -31,14 +31,14 @@ function calcWeight(weight) {
   return weight >= 1000 ? `${weight / 1000} kg` : `${weight} g`;
 }
 const PetCard = ({ pet }) => (
-  <div className="pet-card p-4 d-inline-flex gap-4">
+  <div className="pet-card d-inline-flex">
     <Avatar
       info={{ name: pet.name, avatar: pet.imageUrl }}
       style={{ borderRadius: "16px" }}
       size={356}
     />
-    <div className="info py-3 flex-column gap-4">
-      <div className="flex-column gap-1">
+    <div className="info flex-column">
+      <div className="title flex-column">
         <div className="d-flex justify-content-between">
           <h2 className="pet-name">{pet.name}</h2>
           <button className="edit-btn-desk">
@@ -46,51 +46,53 @@ const PetCard = ({ pet }) => (
             <span className="fs-6">編輯</span>
           </button>
         </div>
-        <h6 className="text-tertiary">{pet?.specie?.species}&nbsp;&nbsp;{pet?.specie?.scientificName}</h6>
+        <h6 className="specie text-tertiary">
+          {pet?.specie?.species}&nbsp;&nbsp;{pet?.specie?.scientificName}
+        </h6>
       </div>
-      <div className="flex-column gap-1d5 flex-item-fill">
+      <div className="detail flex-column flex-item-fill">
         <div className="d-flex gap-4 flex-item-fill">
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">年齡</label>
             <span className="fs-6">{getAge(pet.birthday)}</span>
           </div>
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">生日</label>
             <span className="fs-6">{pet.birthday?.replaceAll("-", " / ")}</span>
           </div>
         </div>
         <div className="d-flex gap-4 flex-item-fill">
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">體重</label>
             <span className="fs-6">{calcWeight(pet.weight)}</span>
           </div>
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">血型</label>
             <span className="fs-6">{pet.bloodType || "-"}</span>
           </div>
         </div>
         <div className="d-flex gap-4 flex-item-fill">
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">性別</label>
             <span className="fs-6">
               {{ male: "男", female: "女" }[pet.gender] || "未知"}
             </span>
           </div>
-          <div className="flex-column gap-1">
+          <div className="field flex-column">
             <label className="text-tertiary">是否已結紮</label>
             <span className="fs-6">{pet.isLigated ? "是" : "否"}</span>
           </div>
         </div>
-        <div className="flex-column gap-1">
+        <div className="field flex-column">
           <label className="text-tertiary">是否植入晶片</label>
           <span className="fs-6">{pet.hasChip ? "是" : "否"}</span>
         </div>
-        <button className="edit-btn-mobile fs-6 btn-s">
-          <Icon fileName="edit" />
-          <span className="fs-6">編輯</span>
-        </button>
       </div>
     </div>
+    <button className="edit-btn-mobile fs-6 btn-s">
+      <Icon fileName="edit" />
+      <span className="fs-6">編輯</span>
+    </button>
   </div>
 );
 
@@ -165,84 +167,6 @@ const PetPage = () => {
                 >
                   {pets.map((pet) => (
                     <Slide key={pet.id}>
-                      {/* <div className="pet-card p-4 d-inline-flex gap-4">
-                      <Avatar
-                        info={{ name: pet.name, avatar: pet.imageUrl }}
-                        style={{ borderRadius: "16px" }}
-                        size={356}
-                      />
-                      <div className="info py-3 flex-column gap-4">
-                        <div className="flex-column gap-1">
-                          <div className="d-flex justify-content-between">
-                            <h2>{pet.name}</h2>
-                            <button className="edit-btn-desk">
-                              <Icon fileName="edit" />
-                              <span className="fs-6">編輯</span>
-                            </button>
-                          </div>
-                          <h6 className="text-tertiary">
-                            物種名&nbsp;&nbsp;物種學名
-                          </h6>
-                        </div>
-                        <div className="flex-column gap-1d5 flex-item-fill">
-                          <div className="d-flex gap-4 flex-item-fill">
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">年齡</label>
-                              <span className="fs-6">
-                                {getAge(pet.birthday)} 歲
-                              </span>
-                            </div>
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">生日</label>
-                              <span className="fs-6">
-                                {pet.birthday?.replaceAll("-", " / ")}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="d-flex gap-4 flex-item-fill">
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">體重</label>
-                              <span className="fs-6">{pet.weight}</span>
-                            </div>
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">血型</label>
-                              <span className="fs-6">
-                                {pet.bloodType || "-"}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="d-flex gap-4 flex-item-fill">
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">性別</label>
-                              <span className="fs-6">
-                                {{ male: "男", female: "女" }[pet.gender] ||
-                                  "未知"}
-                              </span>
-                            </div>
-                            <div className="flex-column gap-1">
-                              <label className="text-tertiary">
-                                是否已結紮
-                              </label>
-                              <span className="fs-6">
-                                {pet.isLigated ? "是" : "否"}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex-column gap-1">
-                            <label className="text-tertiary">
-                              是否植入晶片
-                            </label>
-                            <span className="fs-6">
-                              {pet.hasChip ? "是" : "否"}
-                            </span>
-                          </div>
-                          <button className="edit-btn-mobile fs-6 btn-s">
-                            <Icon fileName="edit" />
-                            <span className="fs-6">編輯</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div> */}
                       <PetCard pet={pet} />
                     </Slide>
                   ))}
