@@ -25,84 +25,6 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
     const [result, setResult] = useState({});
 
 
-
-   /*  {
-      "id": 4387,
-      "city": "高雄市",
-      "district": "新興區",
-      "name": "萬祥犬專科醫院",
-      "licenseNumber": "高市建獸醫字第7號",
-      "services": [
-        1,
-        2,
-        7,
-        8,
-        14
-      ],
-      "treatedAnimals": [
-        1,
-        2,
-        4,
-        5
-      ],
-      "businessHours": [
-        [
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true
-        ],
-        [
-          true,
-          true,
-          false,
-          true,
-          true,
-          true,
-          true
-        ],
-        [
-          false,
-          true,
-          true,
-          true,
-          false,
-          true,
-          false
-        ]
-      ],
-      "hasEmergency": true,
-      "address": "高雄市新興區民生一路196號",
-      "tel": "07-2274387",
-      "CreateTime": "2025-02-19T09:00:00",
-      "UpdateTime": "2025-02-19T09:00:00",
-      "imageUrl": 12,
-      "imagesUrl": [
-        "https://images.unsplash.com/photo-1576671081741-c538eafccfff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2OTkwMzN8MHwxfHNlYXJjaHw3NHx8dmV0ZXJpbmFyeSUyMGNsaW5pY3xlbnwwfHx8fDE3MzczNjEwNDl8MA&ixlib=rb-4.0.3&q=80&w=1080",
-        "https://images.unsplash.com/photo-1606431424031-dbdedefc5bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2OTkwMzN8MHwxfHNlYXJjaHw0Mzh8fHZldGVyaW5hcnklMjBjbGluaWN8ZW58MHx8fHwxNzM3MzYxMDY2fDA&ixlib=rb-4.0.3&q=80&w=1080",
-        "https://images.unsplash.com/photo-1663182106210-2d372c45ed23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2OTkwMzN8MHwxfHNlYXJjaHwxNDR8fHZldGVyaW5hcnklMjBjbGluaWN8ZW58MHx8fHwxNzM3MzYxMDUyfDA&ixlib=rb-4.0.3&q=80&w=1080",
-        "https://images.unsplash.com/photo-1674049405737-0df6ff767f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2OTkwMzN8MHwxfHNlYXJjaHwyMDV8fHZldGVyaW5hcnklMjBjbGluaWN8ZW58MHx8fHwxNzM3MzYxMDU1fDA&ixlib=rb-4.0.3&q=80&w=1080",
-        "https://images.unsplash.com/photo-1682663947087-94157b8e4a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2OTkwMzN8MHwxfHNlYXJjaHwzODd8fHZldGVyaW5hcnklMjBjbGluaWN8ZW58MHx8fHwxNzM3MzYxMDY0fDA&ixlib=rb-4.0.3&q=80&w=1080"
-      ],
-      "hasExoticPetTreat": true,
-      "isEnabled": true,
-      "isAllDay": true,
-      "hasWalkInAppt": true,
-      "licenseInfo": {
-        "licenseType": "獸醫師",
-        "licenseDate": "19761230",
-        "ownName": "邱子鈴"
-      },
-      "HomeVisit": true,
-      "hasCallBooking": false,
-      "MCParking": true,
-      "CarParking": false,
-      "hasMultiDisTreat":true
-    } */
-
     useEffect(()=>{
         const url = location.href
         const urlParams = {}
@@ -115,7 +37,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
           
           const fetchData = async() => {
             try{
-                const clinicsData =  await axios.get(`https://vet-appt-house-backend.onrender.com/vetClinics/${urlParams['id']}`)
+                const clinicsData =  await axios.get(`https://vet-appt-house-backend.onrender.com/vetClinics/${urlParams['clinicId']}`)
                 const treatedAnimalsData =  await axios.get(`https://vet-appt-house-backend.onrender.com/treatedAnimals`)
                 const servicesData =  await axios.get(`https://vet-appt-house-backend.onrender.com/services`)
 /*                 const mainImagesData =  await axios.get(`http://localhost:3000/mainImages`) */
