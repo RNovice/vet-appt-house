@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
 import Icon from "../components/common/Icon";
 import Navbar from "../components/common/NavBar";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
+import { toast } from "react-toastify";
+import api from "../services/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ export default function LoginPage() {
   // 處理登入
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(`${BACKEND_HOST}/login`, {
+      const response = await api.post(`login`, {
         email: data.email,
         password: data.password,
       });
@@ -25,7 +24,8 @@ export default function LoginPage() {
       if (response.data) {
         localStorage.setItem("token", response.data.accessToken);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/");
+        navigate("/user");
+        toast("登入成功", {className: "toast-success"})
       }
     } catch (error) {
       console.error("登入失敗:", error);

@@ -8,7 +8,4 @@ const api = axios.create({
   },
 });
 
-// wake render server
-api("/")
-
 export default api;

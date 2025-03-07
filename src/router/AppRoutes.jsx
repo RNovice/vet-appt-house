@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import VeterinaryPage from "../pages/VeterinaryPage";
 import UserPage from "../pages/UserPage";
+import PetPage from "../pages/PetPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
 import VetSearchPage from "../pages/VetSearchPage";
@@ -28,11 +29,12 @@ export default createRouter([
       { path: "veterinary", element: <VeterinaryPage /> },
       {
         path: "user",
-        element: (
-          <ProtectedRoute isAuthenticated={true}>
-            <UserPage />
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute isAuthenticated={true} />,
+        children: [
+          { index: true, element: <UserPage /> },
+          { path: "pets", element: <PetPage /> },
+
+        ],
       },
       { path: "about-us", element: <AboutUs /> },
       { path: "nearby", element: <Redirect /> },

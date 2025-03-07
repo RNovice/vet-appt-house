@@ -37,7 +37,7 @@ const linkPathList = [
     name: "會員中心",
     path: "/user",
     children: [
-      { name: "我的寵物", path: "/user#pets" },
+      { name: "我的寵物", path: "/user/pets" },
       { name: "我的預約", path: "/user#appointments" },
     ],
   },

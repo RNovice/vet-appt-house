@@ -77,6 +77,20 @@ $heading-style-list: (2.5rem, 3rem), (2rem, 2.4rem), (1.75rem, 2.1rem),
   }
 }
 
+.d1 {
+  font-size: 3rem !important;
+  line-height: 57.6px;
+  font-family: "Kosugi Maru";
+  font-weight: 400;
+}
+
+.d2 {
+  font-size: 1.5rem !important;
+  line-height: 2.25rem;
+  font-family: "Kosugi Maru";
+  font-weight: 400;
+}
+
 // button
 %btn-attr {
   display: inline-block;
@@ -202,7 +216,7 @@ label:has(input.error),
       color: $text-error;
     }
   }
-  &:is(:-webkit-autofill,:autofill) {
+  &:is(:-webkit-autofill, :autofill) {
     -webkit-background-clip: text;
     -webkit-text-fill-color: $text-primary;
     box-shadow: inset 0 0 20px 20px $grey-scale-6;
@@ -225,8 +239,7 @@ label:has(input.error),
     height: 24px;
     background-image: url("@/assets/icons/uncheck-box.svg");
   }
-  &:has(input[type="checkbox"]:checked)::before
-   {
+  &:has(input[type="checkbox"]:checked)::before {
     background-image: url("@/assets/icons/check-box.svg");
   }
 }
@@ -260,11 +273,15 @@ img.d-none + .img-alt {
 }
 
 // toast
+.Toastify__toast-container {
+  margin-top: $nav-height;
+}
+
 .toast-primary {
   background-color: $bg-secondary !important;
   color: $text-secondary !important;
   .Toastify__close-button svg {
-    fill: $text-secondary
+    fill: $text-secondary;
   }
 }
 .toast-success {
@@ -292,7 +309,7 @@ img.d-none + .img-alt {
   user-select: none;
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 0px 3px 10px 0px #0000001F;
+  box-shadow: 0px 3px 10px 0px #0000001f;
   transform: translateY(-8px);
   .react-datepicker__header {
     background: transparent;
@@ -308,7 +325,7 @@ img.d-none + .img-alt {
   .react-datepicker__day--selected {
     background-color: $bg-tertiary;
     border-radius: 50%;
-    &:hover{
+    &:hover {
       background-color: $bg-tertiary;
       opacity: 0.7;
     }
