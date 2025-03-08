@@ -51,8 +51,8 @@ const VetHeader = ({ clinicData }) => {
           <div className="vetBannerTitle d-flex flex-column z-3">
             <h5 className="Kosugi-Maru fz-24 lh-15 mb-2">{clinicData.name}</h5>
             <span className="mb-3 h-116">
-              <SlideText text={currentSlide.text1} index={1} />
-              <SlideText text={currentSlide.text2} index={2} />
+              <SlideText text={currentSlide.text1} index={`1-${index}`} />
+              <SlideText text={currentSlide.text2} index={`2-${index}`} />
             </span>
             <span className="mb-3 h-20">
               <h6 className="roboto fz-16 lh-12 text-fade-in" key={`vet-head-text-3-${index}`}>
