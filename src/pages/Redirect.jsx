@@ -56,6 +56,9 @@ const Redirect = () => {
         });
         navigate("/");
       }
+    } else if (location.pathname === "/veterinary") {
+      toast("請指定醫院", {className: "toast-primary"})
+      navigate("/search");
     } else {
       navigate("/404");
     }
