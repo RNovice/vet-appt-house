@@ -1,3 +1,8 @@
+import multiAnimalImg from "@/assets/images/veterinary/8.jpg";
+import multiDisImg from "@/assets/images/veterinary/1.jpg";
+import homeVisitImg from "@/assets/images/veterinary/9.jpg";
+import emergencyImg from "@/assets/images/veterinary/10.jpg";
+
 const VetServiceCards = ({ clinicData }) => {
   if (!clinicData) return null;
 
@@ -7,7 +12,7 @@ const VetServiceCards = ({ clinicData }) => {
       content: `專治${clinicData.treatedAnimals
         .map(({ species }) => species)
         .join("、")}，針對不同寵物需求，提供全面且細緻的專業醫療服務。`,
-      imgUrl: clinicData.imagesUrl?.[0],
+      imgUrl: multiAnimalImg,
     },
     clinicData.hasMultiDisTreat && {
       title: "多科專業診療",
@@ -15,18 +20,18 @@ const VetServiceCards = ({ clinicData }) => {
         ?.map(({ service }) => service)
         .slice(0, 5)
         .join("、")}等多項醫療服務，以專業診療方案照顧毛孩的全方位健康需求。`,
-      imgUrl: clinicData.imagesUrl?.[1],
+      imgUrl: multiDisImg,
     },
     clinicData.HomeVisit && {
       title: "到府出診",
       content:
         "無需奔波，專業醫療團隊到府服務，讓毛孩在熟悉環境中獲得最佳照護。",
-      imgUrl: clinicData.imagesUrl?.[2],
+      imgUrl: homeVisitImg,
     },
     clinicData.hasEmergency && {
       title: "24 小時急診",
       content: "全年無休的急診服務，緊急時刻第一時間為毛孩提供救助與關懷。",
-      imgUrl: clinicData.imagesUrl?.[3],
+      imgUrl: emergencyImg,
     },
   ].filter(Boolean);
 
