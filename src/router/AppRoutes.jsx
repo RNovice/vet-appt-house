@@ -1,4 +1,4 @@
-import { createHashRouter, createBrowserRouter } from "react-router-dom";
+import { createHashRouter, createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import HomePage from "../pages/HomePage";
@@ -8,6 +8,7 @@ import UserPage from "../pages/UserPage";
 import PetPage from "../pages/PetPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthWrapper from "../components/auth/AuthWrapper";
+import BookingPage from "../pages/BookingPage";
 import VetSearchPage from "../pages/VetSearchPage";
 import NotFound from "../pages/NotFound";
 import AboutUs from "../pages/AboutUs";
@@ -26,7 +27,8 @@ export default createRouter([
       { index: true, element: <HomePage /> },
       { path: "search", element: <VetSearchPage /> },
       { path: "search/result", element: <VetSearchPage /> },
-      { path: "veterinary", element: <VeterinaryPage /> },
+      { path: "veterinary", element: <Redirect /> },
+      { path: "veterinary/:id", element: <VeterinaryPage /> },
       {
         path: "user",
         element: <ProtectedRoute isAuthenticated={true} />,
@@ -41,6 +43,7 @@ export default createRouter([
     ],
   },
   { path: "login", element: <LoginPage /> },
+  { path: "booking", element: <BookingPage /> },
   {
     path: "admin",
     element: (
