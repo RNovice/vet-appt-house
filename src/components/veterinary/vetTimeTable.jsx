@@ -1,4 +1,5 @@
 import vetLogo from "@/assets/images/veterinary/vetlogo.png"
+import phoneIcon from "@/assets/images/veterinary/icon.png"
 
 const formatVetName = (name) => {
   const suffixes = ["犬專科醫院", "動物醫院", "獸醫院"];
@@ -49,7 +50,7 @@ const VetTimeTable = ({ clinicData }) => {
               </span>
               <div className="mb-4 d-flex align-items-center">
                 <img
-                  src="../src/assets/images/veterinary/icon.png"
+                  src={phoneIcon}
                   className="phoneIcon mr-20"
                   alt="phone icon"
                 />

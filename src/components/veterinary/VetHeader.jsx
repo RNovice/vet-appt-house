@@ -5,6 +5,7 @@ import backgroundImage from "@/assets/images/veterinary/8.jpg";
 import banner01 from "@/assets/images/veterinary/banner01.png";
 import banner02 from "@/assets/images/veterinary/banner02.png";
 import banner03 from "@/assets/images/veterinary/banner03.png";
+import bubble from "@/assets/images/veterinary/bubble.png"
 
 const heading = [
   { image: banner01, text1: "健康依靠", text2: "給毛孩最好的", text3: "專業關懷，您最信賴的選擇" },
@@ -34,7 +35,7 @@ const VetHeader = ({ clinicData }) => {
     >
       <div className="container">
         <div className="bubble position-absolute bottom-138">
-          <img src="../src/assets/images/veterinary/bubble.png" className="bubbleJpg" alt="bubble" />
+          <img src={bubble} className="bubbleJpg" alt="bubble" />
           <div className="bannerJpg">
             <motion.img
               key={index}
