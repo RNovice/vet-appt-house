@@ -19,6 +19,7 @@ export default function BookingPage() {
         clinicsData:[],
         serviceOptions:[],
         speciesOptions:[],
+        clinicsTime:[],
         vetClinicsId:-1
       },
       pet:{
@@ -29,7 +30,6 @@ export default function BookingPage() {
         userName:'',
       },
       appointment:{
-        time:[],
         submitData:{}
       },
       ui:{
@@ -83,9 +83,7 @@ export default function BookingPage() {
         navigate("/404");
         return;
       }
-      console.log("data = location.state", location.state)
-      
-      console.log("!location.state", !location.state)
+
       const fetchData = async() => {
       if(isBookingPage){
         try{
@@ -106,7 +104,8 @@ export default function BookingPage() {
                 clinicsData:data,
                 vetClinicsId:Number(urlParams['clinicId']),
                 serviceOptions:data.services.map(item=>item.id),
-                speciesOptions:data.treatedAnimals.map(item=>item.id)
+                speciesOptions:data.treatedAnimals.map(item=>item.id),
+                clinicsTime:[businessHours[0][day === 0? 6 : day-1],businessHours[1][day === 0? 6 : day-1],businessHours[2][day === 0? 6 : day-1 ]]
               },
               pet:{
                 petOptions:petData.data.map(pet=>({id:pet.id,petName:pet.name}))
@@ -114,10 +113,7 @@ export default function BookingPage() {
               user: {
                 usersId:1, //登入功能完成後修改
                 userName:'六角' //登入功能完成後修改
-              },
-              appointment: {
-                time:[businessHours[0][day === 0? 6 : day-1],businessHours[1][day === 0? 6 : day-1],businessHours[2][day === 0? 6 : day-1 ]]
-              }              
+              }            
             })
         }catch(err){
           console.log("Error: ", err)
@@ -152,15 +148,13 @@ export default function BookingPage() {
     const businessHours = state.clinic.clinicsData.businessHours
 
     dispatch({
-       appointment: {
-        time:[businessHours[0][day === 0? 6 : day-1],businessHours[1][day === 0? 6 : day-1],businessHours[2][day === 0? 6 : day-1]]
+       clinic: {
+        clinicsTime:[businessHours[0][day === 0? 6 : day-1],businessHours[1][day === 0? 6 : day-1],businessHours[2][day === 0? 6 : day-1]]
        }
     })
   }
 
-  const onSubmit = (data) => {
-    const time = new Date();
-    
+  const onSubmit = (data) => {    
     dispatch({
       ui: {
         isOpen: true,
@@ -262,7 +256,7 @@ export default function BookingPage() {
               </label>
               <select {...register("time", { required: true })} className="form-select mb-2">
                 <option value=''>請選擇時間</option>
-                {state.appointment.time.map((isAvailable, index) =>
+                {state.clinic.clinicsTime.map((isAvailable, index) =>
                   isAvailable && <option key={index} value={timeLabels[index]}>{timeLabels[index]}</option>
                 )}
               </select> 
