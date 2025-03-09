@@ -51,9 +51,12 @@ function CardAppoint({ data }) {
           <button className="btn btn-light rounded-pill px-4 py-3">
             查看詳情
           </button>
-          <button className="btn btn-light rounded-pill px-4 py-3">
-            取消預約
-          </button>
+          {
+            data.status == "已預約"?(<button className="btn btn-light rounded-pill px-4 py-3">
+              取消預約
+            </button>):""
+          }
+          
         </div>
         {/* 下方 */}
       </div>
