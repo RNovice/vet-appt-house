@@ -45,13 +45,13 @@ const UserAppointments = () => {
           <div className="d-flex align-items-end justify-content-between mb-5">
             <div></div>
             <h3 className="section-title text-secondary">預約紀錄</h3>
-            {appointmentsData && appointmentsData.length > 0 ? (
+            {/* {appointmentsData && appointmentsData.length > 0 ? (
               <a className="fs-6 d-none d-lg-block" href="/">
                 查看全部
               </a>
             ) : (
               ""
-            )}
+            )} */}
           </div>
 
           {appointmentsData && appointmentsData.length == 0 ? (
@@ -61,6 +61,7 @@ const UserAppointments = () => {
               {/* 手機版 */}
               <div className="row d-lg-none">
                 <div className="col">
+                  {/* 即將到來 */}
                   <div className="row g-3 mb-5">
                     <div className="col-12">
                       <h5 className="d-lg-none">即將到來</h5>
@@ -72,14 +73,49 @@ const UserAppointments = () => {
                         slidesPerView={"auto"}
                         mousewheel={true}
                       >
-                        {appointmentsData
-                          .sort((a, b) => {
-                            if (a.status === "已預約" && b.status !== "已預約")
-                              return -1;
-                            if (a.status !== "已預約" && b.status === "已預約")
-                              return 1;
-                            return 0;
-                          })
+                        {appointmentsData.filter(item => item.status == "已預約") 
+                          .map((item) => (
+                            <Slide key={item.id}>
+                              <CardAppoint data={item} />
+                            </Slide>
+                          ))}
+                      </Swiper>
+                    </div>
+                  </div>
+                  {/* 已到診 */}
+                  <div className="row g-3 mb-5">
+                    <div className="col-12">
+                      <h5 className="d-lg-none">已到診</h5>
+                    </div>
+                    <div className="col">
+                      <Swiper
+                        modules={[Mousewheel]}
+                        spaceBetween={16}
+                        slidesPerView={"auto"}
+                        mousewheel={true}
+                      >
+                        {appointmentsData.filter(item => item.status == "已到診")
+                          .map((item) => (
+                            <Slide key={item.id}>
+                              <CardAppoint data={item} />
+                            </Slide>
+                          ))}
+                      </Swiper>
+                    </div>
+                  </div>
+                  {/* 已取消 */}
+                  <div className="row g-3 mb-5">
+                    <div className="col-12">
+                      <h5 className="d-lg-none">已取消</h5>
+                    </div>
+                    <div className="col">
+                      <Swiper
+                        modules={[Mousewheel]}
+                        spaceBetween={16}
+                        slidesPerView={"auto"}
+                        mousewheel={true}
+                      >
+                        {appointmentsData.filter(item => item.status == "已取消")
                           .map((item) => (
                             <Slide key={item.id}>
                               <CardAppoint data={item} />
@@ -168,9 +204,9 @@ const UserAppointments = () => {
               </div>
               <div className="row mt-4 d-block d-lg-none">
                 <div className="col-12 text-center">
-                  <a className="fs-6 p-3" href="/">
+                  {/* <a className="fs-6 p-3" href="/">
                     查看全部
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </>
