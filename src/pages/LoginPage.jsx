@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuth } from "@/context/AuthContext";
 import Icon from "../components/common/Icon";
 import Navbar from "../components/common/NavBar";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import api from "../services/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { isLogin, login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -24,8 +26,9 @@ export default function LoginPage() {
       if (response.data) {
         localStorage.setItem("token", response.data.accessToken);
         localStorage.setItem("user", JSON.stringify(response.data.user));
+        login(response.data)
         navigate("/user");
-        toast("登入成功", {className: "toast-success"})
+        toast("登入成功", { className: "toast-success" });
       }
     } catch (error) {
       console.error("登入失敗:", error);
@@ -34,6 +37,7 @@ export default function LoginPage() {
   };
 
   return (
+    isLogin ? <Navigate to="/user"/>:
     <>
       <Navbar />
       <div className="login d-flex justify-content-center align-items-center hv100-with-nav p-4">

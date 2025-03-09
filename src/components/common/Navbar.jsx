@@ -8,6 +8,7 @@ import clawMarksMiddle from "@/assets/images/navbar/claw-marks2.svg";
 import clawMarksBottom from "@/assets/images/navbar/claw-marks3.svg";
 import Icon from "./Icon";
 import { computedTo } from "../../utils/common";
+import { useAuth } from "@/context/AuthContext";
 
 const linkPathList = [
   { name: "搜尋獸醫", path: "/search" },
@@ -22,6 +23,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isAboveHeader, setIsAboveHeader] = useState(true);
+  const { isLogin, user, logout } = useAuth();
   const navMenuRef = useRef(null);
 
   useEffect(() => {
@@ -119,10 +121,17 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          {user ? (
-            <NavLink className="profile text-decoration-none" to="/user">
-              <Avatar info={user} size={36} />
-            </NavLink>
+          {isLogin ? (
+            location.pathname === "/user" ? (
+              <button className="btn-xs btn-tertiary" type="button" onClick={logout}>登出</button>
+            ) : (
+              <NavLink className="profile text-decoration-none" to="/user">
+                <Avatar
+                  info={{ name: user?.name, avatar: user?.imageUrl }}
+                  size={36}
+                />
+              </NavLink>
+            )
           ) : (
             <NavLink className="btn-xs btn-tertiary" to="/login">
               登入

@@ -1,4 +1,4 @@
-import { createHashRouter, createBrowserRouter, Navigate } from "react-router-dom";
+import { createHashRouter, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import HomePage from "../pages/HomePage";
@@ -31,7 +31,7 @@ export default createRouter([
       { path: "veterinary/:id", element: <VeterinaryPage /> },
       {
         path: "user",
-        element: <ProtectedRoute isAuthenticated={true} />,
+        element: <ProtectedRoute />,
         children: [
           { index: true, element: <UserPage /> },
           { path: "pets", element: <PetPage /> },
@@ -40,6 +40,7 @@ export default createRouter([
       },
       { path: "about-us", element: <AboutUs /> },
       { path: "nearby", element: <Redirect /> },
+      { path: "quick", element: <Redirect /> },
     ],
   },
   { path: "login", element: <LoginPage /> },
