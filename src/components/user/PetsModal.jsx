@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Icon from "../common/Icon";
 
 function PetsModal({ speciesData, modalType, petData }) {
-  console.log("petData", petData);
+  // console.log("petData", petData);
   const [uploadedImage, setUploadedImage] = useState(null);
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
@@ -59,11 +59,11 @@ function PetsModal({ speciesData, modalType, petData }) {
 
   // 當 petData 變更時，更新表單數據
   useEffect(() => {
-    console.log("petData or modalType changed:", petData, modalType);
+    // console.log("petData or modalType changed:", petData, modalType);
 
     if (petData) {
       // 如果是編輯模式且有 petData，則設置表單數據
-      console.log("Setting form data for edit mode");
+      // console.log("Setting form data for edit mode");
       setShowImageError(false);
 
       // 使用 setValue 逐個更新表單字段
@@ -93,7 +93,7 @@ function PetsModal({ speciesData, modalType, petData }) {
       }
     } else {
       // 如果是新增模式，重置表單
-      console.log("Resetting form for new mode");
+      // console.log("Resetting form for new mode");
       reset({
         name: "",
         specieId: "",
@@ -137,7 +137,7 @@ function PetsModal({ speciesData, modalType, petData }) {
     // 重置圖片錯誤提示狀態
     setShowImageError(false);
 
-    console.log("Modal closed, form and image reset");
+    // console.log("Modal closed, form and image reset");
   };
 
   /**
@@ -207,7 +207,7 @@ function PetsModal({ speciesData, modalType, petData }) {
       updateTime: new Date().toLocaleString(),
     };
 
-    console.log("Form submitted with data:", formData);
+    // console.log("Form submitted with data:", formData);
     // 這裡可以處理表單提交，例如發送到服務器
     if (modalType === "new") {
       // 新增寵物
@@ -240,16 +240,16 @@ function PetsModal({ speciesData, modalType, petData }) {
         setUploadedImage(event.target.result);
       };
       reader.readAsDataURL(file);
-      console.log("File uploaded:", file);
+      // console.log("File uploaded:", file);
     } else {
-      alert("File size exceeds 10MB or no file selected.");
+      alert("檔案大小超過 10MB 或未選擇檔案");
     }
   };
 
   const handleUploadClick = (e) => {
     // 阻止事件冒泡
     e.stopPropagation();
-    //console.log("Upload area clicked");
+    // console.log("Upload area clicked");
     if (fileInputRef.current) {
       fileInputRef.current.click();
     } else {
@@ -266,7 +266,7 @@ function PetsModal({ speciesData, modalType, petData }) {
       fileInputRef.current.value = "";
     }
 
-    //console.log("Image removed");
+    // console.log("Image removed");
   };
 
   return (

@@ -1,8 +1,10 @@
 import Icon from "../common/Icon";
+import { monthAbbreviation } from "@/utils/constants";
 
 function CardAppoint({ data }) {
   const _date = data.appointmentDateTime.split(" ")[0];
   const _time = data.appointmentDateTime.split(" ")[1];
+  const _month = new Date(_date).getMonth() + 1;
 
   let styleDateBg = " bg-disabled text-center py-2 px-4 rounded-2 ";
   let styleAppointStatus = " appoint-status ";
@@ -17,7 +19,7 @@ function CardAppoint({ data }) {
         {/* 上方 */}
         <div className="d-flex align-items-center">
           <div className={styleDateBg}>
-            <p>Dec</p>
+            <p>{monthAbbreviation.find((item) => item.id === _month).value}</p>
             <p className="fs-5 fw-bold">24</p>
           </div>
           <div className="ms-3">
