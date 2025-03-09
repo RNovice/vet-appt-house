@@ -21,8 +21,8 @@ function CardAppoint({ data }) {
             <p className="fs-5 fw-bold">24</p>
           </div>
           <div className="ms-3">
-            <p className="mb-2">{data.pets?.name}</p>
-            <p>{data.vetClinics?.name}</p>
+            <p className="mb-2">{data.pet?.name}</p>
+            <p>{data.vetClinic?.name}</p>
           </div>
           <div className="ms-auto mb-auto">
             <div className={styleAppointStatus}>{data.status}</div>
