@@ -1,12 +1,15 @@
 import { useEffect, useReducer, useRef} from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { Modal } from 'bootstrap';
 import axios from 'axios';
 import Navbar from "../components/common/NavBar";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Modal } from 'bootstrap';
+import DatePicker from '@/components/common/DatePicker';
+import api from "@/services/api";
 
 export default function BookingPage() {
+    const location = useLocation();
+    const [searchParams] = useSearchParams();
     const appointmentModalRef = useRef(null);
     const modalInstanceRef = useRef(null);
 
@@ -27,7 +30,7 @@ export default function BookingPage() {
       return {...state, ...action}
     }
 
-    const [state, dispatch] = useReducer(reducer,initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const timeLabels = ["上午","下午","晚上"]
     const departmentLabels = ["一般內科","一般外科","皮膚科","疫苗接種","結紮手術","牙科","影像診斷(X光、超音波、CT/MRI)","急診","行為診療","眼科","腫瘤科","泌尿科","復健科","寄生蟲防治","繁殖服務","特殊動物"]
@@ -38,10 +41,6 @@ export default function BookingPage() {
           backdrop: false
       });
 
-      // 如果 isOpen 是 true，顯示 modal
-      if (state.isOpen) {
-          modalInstanceRef.current.show();
-      }
     }, []);
 
     useEffect(() => {
@@ -59,22 +58,18 @@ export default function BookingPage() {
           isOpen:false
         })
     };
-
+    
     useEffect(()=>{
-      const url = location.href
-      const urlParams = {}
+      const isBookingPage = location.pathname.includes("/booking");
+      const urlParams = Object.fromEntries(searchParams);
       
       const fetchData = async() => {
-      if(url.includes("?")){
-        url.split("?")[1]?.split("&").forEach((item)=>{
-          const [key, value] = item.split("=");
-          urlParams[key] = decodeURIComponent(value);
-        })}
-
+      if(isBookingPage){
         try{
-            const data =  await axios.get(`https://vet-appt-house-backend.onrender.com/vetClinics/${urlParams['clinicId']}`)
+            const data =  await api.get(`/vetClinics/${urlParams['clinicId']}`)
 
-            const petData =  await axios.get(`https://vet-appt-house-backend.onrender.com/pets?userId=1`)
+            const petData =  await api.get(`/pets?userId=1`)
+
             const businessHours = data.data.businessHours
             const day = new Date().getDay();
 
@@ -90,6 +85,7 @@ export default function BookingPage() {
             })
         }catch(err){
           console.log("Error: ", err)
+        }
         }
       }
 
@@ -117,8 +113,6 @@ export default function BookingPage() {
 
   const handleDateChange = (date) => {
     const day = date.getDay();
-    console.log("day", day)
-    console.log("clinicsData", state.clinicsData)
     const businessHours = state.clinicsData.businessHours
 
     dispatch({
@@ -149,14 +143,14 @@ export default function BookingPage() {
   };
 
   const confirmSubmit = async() => {
+    dispatch({
+      isOpen:false
+    })
     await axios.post('http://localhost:3000/appointments', state.submitData)
     .then(res=>{
       if(res.status===201){
         alert("預約成功")
       }
-      dispatch({
-          isOpen:false
-        })
     }).catch(err=>{
       console.log("Error: ", err)
     })
@@ -205,6 +199,7 @@ export default function BookingPage() {
               <Controller
                 name="date"
                 control={control}
+                rules={{required:"請選擇日期"}}
                 render={({field})=>(
                   <DatePicker 
                     {...field}
@@ -296,7 +291,7 @@ export default function BookingPage() {
               </div>
               <div className="modal-footer">
                 <button type="button" onClick={handleCloseModal} className="btn btn-outline-danger" data-bs-dismiss="modal">返回修改</button>
-                <button type="button" onClick={confirmSubmit} className="btn btn-outline-primary">確認送出</button>
+                <button type="button" onClick={confirmSubmit} className="btn btn-outline-quaternary">確認送出</button>
               </div>
             </div>
           </div>
