@@ -1,17 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
 import { Mousewheel, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
 import Icon from "../common/Icon";
+import PetsModal from "./PetsModal";
+import * as bootstrap from "bootstrap";
 
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 const UserPets = () => {
   const [petsData, setPetsData] = useState([]);
+  const [petData, setPetData] = useState([]);
+  const [modalType, setModalType] = useState("new");
+  const [speciesData, setSpeciesData] = useState([]);
+  const petsModalRef = useRef(null);
 
   useEffect(() => {
+    petsModalRef.current = new bootstrap.Modal("#petsModal", {
+      keyboard: false,
+    });
+
     (async () => {
       try {
         const url = `${BACKEND_HOST}/users/2/pets?userId=2`;
@@ -21,10 +31,40 @@ const UserPets = () => {
         console.log("取得寵物資料失敗");
       }
     })();
+
+    (async () => {
+      try {
+        const url = `${BACKEND_HOST}/species`;
+        const res = await axios.get(url);
+        setSpeciesData(res.data);
+      } catch (error) {
+        console.log("取得物種資料失敗");
+      }
+    })();
   }, []);
+
+  const openModal = useCallback((type, petData) => {
+    if (type === "new") {
+      setPetData(null);
+      setModalType("new");
+    } else {
+      setPetData(petData);
+      setModalType("detail");
+    }
+    petsModalRef.current.show();
+  }, []);
+
+  // const closeModal = useCallback(() => {
+  //   petsModalRef.current.hide();
+  // }, []);
 
   return (
     <>
+      <PetsModal
+        speciesData={speciesData}
+        modalType={modalType}
+        petData={petData}
+      />
       <div className="userPrts bg-cover" id="pets">
         <div className="container">
           <div className="d-flex align-items-end justify-content-between mb-5">
@@ -55,7 +95,7 @@ const UserPets = () => {
               <div className="row g-3">
                 <div className="col-12 col-lg-1 order-1">
                   {/* 新增寵物按鈕 start */}
-                  <a role="button">
+                  <a role="button" onClick={() => openModal("new")}>
                     <div className="add-pet card p-3 rounded-4 border-0 h-100">
                       <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
                         <span className="align-items-center justify-content-center d-flex ">
@@ -86,7 +126,10 @@ const UserPets = () => {
                             <p className="card-text text-grey-scale-2 text-center">
                               {item.age}
                             </p>
-                            <button className="btn btn-primary w-100 rounded-pill mt-3 py-2">
+                            <button
+                              className="btn btn-primary w-100 rounded-pill mt-3 py-2"
+                              onClick={() => openModal("detail", item)}
+                            >
                               查看詳情
                             </button>
                           </div>
