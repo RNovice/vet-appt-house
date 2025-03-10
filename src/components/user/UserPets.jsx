@@ -84,7 +84,7 @@ const UserPets = () => {
             )}
           </div>
           {petsData && petsData.length == 0 ? (
-            <a role="button">
+            <div onClick={() => openModal("new")}>
               <div className="card p-3 rounded-4 border-0">
                 <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
                   <div className="align-items-center justify-content-center d-flex ">
@@ -93,13 +93,13 @@ const UserPets = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </div>
           ) : (
             <>
               <div className="row g-3">
                 <div className="col-12 col-lg-1 order-1">
                   {/* 新增寵物按鈕 start */}
-                  <a role="button" onClick={() => openModal("new")}>
+                  <div onClick={() => openModal("new")}>
                     <div className="add-pet card p-3 rounded-4 border-0 h-100">
                       <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
                         <span className="align-items-center justify-content-center d-flex ">
@@ -108,7 +108,7 @@ const UserPets = () => {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </div>
                   {/* 新增寵物按鈕 end */}
                 </div>
                 <div className="col">

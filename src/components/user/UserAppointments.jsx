@@ -134,37 +134,34 @@ const UserAppointments = () => {
               <div className="d-none d-lg-block">
                 <ul className="appoint-tags d-flex mb-4">
                   <li>
-                    <a
-                      role="button"
+                    <div
                       className={`rounded-pill ${
                         activeTab === "已預約" ? "active" : ""
                       }`}
                       onClick={() => handleTabClick("已預約")}
                     >
                       即將到來
-                    </a>
+                    </div>
                   </li>
                   <li>
-                    <a
-                      role="button"
+                    <div
                       className={`rounded-pill ${
                         activeTab === "已到診" ? "active" : ""
                       }`}
                       onClick={() => handleTabClick("已到診")}
                     >
                       已到診
-                    </a>
+                    </div>
                   </li>
                   <li>
-                    <a
-                      role="button"
+                    <div
                       className={`rounded-pill ${
                         activeTab === "已取消" ? "active" : ""
                       }`}
                       onClick={() => handleTabClick("已取消")}
                     >
                       已取消
-                    </a>
+                    </div>
                   </li>
                 </ul>
                 <div className="row">
