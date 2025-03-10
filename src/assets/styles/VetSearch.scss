@@ -110,6 +110,10 @@
     margin-top: 2rem;
     scroll-margin-top: calc($nav-height + 2rem);
 
+    .max-space {
+      grid-column: 1/-1;
+    }
+
     .clinic-card {
       background-color: $grey-scale-7;
       background-image: url("@/assets/images/search/vet-logo.png");

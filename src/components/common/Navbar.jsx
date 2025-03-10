@@ -12,13 +12,12 @@ import { useAuth } from "@/context/AuthContext";
 
 const linkPathList = [
   { name: "搜尋獸醫", path: "/search" },
-  { name: "快速預約", path: "/" },
+  { name: "快速預約", path: "/quick" },
   { name: "最新消息", path: "/#news" },
   { name: "關於我們", path: "/about-us" },
   { name: "寵物管理", path: "/user/pets" },
 ];
 
-const user = null;
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,6 +54,12 @@ const Navbar = () => {
       window.scrollTo({ top: 0, behavior: "instant" });
     }
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    if (location.state?.action === "logout") {
+      logout();
+    }
+  }, [location.state]);
 
   return (
     <nav className="navbar navbar-expand-lg position-sticky top-0 bg-secondary text-primary">
@@ -123,7 +128,13 @@ const Navbar = () => {
           </ul>
           {isLogin ? (
             location.pathname === "/user" ? (
-              <button className="btn-xs btn-tertiary" type="button" onClick={logout}>登出</button>
+              <button
+                className="btn-xs btn-tertiary"
+                type="button"
+                onClick={() => navigate("/", { state: { action: "logout" } })}
+              >
+                登出
+              </button>
             ) : (
               <NavLink className="profile text-decoration-none" to="/user">
                 <Avatar

@@ -35,7 +35,6 @@ export default createRouter([
         children: [
           { index: true, element: <UserPage /> },
           { path: "pets", element: <PetPage /> },
-
         ],
       },
       { path: "about-us", element: <AboutUs /> },
