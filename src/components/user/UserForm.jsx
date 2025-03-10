@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { cities, districts } from "../../utils/constants";
 import BtnEdit from "./BtnEdit";
 import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
@@ -21,6 +22,8 @@ const UserForm = () => {
   const [userData, setUserData] = useState({}); // 用於儲存使用者資料
   const [currentCity, setCurrentCity] = useState(""); // 用於儲存當前選擇的城市
   const [isEditing, setIsEditing] = useState(false); // 用於控制表單是否可編輯
+  const { user } = useAuth();
+  const userId = user?.id;
 
   // 表單控制
   const {
@@ -48,7 +51,7 @@ const UserForm = () => {
   useEffect(() => {
     (async () => {
       try {
-        const url = `${BACKEND_HOST}/users/2`;
+        const url = `${BACKEND_HOST}/users/${userId}`;
         const res = await axios.get(url);
         //console.log("API Response:", res.data);
         setUserData(res.data);
@@ -67,7 +70,7 @@ const UserForm = () => {
         console.log("取得使用者資料失敗", error);
       }
     })();
-  }, [setValue]);
+  }, [setValue, userId]);
 
   // 監聽城市變更
   useEffect(() => {
@@ -133,8 +136,8 @@ const UserForm = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               {/* 用戶基本資訊區塊 */}
               <div className="row mb-4">
-                <div className="col d-flex align-items-center">
-                  <div className="me-1 me-lg-4">
+                <div className="col d-flex flex-column flex-md-row align-items-center">
+                  <div className="mb-3 mb-md-0 me-md-1 me-lg-4 text-center">
                     <img
                       className="rounded-circle object-fit-cover"
                       src={userData.imageUrl}
@@ -143,7 +146,7 @@ const UserForm = () => {
                       alt=""
                     />
                   </div>
-                  <div>
+                  <div className="text-center text-md-start">
                     <p className="mb-1 fs-4 fw-bold">{userData.name}</p>
                     <p className="text-grey-scale-2 fs-5"> {userData.email}</p>
                   </div>

@@ -5,17 +5,20 @@ import "swiper/css";
 import "swiper/css/navigation";
 import CardAppoint from "./CardAppoint";
 import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 const UserAppointments = () => {
   const [appointmentsData, setAppointmentsData] = useState([]);
   const [activeTab, setActiveTab] = useState("已預約"); // 新增狀態追蹤當前選中的標籤
+  const { user } = useAuth();
+  const userId = user?.id;
 
   // 使用 useCallback 包裝 API 調用函數
   const fetchAppointments = useCallback(async () => {
     try {
-      const url = `${BACKEND_HOST}/appointments?userId=2&_expand=user&_expand=vetClinic&_expand=pet`;
+      const url = `${BACKEND_HOST}/appointments?userId=${userId}&_expand=user&_expand=vetClinic&_expand=pet`;
       const res = await axios.get(url);
       //console.log("API Response:", res.data);
       setAppointmentsData(res.data);

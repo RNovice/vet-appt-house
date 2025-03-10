@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
 import { Mousewheel, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
 import Icon from "../common/Icon";
 import PetsModal from "./PetsModal";
 import * as bootstrap from "bootstrap";
+import { useAuth } from "@/context/AuthContext";
 
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
@@ -16,6 +18,8 @@ const UserPets = () => {
   const [modalType, setModalType] = useState("new");
   const [speciesData, setSpeciesData] = useState([]);
   const petsModalRef = useRef(null);
+  const { user } = useAuth();
+  const userId = user?.id;
 
   useEffect(() => {
     petsModalRef.current = new bootstrap.Modal("#petsModal", {
@@ -24,7 +28,7 @@ const UserPets = () => {
 
     (async () => {
       try {
-        const url = `${BACKEND_HOST}/users/2/pets?userId=2`;
+        const url = `${BACKEND_HOST}/users/${userId}/pets?userId=${userId}`;
         const res = await axios.get(url);
         setPetsData(res.data);
       } catch (error) {
@@ -64,6 +68,7 @@ const UserPets = () => {
         speciesData={speciesData}
         modalType={modalType}
         petData={petData}
+        userId={userId}
       />
       <div className="userPrts bg-cover" id="pets">
         <div className="container">
@@ -71,14 +76,13 @@ const UserPets = () => {
             <div></div>
             <h3 className="section-title text-secondary">我的寵物</h3>
             {petsData && petsData.length > 0 ? (
-              <a className="fs-6 d-none d-lg-block" href="/">
+              <Link className="fs-6 d-none d-lg-block" to="/user/pets">
                 查看全部
-              </a>
+              </Link>
             ) : (
               ""
             )}
           </div>
-          {/*  */}
           {petsData && petsData.length == 0 ? (
             <a role="button">
               <div className="card p-3 rounded-4 border-0">
@@ -141,9 +145,9 @@ const UserPets = () => {
               </div>
               <div className="row mt-4 d-block d-lg-none">
                 <div className="col-12 text-center">
-                  <a className="fs-6 p-3" href="/">
+                  <Link className="fs-6 p-3" to="/user/pets">
                     查看全部
-                  </a>
+                  </Link>
                 </div>
               </div>
             </>

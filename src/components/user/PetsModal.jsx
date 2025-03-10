@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Icon from "../common/Icon";
 
-function PetsModal({ speciesData, modalType, petData }) {
+function PetsModal({ speciesData, modalType, petData, userId }) {
   // console.log("petData", petData);
   const [uploadedImage, setUploadedImage] = useState(null);
   const fileInputRef = useRef(null);
