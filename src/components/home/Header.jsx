@@ -33,7 +33,7 @@ const Header = () => {
               搜尋醫院
             </Link>
             <Link
-              to="/"
+              to="/quick"
               className="btn-m btn-secondary d-flex"
               data-aos="fade-left"
               data-aos-delay={isMobile ? 600 : 300}

@@ -335,6 +335,11 @@ img.d-none + .img-alt {
     outline: 1px solid $primary-blue-4;
   }
 }
+.react-datepicker__tab-loop {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .date-picker-calendar {
   @extend .fs-6;
   user-select: none;

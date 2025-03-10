@@ -7,7 +7,7 @@ import sleepCatPng from "@/assets/images/sleep-cat.png";
 import { computedTo } from "../../utils/common";
 
 const linkPathList = [
-  { name: "快速預約", path: "/" },
+  { name: "快速預約", path: "/quick" },
   {
     name: "搜尋醫院",
     path: "/search",

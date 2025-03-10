@@ -69,7 +69,7 @@ const ClinicCard = ({ clinic }) => {
           <p className="text-tertiary fs-6">{clinic.description}</p>
         </div>
       </div>
-      <Link to="" className="btn-s btn-primary">
+      <Link to={`/booking?clinicId=${clinic.id}`} className="btn-s btn-primary">
         立即預約
       </Link>
     </div>

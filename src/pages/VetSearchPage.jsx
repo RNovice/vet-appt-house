@@ -9,6 +9,7 @@ import Icon from "@/components/common/Icon";
 import { cities, cityQueryDistricts as districts } from "@/utils/constants";
 import { toQueryString, toApiQueryString } from "@/utils/common";
 import api from "@/services/api";
+import HamsterWheel from "../components/common/HamsterWheel";
 
 const cityOptions = cities.map(({ city }) => ({ label: city, value: city }));
 
@@ -21,7 +22,7 @@ const VetSearchPage = () => {
   const [distOptions, setDistOptions] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(null);
   const {
     control,
     handleSubmit,
@@ -290,42 +291,54 @@ const VetSearchPage = () => {
         {isResultPage && (
           <>
             <div className="clinic-results w-100 mx-auto">
-              {results.map((clinic) => (
-                <div
-                  key={clinic.id}
-                  title={clinic.name}
-                  className="clinic-card flex-column gap-2"
-                >
-                  <ruby className="clinic-name h5">
-                    {clinic.name} <rp>(</rp>
-                    <rt>
-                      {clinic.city} {clinic.district}
-                    </rt>
-                    <rp>)</rp>
-                  </ruby>
-                  <p className="h6 text-tertiary d-flex align-items-center gap-1">
-                    <Icon fileName="phone" size={15} />
-                    {clinic.tel || "電話尚未提供"}
-                  </p>
-                  <div className="tags d-flex flex-wrap gap-1">
-                    {clinic.tags?.map((tag) => (
-                      <span key={tag} className="tag">
-                        {tag}
+              {results===null ?
+              <div className="max-space flex-column align-items-center gap-4">
+                <h3 className="text-tertiary">資料讀取中</h3>
+                <HamsterWheel/>
+              </div>
+              :
+              results.length > 0 ? (
+                results.map((clinic) => (
+                  <div
+                    key={clinic.id}
+                    title={clinic.name}
+                    className="clinic-card flex-column gap-2"
+                  >
+                    <ruby className="clinic-name h5">
+                      {clinic.name} <rp>(</rp>
+                      <rt>
+                        {clinic.city} {clinic.district}
+                      </rt>
+                      <rp>)</rp>
+                    </ruby>
+                    <p className="h6 text-tertiary d-flex align-items-center gap-1">
+                      <Icon fileName="phone" size={15} />
+                      {clinic.tel || "電話尚未提供"}
+                    </p>
+                    <div className="tags d-flex flex-wrap gap-1">
+                      {clinic.tags?.map((tag) => (
+                        <span key={tag} className="tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-auto pt-1">
+                      <span
+                        className="view-detail fs-6"
+                        onClick={() =>
+                          navigate(`/veterinary/${clinic.id}`, {
+                            state: clinic,
+                          })
+                        }
+                      >
+                        查看詳細資料
                       </span>
-                    ))}
+                    </div>
                   </div>
-                  <div className="mt-auto pt-1">
-                    <span
-                      className="view-detail fs-6"
-                      onClick={() =>
-                        navigate(`/veterinary/${clinic.id}`, { state: clinic })
-                      }
-                    >
-                      查看詳細資料
-                    </span>
-                  </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <h3 className="max-space text-tertiary text-center">沒有符合的獸醫院</h3>
+              )}
             </div>
             {totalPages > 1 && (
               <Paginator

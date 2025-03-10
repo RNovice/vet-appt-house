@@ -14,13 +14,16 @@
   }
 
   @media (max-width: $break-lg) {
+    .collapse-content {
+      display: none;
+    }
     .collapse-content:active,
     .navbar-toggler:focus + .collapse-content {
       width: 100%;
       position: absolute;
       bottom: 1px;
       left: 0;
-      transform: translateY(100%);
+      transform: translateY(100%) scaleY(0);
       background-color: $bg-secondary;
       box-shadow: 0 0.3rem 0.5rem rgba(54, 54, 54, 0.05);
       display: flex;
