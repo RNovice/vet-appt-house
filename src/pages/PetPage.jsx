@@ -9,6 +9,9 @@ import "swiper/css/navigation";
 import Icon from "@/components/common/Icon";
 import api from "@/services/api";
 import Avatar from "../components/common/Avatar";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function getAge(dateString) {
   const birthDate = new Date(dateString);
@@ -99,6 +102,8 @@ const PetCard = ({ pet }) => (
 const PetPage = () => {
   const [pets, setPets] = useState([]);
   const isMobile = useMobile();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [mobileCurrentCard, setMobileCurrentCard] = useState(6);
 
   useEffect(() => {
@@ -106,11 +111,19 @@ const PetPage = () => {
   }, []);
 
   const getPets = async () => {
-    const { data } = await api("/pets?userId=2&_expand=specie");
-    setPets(data);
+    if (user.id) {
+      const { data } = await api(`/pets?userId=${user.id}&_expand=specie`);
+      setPets(data);
+    } else {
+      toast("資料異常請重新登入", {
+        className: "toast-primary",
+        toastId: "login-first",
+      });
+      navigate("/login");
+    }
   };
 
-  return (
+  return pets.length > 0 ? (
     <div className="my-pets">
       <header className="text-center">
         <h1
@@ -185,6 +198,10 @@ const PetPage = () => {
           </div>
         )}
       </section>
+    </div>
+  ) : (
+    <div className="hv100-with-nav">
+      <h3 className="my-5 text-center">尚未新增寵物</h3>
     </div>
   );
 };
