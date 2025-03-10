@@ -4,7 +4,8 @@ import { cities, districts } from "../../utils/constants";
 import BtnEdit from "./BtnEdit";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
-
+import Avatar from "../common/Avatar";
+import { toast } from "react-toastify";
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 /**
@@ -103,7 +104,7 @@ const UserForm = () => {
   // 表單提交處理
   const onSubmit = async (data) => {
     try {
-      const url = `${BACKEND_HOST}/users/2`;
+      const url = `${BACKEND_HOST}/users/${userId}`;
       // 格式化提交資料
       const formattedData = {
         name: data.name,
@@ -122,8 +123,10 @@ const UserForm = () => {
       await axios.put(url, formattedData);
       setUserData(formattedData);
       setIsEditing(false);
+      toast.success("更新使用者資料成功");
     } catch (error) {
       console.log("更新使用者資料失敗", error);
+      toast.error("更新使用者資料失敗");
     }
   };
 
@@ -138,12 +141,9 @@ const UserForm = () => {
               <div className="row mb-4">
                 <div className="col d-flex flex-column flex-md-row align-items-center">
                   <div className="mb-3 mb-md-0 me-md-1 me-lg-4 text-center">
-                    <img
-                      className="rounded-circle object-fit-cover"
-                      src={userData.imageUrl}
-                      width="100"
-                      height="100"
-                      alt=""
+                    <Avatar
+                      info={{ name: userData.name, avatar: userData.imageUrl }}
+                      size={100}
                     />
                   </div>
                   <div className="text-center text-md-start">
