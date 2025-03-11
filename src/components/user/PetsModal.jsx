@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Icon from "../common/Icon";
+import axios from "axios";
+import { toast } from "react-toastify";
+import * as bootstrap from "bootstrap";
+const BACKEND_SIGNIN = import.meta.env.VITE_BACKEND_SIGNIN;
+const BACKEND_UPLOAD = import.meta.env.VITE_BACKEND_UPLOAD;
+const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
-function PetsModal({ speciesData, modalType, petData, userId }) {
-  // console.log("petData", petData);
+function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
   const [uploadedImage, setUploadedImage] = useState(null);
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
@@ -137,6 +142,14 @@ function PetsModal({ speciesData, modalType, petData, userId }) {
     // 重置圖片錯誤提示狀態
     setShowImageError(false);
 
+    // 關閉模態窗口
+    if (modalRef.current) {
+      const bsModal = bootstrap.Modal.getInstance(modalRef.current);
+      if (bsModal) {
+        bsModal.hide();
+      }
+    }
+
     // console.log("Modal closed, form and image reset");
   };
 
@@ -192,40 +205,134 @@ function PetsModal({ speciesData, modalType, petData, userId }) {
     return hasAllRequired && !hasErrors;
   };
 
-  const onSubmit = (data) => {
+  const uploadImage = async () => {
+    let rtnImageUrl = "";
+    // 1.登入取得token
+    await axios
+      .post(BACKEND_SIGNIN, {
+        username: "prostyliu@gmail.com",
+        password: "prostyliu",
+      })
+      .then(async (response) => {
+        const { token } = response.data;
+
+        // 2.上傳圖片
+        // 將 base64 字符串轉換為 Blob 對象
+        const base64Response = await fetch(uploadedImage);
+        const blob = await base64Response.blob();
+        const imgFormData = new FormData();
+        imgFormData.append("file", blob, "pet_image.jpg");
+        await axios
+          .post(BACKEND_UPLOAD, imgFormData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `${token}`,
+            },
+          })
+          .then(async (response) => {
+            rtnImageUrl = response.data.imageUrl;
+            //console.log("圖片上傳成功: " + response.data.imageUrl);
+          })
+          .catch((error) => {
+            console.log("圖片上傳失敗: " + error);
+          });
+      })
+      .catch((error) => {
+        console.log("登入失敗: " + error);
+      });
+
+    return rtnImageUrl;
+  };
+
+  const onSubmit = async (data) => {
+    //console.log("data", data);
+
+    // 檢查必填欄位是否都已填寫
+    if (!isFormValid()) {
+      return;
+    }
+
     // 檢查是否上傳了圖片
     if (!uploadedImage) {
       setShowImageError(true);
       return;
     }
 
-    // 將圖片數據添加到表單數據中
-    const formData = {
-      ...data,
-      image: uploadedImage,
-      age: calculateAge(data.birthday),
-      updateTime: new Date().toLocaleString(),
-    };
-
-    // console.log("Form submitted with data:", formData);
-    // 這裡可以處理表單提交，例如發送到服務器
-    if (modalType === "new") {
-      // 新增寵物
-      console.log("新增寵物成功");
-    } else {
-      // 修改寵物
-      console.log("修改寵物成功");
+    // 禁用提交按鈕，防止重複提交
+    const submitButton = document.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
     }
 
-    // 提交成功後關閉Modal
-    handleModalClose();
-    // const modalElement = document.getElementById("petsModal");
-    // if (modalElement && typeof bootstrap !== "undefined") {
-    //   const modal = bootstrap.Modal.getInstance(modalElement);
-    //   if (modal) {
-    //     modal.hide();
-    //   }
-    // }
+    try {
+      let rtnImageUrl = "";
+      // 如果圖片沒有變更,則不進行圖片上傳
+      if (modalType !== "new" && petData.imageUrl === uploadedImage) {
+        rtnImageUrl = petData.imageUrl;
+      } else {
+        rtnImageUrl = await uploadImage();
+      }
+
+      // 獲取當前時間
+      const currentTime = new Date().toISOString();
+
+      // 提交寵物新增與修改
+      const formData = {
+        name: data.name,
+        specieId: Number(data.specieId),
+        gender: data.gender,
+        birthday: data.birthday,
+        isLigated: data.isLigated === "true",
+        hasChip: data.hasChip === "true",
+        weight: Number(data.weight),
+        bloodType: data.bloodType,
+        imageUrl: rtnImageUrl,
+        userId: userId,
+      };
+
+      if (modalType === "new") {
+        // 新增時設置創建時間
+        formData.createTime = currentTime;
+        formData.updateTime = currentTime;
+
+        const response = await axios.post(`${BACKEND_HOST}/pets`, formData);
+        //console.dir(response.data);
+        toast.success("寵物資料新增成功");
+
+        // 關閉Modal
+        handleModalClose();
+
+        // 刷新寵物列表
+        getPetsData();
+      } else {
+        formData.createTime = petData.createTime;
+        // 修改時只更新更新時間
+        formData.updateTime = currentTime;
+
+        const response = await axios.put(
+          `${BACKEND_HOST}/pets/${petData.id}`,
+          formData
+        );
+        //console.dir(response.data);
+        toast.success("寵物資料更新成功");
+
+        // 關閉Modal
+        handleModalClose();
+
+        // 刷新寵物列表
+        getPetsData();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        modalType === "new" ? "寵物資料新增失敗" : "寵物資料更新失敗"
+      );
+    } finally {
+      // 恢復提交按鈕
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+    }
   };
 
   /**
@@ -504,14 +611,17 @@ function PetsModal({ speciesData, modalType, petData, userId }) {
                           {...register("weight", {
                             required: "體重為必填欄位",
                             min: { value: 0.1, message: "體重必須大於0" },
-                            max: { value: 100, message: "體重不能超過100kg" },
+                            max: {
+                              value: 100000,
+                              message: "體重不能超過100000g",
+                            },
                             validate: {
                               isNumber: (value) =>
                                 !isNaN(value) || "請輸入有效的數字",
                             },
                           })}
                         />
-                        <span className="input-group-text">kg</span>
+                        <span className="input-group-text">g</span>
                         {errors.weight && (
                           <div className="invalid-feedback">
                             {errors.weight.message}
@@ -660,7 +770,7 @@ function PetsModal({ speciesData, modalType, petData, userId }) {
                   type="button"
                   className="btn btn-light px-4 rounded-pill"
                   data-bs-dismiss="modal"
-                  // onClick={handleModalClose}
+                  onClick={handleModalClose}
                 >
                   取消
                 </button>
