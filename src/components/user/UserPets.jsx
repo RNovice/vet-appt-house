@@ -26,15 +26,7 @@ const UserPets = () => {
       keyboard: false,
     });
 
-    (async () => {
-      try {
-        const url = `${BACKEND_HOST}/users/${userId}/pets?userId=${userId}`;
-        const res = await axios.get(url);
-        setPetsData(res.data);
-      } catch (error) {
-        console.log("取得寵物資料失敗");
-      }
-    })();
+    getPetsData();
 
     (async () => {
       try {
@@ -46,6 +38,17 @@ const UserPets = () => {
       }
     })();
   }, []);
+
+  const getPetsData = async () => {
+    const url = `${BACKEND_HOST}/users/${userId}/pets?userId=${userId}`;
+    const res = await axios.get(url);
+    // updateTime 新到舊排序, 只取四筆
+    const sortedPetsData = res.data.sort(
+      (a, b) =>
+        new Date(b.updateTime).getTime() - new Date(a.updateTime).getTime()
+    );
+    setPetsData(sortedPetsData.slice(0, 4));
+  };
 
   const openModal = useCallback((type, petData) => {
     if (type === "new") {
@@ -69,6 +72,7 @@ const UserPets = () => {
         modalType={modalType}
         petData={petData}
         userId={userId}
+        getPetsData={getPetsData}
       />
       <div className="userPrts bg-cover" id="pets">
         <div className="container">
@@ -85,6 +89,7 @@ const UserPets = () => {
           </div>
           {petsData && petsData.length == 0 ? (
             <div onClick={() => openModal("new")}>
+              {/* 新增寵物按鈕-desktop */}
               <div className="card p-3 rounded-4 border-0">
                 <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
                   <div className="align-items-center justify-content-center d-flex ">
@@ -98,8 +103,8 @@ const UserPets = () => {
             <>
               <div className="row g-3">
                 <div className="col-12 col-lg-1 order-1">
-                  {/* 新增寵物按鈕 start */}
-                  <div onClick={() => openModal("new")}>
+                  {/* 新增寵物按鈕-mobile */}
+                  <div onClick={() => openModal("new")} className="h-100">
                     <div className="add-pet card p-3 rounded-4 border-0 h-100">
                       <div className="card-body align-items-lg-center justify-content-lg-center d-lg-flex p-0 text-center">
                         <span className="align-items-center justify-content-center d-flex ">
