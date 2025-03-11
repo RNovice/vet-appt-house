@@ -22,13 +22,13 @@ export default function BookingPage() {
       serviceOptions: [],
       speciesOptions: [],
       clinicsTime: [],
-      vetClinicsId: -1,
+      vetClinicId: -1,
     },
     pet: {
       petOptions: [],
     },
     user: {
-      usersId: -1,
+      userId: -1,
       userName: "",
     },
     appointment: {
@@ -117,6 +117,9 @@ export default function BookingPage() {
 
     const fetchData = async () => {
       if (isBookingPage) {
+        let isLogin;
+          let userData = JSON.parse(localStorage.getItem('user')) || {}
+          userData?.id ? isLogin = true: isLogin=false 
         try {
           let data;
           if (!location.state) {
@@ -125,21 +128,21 @@ export default function BookingPage() {
             );
             data = fetchData.data;
           } else if (location.state?.appointmentData) {
-            console.log(location.state.appointmentData);
+            data = location.state?.appointmentData.vetClinic
           } else {
             data = location.state;
           }
 
-          const petData = await api.get(`/pets?userId=1`);
+          const petData = await api.get(`/pets?userId=${userData.id}`);
           const businessHours = data.businessHours;
           const day = new Date().getDay();
 
           dispatch({
             clinic: {
               clinicsData: data,
-              vetClinicsId: Number(urlParams["clinicId"]),
-              serviceOptions: data.services.map((item) => item.id),
-              speciesOptions: data.treatedAnimals.map((item) => item.id),
+              vetClinicId: Number(urlParams["clinicId"]),
+              serviceOptions: isLogin ? data?.services : data.services.map((item) => item.id) ,
+              speciesOptions: isLogin ? data?.treatedAnimals : data.treatedAnimals.map((item) => item.id),
               clinicsTime: [
                 businessHours[0][day === 0 ? 6 : day - 1],
                 businessHours[1][day === 0 ? 6 : day - 1],
@@ -153,8 +156,8 @@ export default function BookingPage() {
               })),
             },
             user: {
-              usersId: 1, //登入功能完成後修改
-              userName: "六角", //登入功能完成後修改
+              userId: userData?.id || '', //登入功能完成後修改
+              userName: userData?.name || '', //登入功能完成後修改
             },
           });
         } catch (err) {
@@ -167,10 +170,10 @@ export default function BookingPage() {
   }, [location.pathname, searchParams]);
 
   useEffect(() => {
-    if (state.user.usersId) {
-      console.log("usersId 更新:", state.user.usersId);
+    if (state.user.userId) {
+      console.log("userId 更新:", state.user.userId);
     }
-  }, [state.user.usersId]);
+  }, [state.user.userId]);
 
   const {
     control,
@@ -203,6 +206,9 @@ export default function BookingPage() {
 
   const onSubmit = (data) => {
     dispatch({
+      user:{
+        userName: data.userName
+      },
       ui: {
         isOpen: true,
       },
@@ -224,9 +230,9 @@ export default function BookingPage() {
           isCanceled: false,
           createTime: new Date().toLocaleString("sv"),
           updateTime: "",
-          vetClinicsId: state.clinic.vetClinicsId,
-          usersId: state.user.usersId,
-          petsId: Number(data.petsId),
+          vetClinicId: state.clinic.vetClinicId,
+          userId: state.user.userId?state.user.userId:-1,
+          petId: Number(data.petId),
         },
       },
     });
@@ -274,6 +280,7 @@ export default function BookingPage() {
                 id="booking-page-name"
                 className={`input-text-primary mb-2`}
                 defaultValue={state.user.userName}
+                {...register("userName", { required: true })}
               />
               {/* 填寫寵物物種 */}
               <label className="form-label" htmlFor="booking-page-species">
@@ -284,8 +291,8 @@ export default function BookingPage() {
                 className="form-select mb-2"
               >
                 <option value="">請選擇物種</option>
-                {state.clinic.speciesOptions.map((id) => (
-                  <option key={id} value={id}>
+                {state.clinic.speciesOptions.map((id,index) => (
+                  <option key={index} value={id}>
                     {speciesLabels[id - 1]}
                   </option>
                 ))}
@@ -298,8 +305,8 @@ export default function BookingPage() {
                 className="form-select mb-2"
               >
                 <option value="">請選擇科別</option>
-                {state.clinic.serviceOptions.map((id) => (
-                  <option key={id} value={id}>
+                {state.clinic.serviceOptions.map((id,index) => (
+                  <option key={index} value={id}>
                     {departmentLabels[id - 1]}
                   </option>
                 ))}
@@ -348,7 +355,8 @@ export default function BookingPage() {
                 寵物名稱
               </label>
               <select
-                {...register("petsId", { required: true })}
+                {...register("petId")} //可匿名
+                /* {...register("petId", { required: true })} */ 
                 className="form-select mb-2"
               >
                 <option value="">請選擇寵物</option>
@@ -435,9 +443,9 @@ export default function BookingPage() {
                     寵物名稱
                   </label>
                   <span id="pet-name" className="form-control-plaintext">
-                    {state.appointment.submitData.petsId
+                    {state.appointment.submitData.petId
                       ? state.pet.petOptions.map((pet) => {
-                          if (pet.id == state.appointment.submitData.petsId) {
+                          if (pet.id == state.appointment.submitData.petId) {
                             return pet.petName;
                           }
                         })
