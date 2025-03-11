@@ -4,6 +4,7 @@ import Icon from "../common/Icon";
 import axios from "axios";
 import { toast } from "react-toastify";
 import * as bootstrap from "bootstrap";
+import { useAppState } from "@/context/AppStateContext";
 const BACKEND_SIGNIN = import.meta.env.VITE_BACKEND_SIGNIN;
 const BACKEND_UPLOAD = import.meta.env.VITE_BACKEND_UPLOAD;
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
@@ -13,6 +14,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
   const [showImageError, setShowImageError] = useState(false);
+  const { setPageLoading } = useAppState();
   const {
     register,
     handleSubmit,
@@ -207,39 +209,35 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
 
   const uploadImage = async () => {
     let rtnImageUrl = "";
-    // 1.登入取得token
-    await axios
-      .post(BACKEND_SIGNIN, {
+    try {
+      // 1.登入取得token
+      const loginResponse = await axios.post(BACKEND_SIGNIN, {
         username: "prostyliu@gmail.com",
         password: "prostyliu",
-      })
-      .then(async (response) => {
-        const { token } = response.data;
-
-        // 2.上傳圖片
-        // 將 base64 字符串轉換為 Blob 對象
-        const base64Response = await fetch(uploadedImage);
-        const blob = await base64Response.blob();
-        const imgFormData = new FormData();
-        imgFormData.append("file", blob, "pet_image.jpg");
-        await axios
-          .post(BACKEND_UPLOAD, imgFormData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `${token}`,
-            },
-          })
-          .then(async (response) => {
-            rtnImageUrl = response.data.imageUrl;
-            //console.log("圖片上傳成功: " + response.data.imageUrl);
-          })
-          .catch((error) => {
-            console.log("圖片上傳失敗: " + error);
-          });
-      })
-      .catch((error) => {
-        console.log("登入失敗: " + error);
       });
+
+      const { token } = loginResponse.data;
+
+      // 2.上傳圖片
+      // 將 base64 字符串轉換為 Blob 對象
+      const base64Response = await fetch(uploadedImage);
+      const blob = await base64Response.blob();
+      const imgFormData = new FormData();
+      imgFormData.append("file", blob, "pet_image.jpg");
+
+      const uploadResponse = await axios.post(BACKEND_UPLOAD, imgFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `${token}`,
+        },
+      });
+
+      rtnImageUrl = uploadResponse.data.imageUrl;
+      //console.log("圖片上傳成功: " + uploadResponse.data.imageUrl);
+    } catch (error) {
+      console.log("圖片上傳過程中發生錯誤: " + error);
+      toast.error("圖片上傳失敗");
+    }
 
     return rtnImageUrl;
   };
@@ -264,6 +262,9 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
       submitButton.disabled = true;
     }
 
+    // 顯示全局加載指示器
+    setPageLoading(true);
+
     try {
       let rtnImageUrl = "";
       // 如果圖片沒有變更,則不進行圖片上傳
@@ -272,10 +273,14 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
       } else {
         rtnImageUrl = await uploadImage();
       }
+      //圖片上傳失敗
+      if (!rtnImageUrl) {
+        toast.error("圖片上傳失敗");
+        return;
+      }
 
       // 獲取當前時間
       const currentTime = new Date().toISOString();
-
       // 提交寵物新增與修改
       const formData = {
         name: data.name,
@@ -289,36 +294,29 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         imageUrl: rtnImageUrl,
         userId: userId,
       };
-
       if (modalType === "new") {
         // 新增時設置創建時間
         formData.createTime = currentTime;
         formData.updateTime = currentTime;
-
         const response = await axios.post(`${BACKEND_HOST}/pets`, formData);
         //console.dir(response.data);
         toast.success("寵物資料新增成功");
-
         // 關閉Modal
         handleModalClose();
-
         // 刷新寵物列表
         getPetsData();
       } else {
         formData.createTime = petData.createTime;
         // 修改時只更新更新時間
         formData.updateTime = currentTime;
-
         const response = await axios.put(
           `${BACKEND_HOST}/pets/${petData.id}`,
           formData
         );
         //console.dir(response.data);
         toast.success("寵物資料更新成功");
-
         // 關閉Modal
         handleModalClose();
-
         // 刷新寵物列表
         getPetsData();
       }
@@ -328,6 +326,11 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         modalType === "new" ? "寵物資料新增失敗" : "寵物資料更新失敗"
       );
     } finally {
+      // 隱藏全局加載指示器
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 1000);
+
       // 恢復提交按鈕
       if (submitButton) {
         submitButton.disabled = false;
