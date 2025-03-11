@@ -18,7 +18,7 @@ const PageLoading = () => {
       style={{
         inset: 0,
         backgroundColor: "#4444",
-        zIndex: 100,
+        zIndex: 9999,
       }}
     >
       <CatLoading type={easterEggType()} />
