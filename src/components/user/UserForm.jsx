@@ -6,6 +6,7 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Avatar from "../common/Avatar";
 import { toast } from "react-toastify";
+import { useAppState } from "@/context/AppStateContext";
 const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
 
 /**
@@ -25,6 +26,7 @@ const UserForm = () => {
   const [isEditing, setIsEditing] = useState(false); // 用於控制表單是否可編輯
   const { user } = useAuth();
   const userId = user?.id;
+  const { setPageLoading } = useAppState();
 
   // 表單控制
   const {
@@ -103,6 +105,7 @@ const UserForm = () => {
 
   // 表單提交處理
   const onSubmit = async (data) => {
+    setPageLoading(true);
     try {
       const url = `${BACKEND_HOST}/users/${userId}`;
       // 格式化提交資料
@@ -127,6 +130,10 @@ const UserForm = () => {
     } catch (error) {
       console.log("更新使用者資料失敗", error);
       toast.error("更新使用者資料失敗");
+    } finally {
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 1000);
     }
   };
 
