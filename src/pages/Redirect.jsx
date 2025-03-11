@@ -70,10 +70,13 @@ const Redirect = () => {
     };
 
     const applyLastAppointment = async (userId) => {
+      console.log("applyLastAppointment userId",userId)
       try {
-        const { data } = await api(
-          `/appointments?userId=${userId}&_expand=pet&_expand=vetClinic&_expand=user`
+        //錯在這
+        const { data } = await axios.get(
+          `http://localhost:3000/appointments?userId=${userId}&_expand=pets&_expand=vetClinics`
         );
+        console.log("applyLastAppointment ", data)
         if (!data.length) throw new Error("No appointment history");
 
         const now = new Date();
@@ -93,6 +96,7 @@ const Redirect = () => {
           className: "toast-primary",
           toastId: "quick-query",
         });
+        /* console.log("nearest ", nearest) */
         navigate(`/booking?clinicId=${nearest.vetClinicId}`, {
           state: { appointmentData: nearest },
         });
@@ -111,8 +115,8 @@ const Redirect = () => {
             );
             const {
               data: { data: clinics },
-            } = await api(
-              `/vetClinics?limit=20&city=${city}&district=${district}`
+            } = await axios.get(
+              `http://localhost:3000/vetClinics?limit=20&city=${city}&district=${district}`
             );
             if (!clinics.length) throw new Error("No nearby clinic");
 

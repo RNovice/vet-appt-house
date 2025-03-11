@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import Icon from "../components/common/Icon";
 import Navbar from "../components/common/NavBar";
 import api from "../services/api";
+import axios from 'axios'
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function LoginPage() {
   // 處理登入
   const onSubmit = async (data) => {
     try {
-      const response = await api.post(`login`, {
+      const response = await axios.post("http://localhost:3000/login", {
         email: data.email,
         password: data.password,
       });

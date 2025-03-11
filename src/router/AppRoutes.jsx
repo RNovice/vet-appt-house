@@ -13,6 +13,7 @@ import VetSearchPage from "../pages/VetSearchPage";
 import NotFound from "../pages/NotFound";
 import AboutUs from "../pages/AboutUs";
 import Redirect from "../pages/Redirect";
+import DashboardPage from "../pages/DashboardPage";
 
 const createRouter =
   process.env.NODE_ENV === "production"
@@ -40,6 +41,7 @@ export default createRouter([
       { path: "about-us", element: <AboutUs /> },
       { path: "nearby", element: <Redirect /> },
       { path: "quick", element: <Redirect /> },
+      { path: "dashboard", element: <DashboardPage /> }
     ],
   },
   { path: "login", element: <LoginPage /> },

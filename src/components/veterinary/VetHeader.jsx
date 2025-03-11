@@ -66,7 +66,6 @@ const VetHeader = ({ clinicData }) => {
             >
               立即預約
             </span>
-            {/* <Link to="/" className="btn btn-m btn-primary w-135">立即預約</Link> */}
           </div>
         </div>
       </div>

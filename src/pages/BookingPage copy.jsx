@@ -6,7 +6,6 @@ import Navbar from "../components/common/NavBar";
 import DatePicker from "@/components/common/DatePicker";
 import api from "@/services/api";
 import BookingResult from "../components/booking/BookingResult";
-import axios from 'axios'
 
 export default function BookingPage() {
   const location = useLocation();
@@ -28,7 +27,7 @@ export default function BookingPage() {
       petOptions: [],
     },
     user: {
-      userId: -1,
+      usersId: -1,
       userName: "",
     },
     appointment: {
@@ -120,8 +119,8 @@ export default function BookingPage() {
         try {
           let data;
           if (!location.state) {
-            const fetchData = await axios.get(
-              `http://localhost:3000/vetClinics/${urlParams["clinicId"]}`
+            const fetchData = await api.get(
+              `/vetClinics/${urlParams["clinicId"]}`
             );
             data = fetchData.data;
           } else if (location.state?.appointmentData) {
@@ -130,7 +129,7 @@ export default function BookingPage() {
             data = location.state;
           }
 
-          const petData = await axios.get(`http://localhost:3000/pets?userId=1`);
+          const petData = await api.get(`/pets?userId=1`);
           const businessHours = data.businessHours;
           const day = new Date().getDay();
 
@@ -153,7 +152,7 @@ export default function BookingPage() {
               })),
             },
             user: {
-              userId: 4, //登入功能完成後修改
+              usersId: 1, //登入功能完成後修改
               userName: "六角", //登入功能完成後修改
             },
           });
@@ -167,10 +166,10 @@ export default function BookingPage() {
   }, [location.pathname, searchParams]);
 
   useEffect(() => {
-    if (state.user.userId) {
-      console.log("userId 更新:", state.user.userId);
+    if (state.user.usersId) {
+      console.log("usersId 更新:", state.user.usersId);
     }
-  }, [state.user.userId]);
+  }, [state.user.usersId]);
 
   const {
     control,
@@ -225,8 +224,7 @@ export default function BookingPage() {
           createTime: new Date().toLocaleString("sv"),
           updateTime: "",
           vetClinicsId: state.clinic.vetClinicsId,
-          userId: 4,
-          /* userId: state.user.userId, */
+          usersId: state.user.usersId,
           petsId: Number(data.petsId),
         },
       },
@@ -239,8 +237,8 @@ export default function BookingPage() {
         isOpen: false,
       },
     });
-    await axios
-      .post("http://localhost:3000/appointments", state.appointment.submitData)
+    await api
+      .post("/appointments", state.appointment.submitData)
       .then((res) => {
         if (res.status === 201) {
           setResult(res.data);
