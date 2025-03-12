@@ -38,7 +38,6 @@ const SearchForm = () => {
   }, [city]);
 
   const onSubmit = (data) => {
-    console.log(data);
     const query = toQueryString(data);
     navigate(`/search/result?${query}`);
     reset({

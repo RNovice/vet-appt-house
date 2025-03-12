@@ -119,22 +119,24 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
 
   // 處理Modal關閉事件
   const handleModalClose = () => {
-    // 重置表單
-    reset({
-      name: "",
-      specieId: "",
-      birthday: "",
-      weight: "",
-      bloodType: "",
-      gender: "",
-      isLigated: null,
-      hasChip: null,
-      updateTime: "",
-      imageUrl: "",
-    });
+    if (modalType === "new") {
+      // 重置表單
+      reset({
+        name: "",
+        specieId: "",
+        birthday: "",
+        weight: "",
+        bloodType: "",
+        gender: "",
+        isLigated: null,
+        hasChip: null,
+        updateTime: "",
+        imageUrl: "",
+      });
 
-    // 清除上傳的圖片
-    setUploadedImage(null);
+      // 清除上傳的圖片
+      setUploadedImage(null);
+    }
 
     // 重置文件輸入元素
     if (fileInputRef.current) {
