@@ -20,7 +20,7 @@ const VeterinaryPage = () => {
     if (!location.state) {
       getClinicData();
     }
-  }, []);
+  }, [params]);
 
   const getClinicData = async () => {
     try {
