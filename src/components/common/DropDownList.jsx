@@ -84,6 +84,7 @@ const DropDownList = forwardRef(
         className={`fs-6 ${className}`}
         styles={customStyles(hasError)}
         components={customComponents}
+        noOptionsMessage={()=>"沒有符合的資料"}
       />
     );
   }
