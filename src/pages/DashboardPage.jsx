@@ -15,15 +15,13 @@ const Dashboard = () => {
       return {...state, ...action}
     }
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         const fetchData = async() =>{
             const data = await axios.get('https://vet-appt-house-backend.onrender.com/vetClinics')
             console.log("useEffect", data.data.length)
         }
         fetchData()
-    },[])
-
-    
+    },[]) */
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
