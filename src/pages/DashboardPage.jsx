@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../assets/styles/Dashboard.scss'
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 
 const Dashboard = () => {
     const initialState = {
@@ -14,14 +13,6 @@ const Dashboard = () => {
     function reducer(state, action){
       return {...state, ...action}
     }
-
-    /* useEffect(()=>{
-        const fetchData = async() =>{
-            const data = await axios.get('https://vet-appt-house-backend.onrender.com/vetClinics')
-            console.log("useEffect", data.data.length)
-        }
-        fetchData()
-    },[]) */
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -71,9 +62,9 @@ const Dashboard = () => {
         const visitedPetData = {}
         resVisitedPets.forEach(item=>{
             if(visitedPetData[item.vetClinic.city]){
-            visitedPetData[item.vetClinic.city]+=1
+                visitedPetData[item.vetClinic.city]+=1
             }else{
-            visitedPetData[item.vetClinic.city]=1
+                visitedPetData[item.vetClinic.city]=1
             }
         })
 
@@ -172,23 +163,27 @@ const Dashboard = () => {
 
     return (
         <div className="row">
-            <div className="col-md-2 mt-3">
-                <div className="sideBar w-100">
-                    <div className="container h-100">
-                        <div className='d-flex flex-column justify-content-center align-items-center fs-2 border-bottom' style={{height:'200px', fontWeight:900}}>後台管理</div>
-                        <Link to="" className="sideBarLink d-flex justify-content-center mt-5 mb-5">
-                            網站概況
-                        </Link>
-                        <Link onTouchEnd="" className="sideBarLink d-flex justify-content-center">
-                            獸醫院管理
-                        </Link>
+            <div className="col-md-3 mt-3" style={{height:'100%'}}>
+                <div className="w-100 p-3 rounded-3 shadow-lg" style={{ height:'600px',backgroundColor: '#1f77b4' }}>
+                <div className="container">
+                    <div className='d-flex flex-column justify-content-center align-items-center text-white fs-2 border-bottom pb-3' 
+                        style={{ height: '200px', fontWeight: 900 }}>
+                        後台管理
                     </div>
-
+                    <Link to="" className="d-flex justify-content-center mt-5 mb-3 fs-4 p-3 rounded-3" 
+                        style={{ backgroundColor: '#B3E5FC', color: '#0078D7', textDecoration: 'none', fontWeight: 600 }}>
+                        網站概況
+                    </Link>
+                    <Link to="" className="sideBarLink d-flex justify-content-center fs-4 p-3 rounded-3" 
+                        style={{ backgroundColor: '#C8E6C9', color: '#388E3C', textDecoration: 'none', fontWeight: 600 }}>
+                        獸醫院管理
+                    </Link>
+                </div>
                 </div>
             </div>
             <div className="col-md-9">
                 <div className='row'>
-                    <ul className='d-flex mt-3 gap-3 mb-3' style={{height:'90px'}}>
+                    <ul className='d-flex mt-3 gap-3 mb-3' style={{height:'90px', paddingRight:'80px'}}>
                         <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#007bff', display:'flex', flexDirection:'column', justifyContent:'center'}}>
                             <div className='d-flex justify-content-between'><span>全台獸醫院數量</span><span>{state.clinicsNum}</span></div>
                         </li>
@@ -203,7 +198,7 @@ const Dashboard = () => {
                         </li>
                     </ul>
                 </div>
-                <div className='row mt-3'>
+                <div className='row mt-3' style={{paddingRight:'20px'}}>
                     <div className='col-md-4'>
                         <div className="mb-3 card" style={{height:'400px'}}>
                             <div className="card-header p-3">
@@ -241,7 +236,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className='row mt-3'>
+                <div className='row mt-3' style={{paddingRight:'20px'}}>
                     <div className="mb-3 card" style={{height:'400px'}}>
                         <div className="card-header p-3">
                             <div className="card-header-title">
