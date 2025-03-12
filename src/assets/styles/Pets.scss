@@ -156,6 +156,7 @@
       padding: 10px;
       &:not(.swiper-slide-active) .pet-card::after {
         content: "";
+        pointer-events: none;
         position: absolute;
         top: 0;
         left: 0;

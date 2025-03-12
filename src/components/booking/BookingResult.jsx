@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const BookingResult = ({ result, reset }) => {
   return result.id ? (
-    <div className="booking-result d-flex justify-content-center align-items-center position-absolute">
+    <div className="booking-result d-flex justify-content-center align-items-center position-fixed">
       <div className="result-modal p-3">
         <h3>預約成功!</h3>
         <p className="fs-5 mt-2">預約已確認，請查看以下資訊：</p>
