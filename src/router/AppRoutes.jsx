@@ -1,13 +1,12 @@
 import { createHashRouter, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import AuthLayout from "../layouts/AuthLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import VeterinaryPage from "../pages/VeterinaryPage";
 import UserPage from "../pages/UserPage";
 import PetPage from "../pages/PetPage";
 import ProtectedRoute from "./ProtectedRoute";
-import AuthWrapper from "../components/auth/AuthWrapper";
 import BookingPage from "../pages/BookingPage";
 import VetSearchPage from "../pages/VetSearchPage";
 import NotFound from "../pages/NotFound";
@@ -46,11 +45,7 @@ export default createRouter([
   { path: "booking", element: <BookingPage /> },
   {
     path: "admin",
-    element: (
-      <AuthWrapper isAuthenticated={true}>
-        <AuthLayout />
-      </AuthWrapper>
-    ),
+    element: <AdminLayout/>,
   },
   {
     path: "*",
