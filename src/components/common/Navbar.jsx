@@ -10,7 +10,7 @@ import Icon from "./Icon";
 import { computedTo } from "../../utils/common";
 import { useAuth } from "@/context/AuthContext";
 
-const linkPathList = [
+const linkPathFullback = [
   { name: "搜尋獸醫", path: "/search" },
   { name: "快速預約", path: "/quick" },
   { name: "最新消息", path: "/#news" },
@@ -18,7 +18,7 @@ const linkPathList = [
   { name: "寵物管理", path: "/user/pets" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ linkPathList = linkPathFullback }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isAboveHeader, setIsAboveHeader] = useState(true);

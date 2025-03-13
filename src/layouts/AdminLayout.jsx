@@ -1,23 +1,24 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import Navbar from "../components/common/NavBar";
+
+const linkPathList = [
+  { name: "Dashboard", path: "/admin" },
+  { name: "獸醫院管理", path: "/admin/vet-management" },
+];
 
 const AdminLayout = () => {
+  const { isLogin, user } = useAuth();
+
+  if (!isLogin || user.role !== 1) {
+    return <Navigate to="/404" replace />;
+  }
   return (
-    <div className="admin-layout">
-      <header className="admin-header">Admin Dashboard</header>
-      <div className="admin-content">
-        <aside className="admin-sidebar">
-          <nav>
-            <ul>
-              <li><a href="/admin/manage-users">Manage Users</a></li>
-              <li><a href="/admin/manage-vets">Manage Vets</a></li>
-              <li><a href="/admin/reports">Reports</a></li>
-            </ul>
-          </nav>
-        </aside>
-        <main className="admin-main">
-          <Outlet />
-        </main>
-      </div>
+    <div>
+      <Navbar linkPathList={linkPathList} />
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 };

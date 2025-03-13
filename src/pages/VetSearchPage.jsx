@@ -114,7 +114,7 @@ const VetSearchPage = () => {
           pagination: { totalPages, current },
         },
       } = await api.get(
-        `/vetClinics?limit=${isMobile ? 8 : 12}&tag=true&page=${page}&${query}`
+        `/vetClinics?limit=${isMobile ? 8 : 12}&status=enabled&tag=true&page=${page}&${query}`
       );
       setResults(data);
       setCurrentPage(current);
