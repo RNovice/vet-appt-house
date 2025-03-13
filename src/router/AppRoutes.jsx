@@ -12,6 +12,7 @@ import VetSearchPage from "../pages/VetSearchPage";
 import NotFound from "../pages/NotFound";
 import AboutUs from "../pages/AboutUs";
 import Redirect from "../pages/Redirect";
+import DashboardPage from "../pages/DashboardPage";
 
 const createRouter =
   process.env.NODE_ENV === "production"
@@ -45,7 +46,9 @@ export default createRouter([
   { path: "booking", element: <BookingPage /> },
   {
     path: "admin",
-    element: <AdminLayout/>,
+    element: <AdminLayout />,
+    children: [{ index: true, element: <DashboardPage /> },
+    { path: "vet-management", element: <></> },],
   },
   {
     path: "*",
