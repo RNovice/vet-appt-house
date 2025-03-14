@@ -117,8 +117,8 @@ export default function BookingPage() {
     const fetchData = async () => {
       if (isBookingPage) {
         let isLogin;
-          let userData = JSON.parse(localStorage.getItem('user')) || {}
-          userData?.id ? isLogin = true: isLogin=false 
+        let userData = JSON.parse(localStorage.getItem("user")) || {};
+        userData?.id ? (isLogin = true) : (isLogin = false);
         try {
           let data;
           if (!location.state) {
@@ -127,7 +127,7 @@ export default function BookingPage() {
             );
             data = fetchData.data;
           } else if (location.state?.appointmentData) {
-            data = location.state?.appointmentData.vetClinic
+            data = location.state?.appointmentData.vetClinic;
           } else {
             data = location.state;
           }
@@ -140,8 +140,12 @@ export default function BookingPage() {
             clinic: {
               clinicsData: data,
               vetClinicId: Number(urlParams["clinicId"]),
-              serviceOptions: isLogin ? data?.services : data.services.map((item) => item.id) ,
-              speciesOptions: isLogin ? data?.treatedAnimals : data.treatedAnimals.map((item) => item.id),
+              serviceOptions: isNaN(data.services[0])
+                ? data.services.map((item) => item.id)
+                : data?.services,
+              speciesOptions: isNaN(data.treatedAnimals[0])
+                ? data.treatedAnimals.map((item) => item.id)
+                : data?.treatedAnimals,
               clinicsTime: [
                 businessHours[0][day === 0 ? 6 : day - 1],
                 businessHours[1][day === 0 ? 6 : day - 1],
@@ -155,8 +159,8 @@ export default function BookingPage() {
               })),
             },
             user: {
-              userId: userData?.id || '', //登入功能完成後修改
-              userName: userData?.name || '', //登入功能完成後修改
+              userId: userData?.id || "", //登入功能完成後修改
+              userName: userData?.name || "", //登入功能完成後修改
             },
           });
         } catch (err) {
@@ -205,8 +209,8 @@ export default function BookingPage() {
 
   const onSubmit = (data) => {
     dispatch({
-      user:{
-        userName: data.userName
+      user: {
+        userName: data.userName,
       },
       ui: {
         isOpen: true,
@@ -230,7 +234,7 @@ export default function BookingPage() {
           createTime: new Date().toLocaleString("sv"),
           updateTime: "",
           vetClinicId: state.clinic.vetClinicId,
-          userId: state.user.userId?state.user.userId:-1,
+          userId: state.user.userId ? state.user.userId : -1,
           petId: Number(data.petId),
         },
       },
@@ -290,7 +294,7 @@ export default function BookingPage() {
                 className="form-select mb-2"
               >
                 <option value="">請選擇物種</option>
-                {state.clinic.speciesOptions.map((id,index) => (
+                {state.clinic.speciesOptions.map((id, index) => (
                   <option key={index} value={id}>
                     {speciesLabels[id - 1]}
                   </option>
@@ -304,7 +308,7 @@ export default function BookingPage() {
                 className="form-select mb-2"
               >
                 <option value="">請選擇科別</option>
-                {state.clinic.serviceOptions.map((id,index) => (
+                {state.clinic.serviceOptions.map((id, index) => (
                   <option key={index} value={id}>
                     {departmentLabels[id - 1]}
                   </option>
@@ -355,7 +359,7 @@ export default function BookingPage() {
               </label>
               <select
                 {...register("petId")} //可匿名
-                /* {...register("petId", { required: true })} */ 
+                /* {...register("petId", { required: true })} */
                 className="form-select mb-2"
               >
                 <option value="">請選擇寵物</option>
