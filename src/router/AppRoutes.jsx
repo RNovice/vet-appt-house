@@ -13,6 +13,7 @@ import NotFound from "../pages/NotFound";
 import AboutUs from "../pages/AboutUs";
 import Redirect from "../pages/Redirect";
 import DashboardPage from "../pages/DashboardPage";
+import VetManagementPage from "../pages/VetManagementPage";
 
 const createRouter =
   process.env.NODE_ENV === "production"
@@ -47,8 +48,10 @@ export default createRouter([
   {
     path: "admin",
     element: <AdminLayout />,
-    children: [{ index: true, element: <DashboardPage /> },
-    { path: "vet-management", element: <></> },],
+    children: [
+      { index: true, element: <DashboardPage /> },
+      { path: "vet-management", element: <VetManagementPage /> },
+    ],
   },
   {
     path: "*",
