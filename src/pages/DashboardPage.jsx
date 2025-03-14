@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 const Dashboard = () => {
     const initialState = {
@@ -159,7 +159,9 @@ const Dashboard = () => {
 
     }
 
-    renderData()
+    useEffect(() => {
+        renderData();
+    }, []);
 
     return (
         <div className="p-4" style={{margin:'0 auto',maxWidth:'80%'}}>
