@@ -26,7 +26,7 @@ const PaginationAdmin = ({
   }
 
   return (
-    <div className="pagination">
+    <div className="admin-pagination">
       <button onClick={()=>pageIndex>=10?handlePageIndex(pageIndex-10):handlePageIndex(pageIndex)} style={{width:'100px'}}
       > 
         上十頁

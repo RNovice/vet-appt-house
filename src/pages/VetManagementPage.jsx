@@ -1,154 +1,183 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import api from "../services/api";
-import axios from 'axios';
-import { useForm } from "react-hook-form";
 import Icon from "@/components/common/Icon";
+import Paginator from "@/components/common/Paginator";
 import "@/assets/styles/Dashboard.scss";
-import Pagination from "../components/common/PaginatorAdmin";
+
+const options = [
+  { label: "全部", value: "" },
+  { label: "已啟用", value: "enabled" },
+  { label: "未啟用", value: "disabled" },
+];
 
 const VetManagementPage = () => {
-    const navigate = useNavigate();
-    const [clinicData, setClinicData] = useState([]);
-    const [filterClinicData, setFilterClinicData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [clinicPerPage, setClinicPerPage] = useState(10)
-    const [totalPages, setTotalPages] = useState(1);
-    const [pageIndex, setPageIndex] = useState(0);
+  const [clinicData, setClinicData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+  const [keyword, setKeyword] = useState("");
+  const [filter, setFilter] = useState("");
 
-    const getClinicData = async () => {
-        try {
-            const { data } = await api(`/vetClinics`);
-            setClinicData(data);
-            setTotalPages(Math.ceil(data.length/10))
-        } catch (err) {
-            err.response?.data?.error === "Not found"
-            ? navigate("/404")
-            : console.error("Error: ", err);
-        }
-    };
-
-    const handlePageChange = (currentPage) => {
-        console.log("handlePageChange currentPage", currentPage)
-        const lastClinicIndex = currentPage * clinicPerPage;
-        const firstClinicIndex = lastClinicIndex-clinicPerPage;
-        const currentClinic = clinicData.slice(firstClinicIndex, lastClinicIndex)
-        console.log("currentClinic: ",currentClinic)
-        setFilterClinicData(currentClinic)
+  const getClinicData = async (page = 1, noKeyword = false) => {
+    try {
+      const {
+        data: {
+          data,
+          pagination: { totalPages, current },
+        },
+      } = await api.get(
+        `/vetClinics?limit=${10}&status=${filter}&page=${page}${
+          noKeyword || !keyword ? "" : `&keyword=${keyword}`
+        }`
+      );
+      setCurrentPage(current);
+      setTotalPages(totalPages);
+      setClinicData(data);
+    } catch (err) {
+      console.error("Error: ", err);
     }
+  };
 
-    useEffect(()=>{
-        getClinicData();
-    },[])
-    
-    const handleStatus = async(id, data) => {
-        const status = !data.isEnabled?'enable':'disable';
-        try{
-            await axios.patch(`https://vet-appt-house-backend.onrender.com/vetClinics/${id}/${status}`)
-        }catch(error){
-            console.log("handleStatus Error: ", error)
-        };
-        getClinicData();
-        handlePageChange(currentPage);
-        setPageIndex(currentPage);
+  useEffect(() => {
+    getClinicData();
+  }, [filter]);
+
+  const handleStatus = async (id, status) => {
+    try {
+      await api.patch(`/vetClinics/${id}/${status}`);
+    } catch (error) {
+      console.log("handleStatus Error: ", error);
     }
+    getClinicData(currentPage);
+  };
 
-    const onSubmit = (data) => {
-        if (!Array.isArray(clinicData)) {
-            console.error("clinicData 非陣列", clinicData);
-            return;
-        }
-        
-        const filterData = clinicData.filter(clinic => 
-        clinic?.name?.includes(data.vetName || "")
-        );
+  const handleClearKeyword = () => {
+    setKeyword("");
+    getClinicData(1, true);
+  };
 
-        setFilterClinicData(filterData);
-        setTotalPages(Math.ceil(filterData.length/10));
-    }
-    return (
-        <div className="row p-4 mt-3">
-            <div className="container">
-                <form onSubmit={handleSubmit(onSubmit)} className='d-flex justify-content-end'>
-                    <div className='d-flex align-items-center gap-2'>
-                        <input
-                        type="text"
-                        id="find-vet-keyword"
-                        className={`input-text-primary mb-2 shadow keyword`}
-                        defaultValue='請輸入醫院名稱'
-                        {...register("vetName")}
-                    />
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getClinicData();
+  };
 
-                    <button
-                        className="btn-quaternary fs-6 d-flex justify-content-center align-items-center gap-1"
-                        type="submit"
-                        >
-                        搜尋
-                        <Icon fileName={"search"} size={20} />
-                    </button>
-                    </div>
-                </form>
-
-                <table className="table mt-5" style={{ "--bs-table-bg": "transparent" }}>
-                    <thead>
-                        <tr className='fs-4'>
-                            <th scope="col" style={{width:'20%'}}>名稱</th>
-                            <th scope="col" style={{width:'20%'}}>縣市</th>
-                            <th scope="col" style={{width:'20%'}}>地區</th>
-                            <th scope="col" style={{width:'20%'}}>是否啟用</th>
-                            <th scope="col" style={{width:'20%'}}>編輯</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filterClinicData?.length?filterClinicData.map((data) => {
-                            return (
-                                <tr key={data.id} className='fs-5'>
-                                    <td>{data.name}</td>
-                                    <td>{data.city}</td>
-                                    <td>{data.district}</td>
-                                    <td>{data.isEnabled ? (<span className="text-success">啟用</span>) : (<span>未啟用</span>)}</td>
-                                    <td>
-                                        <button type="button" onClick={()=>handleStatus(data.id,data)}  className="btn btn-outline-primary me-2" disabled={data.isEnabled}>啟用</button>
-                                        <button type="button" onClick={()=>handleStatus(data.id,data)} className="btn btn-outline-danger" disabled={!data.isEnabled}>停用</button>
-                                    </td>
-                                </tr>
-                                )
-                        }):clinicData.slice(0,10)?.map((data) => {
-                            return (
-                                <tr key={data.id} className='fs-5'>
-                                    <td>{data.name}</td>
-                                    <td>{data.city}</td>
-                                    <td>{data.district}</td>
-                                    <td>{data.isEnabled ? (<span className="text-success">啟用</span>) : (<span>未啟用</span>)}</td>
-                                    <td>
-                                        <button type="button" onClick={()=>handleStatus(data.id,data)}  className="btn btn-outline-primary me-2" disabled={data.isEnabled}>啟用</button>
-                                        <button type="button" onClick={()=>handleStatus(data.id,data)} className="btn btn-outline-danger" disabled={!data.isEnabled}>停用</button>
-                                    </td>
-                                </tr>
-                                )
-                        })}
-                    </tbody>
-                </table>    
-
-                <Pagination
-                totalPages={clinicData.length}
-                clinicPerPage={clinicPerPage}
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-                handlePageChange = {handlePageChange}
-                pageIndex = {pageIndex}
-                setPageIndex = {setPageIndex} 
-            />
+  return (
+    <div className="vet-manage row p-4 mt-3">
+      <div className="container">
+        <form
+          className="d-flex justify-content-end align-items-center gap-2"
+          onSubmit={handleSubmit}
+        >
+          {options.map(({ label, value }) => (
+            <div
+              key={`filter-${value}`}
+              className={`btn btn${
+                filter === value ? "" : "-outline"
+              }-primary rounded-pill me-2`}
+              onClick={() => setFilter(value)}
+            >
+              {label}
             </div>
+          ))}
+          <div className="position-relative">
+            <input
+              type="text"
+              id="find-vet-keyword"
+              className="input-text-primary shadow keyword pe-4"
+              placeholder="請輸入醫院名稱"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+            {keyword.length > 0 && (
+              <span
+                title="清除關鍵字"
+                onClick={handleClearKeyword}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "0.75rem",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  color: "#555",
+                }}
+                role="button"
+              >
+                X
+              </span>
+            )}
+          </div>
+          <button
+            className="btn-quaternary fs-6 d-flex justify-content-center align-items-center gap-1 border-0 rounded px-2 py-1 h-100"
+            type="submit"
+          >
+            搜尋
+            <Icon fileName={"search"} size={20} />
+          </button>
+        </form>
 
-        </div>     
-    )
-}
+        <table
+          className="table mt-5"
+          style={{ "--bs-table-bg": "transparent", tableLayout: "fixed" }}
+        >
+          <thead>
+            <tr className="fs-4">
+              <th scope="col">名稱</th>
+              <th scope="col">縣市</th>
+              <th scope="col">地區</th>
+              <th scope="col">是否啟用</th>
+              <th scope="col">編輯</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clinicData.slice(0, 10)?.map((data) => {
+              return (
+                <tr key={data.id} className="fs-5">
+                  <td>{data.name}</td>
+                  <td>{data.city}</td>
+                  <td>{data.district}</td>
+                  <td>
+                    {data.isEnabled ? (
+                      <span className="text-success">啟用</span>
+                    ) : (
+                      <span>未啟用</span>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => handleStatus(data.id, "enable")}
+                      className="btn btn-outline-primary me-2"
+                      disabled={data.isEnabled}
+                    >
+                      啟用
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleStatus(data.id, "disable")}
+                      className="btn btn-outline-danger"
+                      disabled={!data.isEnabled}
+                    >
+                      停用
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        {totalPages > 1 && (
+          <Paginator
+            className="mt-4 d-flex justify-content-center"
+            currentPage={currentPage}
+            onPageChange={getClinicData}
+            totalPages={totalPages}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default VetManagementPage;
