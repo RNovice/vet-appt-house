@@ -62,7 +62,7 @@ const VetManagementPage = () => {
   };
 
   return (
-    <div className="vet-manage row p-4 mt-3">
+    <div className="vet-manage p-4 mt-3">
       <div className="container">
         <form
           className="d-flex justify-content-end align-items-center gap-2"
@@ -83,7 +83,7 @@ const VetManagementPage = () => {
             <input
               type="text"
               id="find-vet-keyword"
-              className="input-text-primary shadow keyword pe-4"
+              className="input-text-primary pe-4"
               placeholder="請輸入醫院名稱"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
