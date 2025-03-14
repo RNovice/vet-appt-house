@@ -162,7 +162,7 @@ const Dashboard = () => {
     renderData()
 
     return (
-        <div className="p-4">
+        <div className="p-4" style={{margin:'0 auto',maxWidth:'80%'}}>
             <div className='row mt-5'>
                 <ul className='d-flex mt-3 gap-3 mb-3' style={{height:'90px', paddingRight:'80px'}}>
                     <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#007bff', display:'flex', flexDirection:'column', justifyContent:'center'}}>
