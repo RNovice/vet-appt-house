@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 const Dashboard = () => {
     const initialState = {
@@ -159,93 +159,75 @@ const Dashboard = () => {
 
     }
 
-    renderData()
+    useEffect(() => {
+        renderData();
+    }, []);
 
     return (
-        <div className="row">
-            <div className="col-md-3 mt-3" style={{height:'100%'}}>
-                <div className="w-100 p-3 rounded-3 shadow-lg" style={{ height:'600px',backgroundColor: '#1f77b4' }}>
-                <div className="container">
-                    <div className='d-flex flex-column justify-content-center align-items-center text-white fs-2 border-bottom pb-3' 
-                        style={{ height: '200px', fontWeight: 900 }}>
-                        後台管理
-                    </div>
-                    <Link to="" className="d-flex justify-content-center mt-5 mb-3 fs-4 p-3 rounded-3" 
-                        style={{ backgroundColor: '#B3E5FC', color: '#0078D7', textDecoration: 'none', fontWeight: 600 }}>
-                        網站概況
-                    </Link>
-                    <Link to="" className="sideBarLink d-flex justify-content-center fs-4 p-3 rounded-3" 
-                        style={{ backgroundColor: '#C8E6C9', color: '#388E3C', textDecoration: 'none', fontWeight: 600 }}>
-                        獸醫院管理
-                    </Link>
-                </div>
-                </div>
+        <div className="p-4" style={{margin:'0 auto',maxWidth:'80%'}}>
+            <div className='row mt-5'>
+                <ul className='d-flex mt-3 gap-3 mb-3' style={{height:'90px', paddingRight:'80px'}}>
+                    <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#007bff', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                        <div className='d-flex justify-content-between'><span>全台獸醫院數量</span><span>{state.clinicsNum}</span></div>
+                    </li>
+                    <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#ffc107', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                        <div className='d-flex justify-content-between'><span>註冊用戶</span><span>{state.usersNum}</span></div>
+                    </li>
+                    <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#28a745', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                        <div className='d-flex justify-content-between'><span>登記寵物</span><span>{state.petsNum}</span></div>
+                    </li>
+                    <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#dc3545', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                        <div className='d-flex justify-content-between'><span>就診數量</span><span>{state.visitsNum}</span></div>
+                    </li>
+                </ul>
             </div>
-            <div className="col-md-9">
-                <div className='row'>
-                    <ul className='d-flex mt-3 gap-3 mb-3' style={{height:'90px', paddingRight:'80px'}}>
-                        <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#007bff', display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                            <div className='d-flex justify-content-between'><span>全台獸醫院數量</span><span>{state.clinicsNum}</span></div>
-                        </li>
-                        <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#ffc107', display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                            <div className='d-flex justify-content-between'><span>註冊用戶</span><span>{state.usersNum}</span></div>
-                        </li>
-                        <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#28a745', display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                            <div className='d-flex justify-content-between'><span>登記寵物</span><span>{state.petsNum}</span></div>
-                        </li>
-                        <li className='col-md-3 text-white p-5 fs-4' style={{backgroundColor:'#dc3545', display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                            <div className='d-flex justify-content-between'><span>就診數量</span><span>{state.visitsNum}</span></div>
-                        </li>
-                    </ul>
-                </div>
-                <div className='row mt-3' style={{paddingRight:'20px'}}>
-                    <div className='col-md-4'>
-                        <div className="mb-3 card" style={{height:'400px'}}>
-                            <div className="card-header p-3">
-                                <div className="card-header-title">
-                                    全台飼主分布
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div id="userChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-md-4'>
-                        <div className="mb-3 card" style={{height:'400px'}}>
-                            <div className="card-header p-3">
-                                <div className="card-header-title">
-                                    就診寵物分布
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div id="visitedPetChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-md-4'>
-                        <div className="mb-3 card" style={{height:'400px'}}>
-                            <div className="card-header p-3">
-                                <div className="card-header-title">
-                                    寵物類別
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div id="speciesChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='row mt-3' style={{paddingRight:'20px'}}>
+            <div className='row mt-3' style={{paddingRight:'20px'}}>
+                <div className='col-md-4'>
                     <div className="mb-3 card" style={{height:'400px'}}>
                         <div className="card-header p-3">
                             <div className="card-header-title">
-                                全台獸醫院分布
+                                全台飼主分布
                             </div>
                         </div>
                         <div className="card-body">
-                            <div id="chart"></div>
+                            <div id="userChart"></div>
                         </div>
+                    </div>
+                </div>
+                <div className='col-md-4'>
+                    <div className="mb-3 card" style={{height:'400px'}}>
+                        <div className="card-header p-3">
+                            <div className="card-header-title">
+                                就診寵物分布
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            <div id="visitedPetChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className='col-md-4'>
+                    <div className="mb-3 card" style={{height:'400px'}}>
+                        <div className="card-header p-3">
+                            <div className="card-header-title">
+                                寵物類別
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            <div id="speciesChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='row mt-3' style={{paddingRight:'20px'}}>
+                <div className="mb-3 card" style={{height:'400px'}}>
+                    <div className="card-header p-3">
+                        <div className="card-header-title">
+                            全台獸醫院分布
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <div id="chart"></div>
                     </div>
                 </div>
             </div>
