@@ -94,7 +94,7 @@ const News = () => {
       </aside>
       <div className="content bg-primary flex-column w-100">
         <h5>
-          {selected?.subtitle || news.length > 0 ? "請點選文章" : "沒有文章"}
+          {selected?.subtitle ? selected.subtitle : news.length > 0 ? "請點選文章" : "沒有文章"}
         </h5>
         <article className="fs-6">{selected?.content}</article>
       </div>
