@@ -2,7 +2,6 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "bootstrap";
-import axios from "axios";
 import Navbar from "../components/common/NavBar";
 import DatePicker from "@/components/common/DatePicker";
 import api from "@/services/api";
