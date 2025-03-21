@@ -33,7 +33,6 @@ const UserForm = () => {
     register, //用於註冊表單欄位
     handleSubmit, //用於處理表單提交
     formState: { errors }, //用於管理表單驗證狀態
-    reset, //用於重置表單
     setValue, //用於手動設置表單欄位的值
     clearErrors, //用於清除表單錯誤訊息
   } = useForm({

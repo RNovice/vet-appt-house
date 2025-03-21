@@ -116,9 +116,7 @@ export default function BookingPage() {
 
     const fetchData = async () => {
       if (isBookingPage) {
-        let isLogin;
         let userData = JSON.parse(localStorage.getItem("user")) || {};
-        userData?.id ? (isLogin = true) : (isLogin = false);
         try {
           let data;
           if (!location.state) {
@@ -183,7 +181,6 @@ export default function BookingPage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
   } = useForm({
     defaultValues: {
       date: new Date(),

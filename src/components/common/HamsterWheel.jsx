@@ -1,4 +1,3 @@
-import React from "react";
 import "@/assets/styles/component_import_styles/HamsterWheel.scss";
 
 const HamsterWheel = () => {

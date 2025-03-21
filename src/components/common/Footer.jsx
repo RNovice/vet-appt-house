@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useMobile } from "@/context/MobileContext";
 import iconLogoSvg from "@/assets/images/icon-logo.svg";

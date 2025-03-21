@@ -62,11 +62,12 @@ const VetSearchPage = () => {
           case "keyword":
             setValue(key, value);
             break;
-          case "date":
+          case "date": {
             const date = new Date(value);
             setSelectedDate(date);
             setValue(key, date);
             break;
+          }
           case "other":
             value
               .split(",")
@@ -114,7 +115,9 @@ const VetSearchPage = () => {
           pagination: { totalPages, current },
         },
       } = await api.get(
-        `/vetClinics?limit=${isMobile ? 8 : 12}&status=enabled&tag=true&page=${page}&${query}`
+        `/vetClinics?limit=${
+          isMobile ? 8 : 12
+        }&status=enabled&tag=true&page=${page}&${query}`
       );
       setResults(data);
       setCurrentPage(current);
@@ -291,13 +294,12 @@ const VetSearchPage = () => {
         {isResultPage && (
           <>
             <div className="clinic-results w-100 mx-auto">
-              {results===null ?
-              <div className="max-space flex-column align-items-center gap-4">
-                <h3 className="text-tertiary">資料讀取中</h3>
-                <HamsterWheel/>
-              </div>
-              :
-              results.length > 0 ? (
+              {results === null ? (
+                <div className="max-space flex-column align-items-center gap-4">
+                  <h3 className="text-tertiary">資料讀取中</h3>
+                  <HamsterWheel />
+                </div>
+              ) : results.length > 0 ? (
                 results.map((clinic) => (
                   <div
                     key={clinic.id}
@@ -337,7 +339,9 @@ const VetSearchPage = () => {
                   </div>
                 ))
               ) : (
-                <h3 className="max-space text-tertiary text-center">沒有符合的獸醫院</h3>
+                <h3 className="max-space text-tertiary text-center">
+                  沒有符合的獸醫院
+                </h3>
               )}
             </div>
             {totalPages > 1 && (

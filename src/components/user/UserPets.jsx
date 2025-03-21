@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Swiper, SwiperSlide as Slide } from "swiper/react";
-import { Mousewheel, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
-import "swiper/css";
-import "swiper/css/navigation";
 import axios from "axios";
 import Icon from "../common/Icon";
 import PetsModal from "./PetsModal";
@@ -33,8 +29,8 @@ const UserPets = () => {
         const url = `${BACKEND_HOST}/species`;
         const res = await axios.get(url);
         setSpeciesData(res.data);
-      } catch (error) {
-        console.log("取得物種資料失敗");
+      } catch (err) {
+        console.log("取得物種資料失敗", err);
       }
     })();
   }, []);
