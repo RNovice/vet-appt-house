@@ -49,7 +49,7 @@ const customStyles = (hasError) => ({
     ...base,
     padding: "0",
   }),
-  clearIndicator: (base, state) => ({
+  clearIndicator: (base) => ({
     ...base,
     padding: "2px",
   }),
@@ -84,10 +84,12 @@ const DropDownList = forwardRef(
         className={`fs-6 ${className}`}
         styles={customStyles(hasError)}
         components={customComponents}
-        noOptionsMessage={()=>"沒有符合的資料"}
+        noOptionsMessage={() => "沒有符合的資料"}
       />
     );
   }
 );
+
+DropDownList.displayName = "DropDownLis";
 
 export default DropDownList;

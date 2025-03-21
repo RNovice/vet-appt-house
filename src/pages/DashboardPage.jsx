@@ -72,7 +72,6 @@ const Dashboard = () => {
     const resTreatedAnimals = res2.data;
 
     let speciesData = [];
-    let treatedAnimalsData = [];
 
     resTreatedAnimals.forEach((item) =>
       speciesData.push({ [item.species]: 0 })
@@ -104,7 +103,7 @@ const Dashboard = () => {
     const chartVisitedPetData = await getVisitedPetList();
     const chartSpeciesData = await getSpeciesList();
 
-    let chart = c3.generate({
+    c3.generate({
       bindto: "#chart", // HTML 元素綁定
       data: {
         type: "bar",
@@ -136,7 +135,7 @@ const Dashboard = () => {
       },
     });
 
-    let userChart = c3.generate({
+    c3.generate({
       bindto: "#userChart", // HTML 元素綁定
       data: {
         type: "pie",
@@ -168,7 +167,7 @@ const Dashboard = () => {
       },
     });
 
-    let visitedPetChart = c3.generate({
+    c3.generate({
       bindto: "#visitedPetChart", // HTML 元素綁定
       data: {
         type: "pie",
@@ -200,7 +199,7 @@ const Dashboard = () => {
       },
     });
 
-    let speciesChart = c3.generate({
+    c3.generate({
       bindto: "#speciesChart", // HTML 元素綁定
       data: {
         type: "pie",

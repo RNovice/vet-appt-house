@@ -26,6 +26,8 @@ const CustomDateInput = forwardRef(({ value, onClick, id }, ref) => (
   </div>
 ));
 
+CustomDateInput.displayName = "CustomDateInput";
+
 const CustomDatePicker = forwardRef(({ ...props }, ref) => (
   <DatePicker
     ref={ref}
@@ -35,5 +37,7 @@ const CustomDatePicker = forwardRef(({ ...props }, ref) => (
     customInput={<CustomDateInput />}
   />
 ));
+
+CustomDatePicker.displayName = "CustomDatePicker";
 
 export default CustomDatePicker;

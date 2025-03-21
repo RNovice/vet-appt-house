@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Icon from "../common/Icon";
 import axios from "axios";
@@ -300,7 +300,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         // 新增時設置創建時間
         formData.createTime = currentTime;
         formData.updateTime = currentTime;
-        const response = await axios.post(`${BACKEND_HOST}/pets`, formData);
+        await axios.post(`${BACKEND_HOST}/pets`, formData);
         //console.dir(response.data);
         toast.success("寵物資料新增成功");
         // 關閉Modal
@@ -311,7 +311,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         formData.createTime = petData.createTime;
         // 修改時只更新更新時間
         formData.updateTime = currentTime;
-        const response = await axios.put(
+        await axios.put(
           `${BACKEND_HOST}/pets/${petData.id}`,
           formData
         );

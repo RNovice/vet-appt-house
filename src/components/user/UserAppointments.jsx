@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide as Slide } from "swiper/react";
-import { Mousewheel, Navigation } from "swiper/modules";
+import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import CardAppoint from "./CardAppoint";
@@ -22,8 +22,8 @@ const UserAppointments = () => {
       const res = await axios.get(url);
       //console.log("API Response:", res.data);
       setAppointmentsData(res.data);
-    } catch (error) {
-      console.log("取得預約資料失敗");
+    } catch (err) {
+      console.error("取得預約資料失敗", err);
     }
   }, []); // 空依賴陣列，因為這個函數不依賴任何外部變數
 
