@@ -1,4 +1,3 @@
-@import './variables';
 @mixin pc {
     @media(min-width: 992px) {
         @content;

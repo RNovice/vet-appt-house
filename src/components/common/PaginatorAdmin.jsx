@@ -1,4 +1,4 @@
-import "@/assets/styles/PaginationAdmin.scss";
+import "@/assets/styles/components/PaginationAdmin.scss"
 
 const PaginationAdmin = ({
   totalPages,

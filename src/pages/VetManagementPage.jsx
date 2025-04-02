@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import api from "../services/api";
 import Icon from "@/components/common/Icon";
 import Paginator from "@/components/common/Paginator";
-import "@/assets/styles/Dashboard.scss";
 
 const options = [
   { label: "全部", value: "" },
