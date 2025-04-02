@@ -281,7 +281,7 @@ const UserForm = () => {
                   <label className="form-label">地址</label>
                   <div className="row g-3">
                     {/* 城市選擇 */}
-                    <div className="col-12 col-lg-3">
+                    <div className="col-lg-3">
                       <select
                         id="city"
                         className={`form-select ${
@@ -313,7 +313,7 @@ const UserForm = () => {
                     </div>
 
                     {/* 區域選擇 */}
-                    <div className="col-12 col-lg-3">
+                    <div className="col-lg-3">
                       <select
                         id="district"
                         defaultValue={userData.address?.district}

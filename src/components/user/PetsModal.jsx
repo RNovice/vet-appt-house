@@ -484,7 +484,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 {/* ====== */}
                 <div className="row mb-4">
                   {/* 姓名 */}
-                  <div className="col-12 col-sm-6">
+                  <div className="col-sm-6">
                     <div className="mb-4">
                       <label className="form-label">姓名</label>
                       <input
@@ -542,7 +542,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 {/* ====== */}
                 <div className="row mb-4">
                   {/* 生日 */}
-                  <div className="col-12 col-sm-6">
+                  <div className="col-sm-6">
                     <div className="mb-4">
                       <label className="form-label">生日</label>
                       <div className="input-group">
@@ -602,7 +602,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 {/* ====== */}
                 <div className="row mb-4">
                   {/* 體重 */}
-                  <div className="col-12 col-sm-6">
+                  <div className="col-sm-6">
                     <div className="mb-4">
                       <label className="form-label">體重</label>
                       <div className="input-group">
@@ -655,7 +655,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 {/* ====== */}
                 <div className="row mb-4">
                   {/* 性別 */}
-                  <div className="col-12 col-sm-6">
+                  <div className="col-sm-6">
                     <div className="mb-4">
                       <label className="form-label">性別</label>
                       <select
@@ -725,7 +725,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 </div>
                 {/* ====== */}
                 <div className="row mb-4">
-                  <div className="col-12 col-sm-6">
+                  <div className="col-sm-6">
                     <label className="form-label">是否插入晶片</label>
                     <div className="text-grey-scale-2 mt-2">
                       <div className="form-check form-check-inline lh-15">
