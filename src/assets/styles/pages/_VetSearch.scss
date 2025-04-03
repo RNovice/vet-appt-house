@@ -4,7 +4,7 @@
   background-color: #fff3;
   background-blend-mode: lighten;
   padding: 3rem 5rem;
-  @include mobile {
+  @include media-breakpoint-down(md) {
     padding: 1.5rem;
   }
 
@@ -50,7 +50,7 @@
     .checkbox-group {
       gap: 0.25rem 1rem;
     }
-    @media (min-width: $break-xxl) {
+    @include media-breakpoint-up(xxl) {
       grid-template-columns: 180px 180px minmax(180px, 1fr);
       grid-template-areas:
         "item1 item2 item3"
@@ -94,7 +94,7 @@
       .grid-button {
         display: flex;
       }
-      @include mobile {
+      @include media-breakpoint-down(md) {
         margin-top: unset;
       }
     }

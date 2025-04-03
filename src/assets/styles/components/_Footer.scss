@@ -2,13 +2,13 @@
   background-color: $bg-secondary;
   padding: 7.5rem 19.5rem;
   position: relative;
-  @media (max-width: $break-xxl) {
+  @include media-breakpoint-down(xl) {
     padding: 3rem 7.5rem;
   }
-  @media (max-width: $break-lg) {
+  @include media-breakpoint-down(lg) {
     padding-inline: 3rem;
   }
-  @include mobile {
+  @include media-breakpoint-down(md) {
     padding-block: 2.5rem 3.75rem;
     padding-inline: 0.75rem;
     display: flex;
@@ -44,7 +44,7 @@
     width: 100%;
     max-width: 53.5rem;
     .list {
-      @media (max-width: $break-xxl) {
+      @include media-breakpoint-down(xl) {
         text-align: end;
       }
       h6 {

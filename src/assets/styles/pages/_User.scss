@@ -1,9 +1,3 @@
-@mixin pc {
-    @media(min-width: 992px) {
-        @content;
-    }
-}
-
 //**********************
 // utils
 //**********************
@@ -96,7 +90,7 @@
     }
 
 
-    @include pc{
+    @include media-breakpoint-up(lg){
         .container{
             padding-top: 84px;
             padding-bottom: 120px;
@@ -114,7 +108,7 @@
         padding-bottom:120px;
     }
     
-      @include pc{
+      @include media-breakpoint-up(lg){
         &.bg-cover{
             padding-top:40px;
             padding-bottom:58px;
@@ -170,7 +164,7 @@
         }
     }
 
-    @include pc{
+    @include media-breakpoint-up(lg){
         &.bg-cover{
             padding-top:40px;
             padding-bottom:58px;

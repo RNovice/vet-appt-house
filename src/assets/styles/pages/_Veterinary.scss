@@ -17,11 +17,11 @@
   height: 62.75rem;
   height: $hv100-with-nav;
   @extend %bg-center;
-  @include mobile {
+  @include media-breakpoint-down(md) {
     height: 50.75rem;
   }
   .container {
-    @include mobile {
+    @include media-breakpoint-down(md) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -36,7 +36,7 @@
     width: 32.875rem !important;
     height: 22.6875rem !important;
 
-    @include mobile {
+    @include media-breakpoint-down(md) {
       display: none;
     }
   }
@@ -46,7 +46,7 @@
     left: 6.875rem;
     top: 3.75rem;
 
-    @include mobile {
+    @include media-breakpoint-down(md) {
       text-align: center;
       position: static;
       h5 {
@@ -70,12 +70,12 @@
       height: 67.5rem;
     }
 
-    @include mobile {
+    @include media-breakpoint-down(md) {
       display: none;
     }
   }
 
-  @include mobile {
+  @include media-breakpoint-down(md) {
     position: static;
   }
 }
@@ -98,7 +98,7 @@
     min-height: 46.875rem;
     padding: 7.5rem 0rem;
 
-    @include mobile {
+    @include media-breakpoint-down(md) {
       height: auto !important;
       padding: 2.5rem 0.75rem;
     }
@@ -130,14 +130,14 @@
     height: 40.625rem;
     padding: 7.5rem 0rem;
 
-    @media (max-width: "992px") {
+    @include media-breakpoint-down(lg) {
       height: 62.5rem;
       padding: 2.5rem 0.75rem 0 0;
     }
   }
   .section-title {
     margin-bottom: 48px;
-    @media (max-width: "992px") {
+    @include media-breakpoint-down(lg) {
       margin-bottom: 24px;
     }
   }
@@ -151,7 +151,7 @@
   margin: 0 auto;
   background-color: $primary-blue-5;
 
-  @media (max-width: 992px) {
+  @include media-breakpoint-down(lg) {
     flex-direction: column;
     max-width: 21.9375rem;
     padding: 0 0.75rem;
@@ -161,7 +161,7 @@
   .timeTable-L {
     padding: 0.75rem 1.5rem;
 
-    @media (max-width: 992px) {
+    @include media-breakpoint-down(lg) {
       order: 2;
       max-width: 21.9375rem;
     }
@@ -178,7 +178,7 @@
     width: 52rem;
     padding: 0.75rem 1.5rem;
 
-    @media (max-width: 992px) {
+    @include media-breakpoint-down(lg) {
       padding-top: 0.5rem !important;
       max-width: 20.4375rem;
       .table-desktop {
@@ -188,7 +188,7 @@
 
     .table-mobile {
       display: none;
-      @media (max-width: 992px) {
+      @include media-breakpoint-down(lg) {
         display: block;
       }
     }
@@ -227,7 +227,7 @@
     width: 15rem;
     height: 15rem;
 
-    @media (max-width: 992px) {
+    @include media-breakpoint-down(lg) {
       width: 7.5rem;
       height: 7.5rem;
     }

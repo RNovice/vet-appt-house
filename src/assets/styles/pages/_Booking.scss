@@ -6,7 +6,7 @@
         border-radius: 0.75rem;
         width: 50%;
         box-shadow: 0 0.5rem 1rem rgba(19, 24, 95, 0.15);
-        @include mobile {
+        @include media-breakpoint-down(md) {
             width: auto;
         }
         .input-text-primary {

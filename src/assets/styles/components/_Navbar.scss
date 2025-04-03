@@ -13,7 +13,7 @@
     }
   }
 
-  @media (max-width: $break-lg) {
+  @include media-breakpoint-down(lg) {
     .collapse-content {
       display: none;
     }
