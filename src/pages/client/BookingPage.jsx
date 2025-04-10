@@ -2,11 +2,11 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "bootstrap";
-import Navbar from "../components/common/NavBar";
+import Navbar from "../../components/common/NavBar";
 import DatePicker from "@/components/common/DatePicker";
 import api from "@/services/api";
-import BookingResult from "../components/booking/BookingResult";
-import Icon from "../components/common/Icon";
+import BookingResult from "../../components/booking/BookingResult";
+import Icon from "../../components/common/Icon";
 
 export default function BookingPage() {
   const location = useLocation();
@@ -252,16 +252,14 @@ export default function BookingPage() {
         isOpen: false,
       },
     });
-    await api
-      .post("/appointments", state.appointment.submitData)
-      .then((res) => {
-        if (res.status === 201) {
-          setResult(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
+    try {
+      const res = await api.post("/appointments", state.appointment.submitData);
+      if (res.status === 201) {
+        setResult(res.data);
+      }
+    } catch (err) {
+      console.log("Error:", err);
+    }
   };
 
   return (

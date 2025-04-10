@@ -4,12 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import { useMobile } from "@/context/MobileContext";
 import DropDownList from "@/components/common/DropDownList";
 import DatePicker from "@/components/common/DatePicker";
-import Paginator from "../components/common/Paginator";
+import Paginator from "../../components/common/Paginator";
 import Icon from "@/components/common/Icon";
 import { cities, cityQueryDistricts as districts } from "@/utils/constants";
 import { toQueryString, toApiQueryString } from "@/utils/common";
 import api from "@/services/api";
-import HamsterWheel from "../components/common/HamsterWheel";
+import HamsterWheel from "../../components/common/HamsterWheel";
 
 const cityOptions = cities.map(({ city }) => ({ label: city, value: city }));
 

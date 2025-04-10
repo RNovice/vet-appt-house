@@ -1,10 +1,10 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import PetsMarquee from "../components/veterinary/PetsMarquee";
-import VetServices from "../components/veterinary/VetServiceCards";
-import VetTimeTable from "../components/veterinary/VetTimeTable";
-import api from "../services/api";
-import VetHeader from "../components/veterinary/VetHeader";
+import PetsMarquee from "../../components/veterinary/PetsMarquee";
+import VetServices from "../../components/veterinary/VetServiceCards";
+import VetTimeTable from "../../components/veterinary/VetTimeTable";
+import api from "../../services/api";
+import VetHeader from "../../components/veterinary/VetHeader";
 
 const VeterinaryPage = () => {
   const params = useParams();

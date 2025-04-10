@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CatLoading from "@/components/common/CatLoading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/context/AuthContext";
-import api from "../services/api";
+import api from "../../services/api";
 
 const Redirect = () => {
   const location = useLocation();
