@@ -20,7 +20,6 @@ const PaginationAdmin = ({
   }
 
   const handleCurrentPage = (index) => {
-    console.log("handlePageIndex pageIndex", index)
     setCurrentPage(index)
     handlePageChange(index)
   }

@@ -126,8 +126,8 @@ const VetSearchPage = () => {
         const resultEle = document.querySelector(".clinic-results");
         resultEle && resultEle.scrollIntoView({ behavior: "smooth" });
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
+      console.error("獸醫院查詢失敗");
     }
   };
 

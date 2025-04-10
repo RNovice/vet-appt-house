@@ -29,7 +29,7 @@ const VeterinaryPage = () => {
     } catch (err) {
       err.response?.data?.error === "Not found"
         ? navigate("/404")
-        : console.error("Error: ", err);
+        : console.error("獸醫院查詢失敗");
     }
   };
 

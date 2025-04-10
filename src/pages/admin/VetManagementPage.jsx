@@ -32,8 +32,8 @@ const VetManagementPage = () => {
       setCurrentPage(current);
       setTotalPages(totalPages);
       setClinicData(data);
-    } catch (err) {
-      console.error("Error: ", err);
+    } catch {
+      console.error("獸醫院資料取得失敗");
     }
   };
 
@@ -44,8 +44,8 @@ const VetManagementPage = () => {
   const handleStatus = async (id, status) => {
     try {
       await api.patch(`/vetClinics/${id}/${status}`);
-    } catch (error) {
-      console.log("handleStatus Error: ", error);
+    } catch {
+      console.error("handleStatus 錯誤");
     }
     getClinicData(currentPage);
   };

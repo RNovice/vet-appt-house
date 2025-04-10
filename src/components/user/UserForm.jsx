@@ -55,7 +55,6 @@ const UserForm = () => {
       try {
         const url = `${BACKEND_HOST}/users/${userId}`;
         const res = await axios.get(url);
-        //console.log("API Response:", res.data);
         setUserData(res.data);
         if (res.data && res.data.address && res.data.address.city) {
           setCurrentCity(res.data.address.city);
@@ -68,15 +67,14 @@ const UserForm = () => {
         setValue("gender", res.data.gender);
         setValue("district", res.data.address?.district);
         setValue("address", res.data.address?.address);
-      } catch (error) {
-        console.log("取得使用者資料失敗", error);
+      } catch {
+        console.error("取得使用者資料失敗");
       }
     })();
   }, [setValue, userId]);
 
   // 監聽城市變更
   useEffect(() => {
-    // console.log("Current City:", currentCity);
   }, [currentCity]);
 
   // 編輯模式控制
@@ -126,8 +124,7 @@ const UserForm = () => {
       setUserData(formattedData);
       setIsEditing(false);
       toast.success("更新使用者資料成功");
-    } catch (error) {
-      console.log("更新使用者資料失敗", error);
+    } catch {
       toast.error("更新使用者資料失敗");
     } finally {
       setTimeout(() => {

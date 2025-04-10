@@ -30,8 +30,8 @@ export default function LoginPage() {
         navigate("/user");
         toast("登入成功", { className: "toast-success" });
       }
-    } catch (error) {
-      console.error("登入失敗:", error);
+    } catch {
+      console.error("登入失敗:");
       toast("登入失敗，請檢查帳號密碼是否正確", { className: "toast-error" });
     }
   };

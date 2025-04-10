@@ -167,20 +167,14 @@ export default function BookingPage() {
               userName: userData?.name || "", //登入功能完成後修改
             },
           });
-        } catch (err) {
-          console.log("Error: ", err);
+        } catch {
+          console.error("獸醫院資料取得失敗");
         }
       }
     };
 
     fetchData();
   }, [location.pathname, searchParams]);
-
-  useEffect(() => {
-    if (state.user.userId) {
-      console.log("userId 更新:", state.user.userId);
-    }
-  }, [state.user.userId]);
 
   const {
     control,
@@ -257,8 +251,8 @@ export default function BookingPage() {
       if (res.status === 201) {
         setResult(res.data);
       }
-    } catch (err) {
-      console.log("Error:", err);
+    } catch {
+      console.error("預約失敗");
     }
   };
 

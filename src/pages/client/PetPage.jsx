@@ -117,8 +117,8 @@ const PetPage = () => {
       try {
         const { data } = await api("/species");
         setSpecies(data);
-      } catch (err) {
-        console.error("取得物種資料失敗", err);
+      } catch {
+        console.error("取得物種資料失敗");
       }
     })();
   }, []);

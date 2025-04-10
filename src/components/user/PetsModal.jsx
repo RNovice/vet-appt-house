@@ -66,11 +66,9 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
 
   // 當 petData 變更時，更新表單數據
   useEffect(() => {
-    // console.log("petData or modalType changed:", petData, modalType);
 
     if (petData) {
       // 如果是編輯模式且有 petData，則設置表單數據
-      // console.log("Setting form data for edit mode");
       setShowImageError(false);
 
       // 使用 setValue 逐個更新表單字段
@@ -100,7 +98,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
       }
     } else {
       // 如果是新增模式，重置表單
-      // console.log("Resetting form for new mode");
       reset({
         name: "",
         specieId: "",
@@ -153,8 +150,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         bsModal.hide();
       }
     }
-
-    // console.log("Modal closed, form and image reset");
   };
 
   /**
@@ -235,9 +230,8 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
       });
 
       rtnImageUrl = uploadResponse.data.imageUrl;
-      //console.log("圖片上傳成功: " + uploadResponse.data.imageUrl);
-    } catch (error) {
-      console.log("圖片上傳過程中發生錯誤: " + error);
+    } catch {
+      console.error("圖片上傳過程中發生錯誤");
       toast.error("圖片上傳失敗");
     }
 
@@ -245,7 +239,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
   };
 
   const onSubmit = async (data) => {
-    //console.log("data", data);
 
     // 檢查必填欄位是否都已填寫
     if (!isFormValid()) {
@@ -301,7 +294,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         formData.createTime = currentTime;
         formData.updateTime = currentTime;
         await axios.post(`${BACKEND_HOST}/pets`, formData);
-        //console.dir(response.data);
         toast.success("寵物資料新增成功");
         // 關閉Modal
         handleModalClose();
@@ -315,15 +307,13 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
           `${BACKEND_HOST}/pets/${petData.id}`,
           formData
         );
-        //console.dir(response.data);
         toast.success("寵物資料更新成功");
         // 關閉Modal
         handleModalClose();
         // 刷新寵物列表
         getPetsData();
       }
-    } catch (error) {
-      console.log(error);
+    } catch {
       toast.error(
         modalType === "new" ? "寵物資料新增失敗" : "寵物資料更新失敗"
       );
@@ -352,7 +342,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
         setUploadedImage(event.target.result);
       };
       reader.readAsDataURL(file);
-      // console.log("File uploaded:", file);
     } else {
       alert("檔案大小超過 10MB 或未選擇檔案");
     }
@@ -361,7 +350,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
   const handleUploadClick = (e) => {
     // 阻止事件冒泡
     e.stopPropagation();
-    // console.log("Upload area clicked");
     if (fileInputRef.current) {
       fileInputRef.current.click();
     } else {
@@ -377,8 +365,6 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-
-    // console.log("Image removed");
   };
 
   return (

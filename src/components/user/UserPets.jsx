@@ -29,8 +29,8 @@ const UserPets = () => {
         const url = `${BACKEND_HOST}/species`;
         const res = await axios.get(url);
         setSpeciesData(res.data);
-      } catch (err) {
-        console.log("取得物種資料失敗", err);
+      } catch {
+        console.error("取得物種資料失敗");
       }
     })();
   }, []);
