@@ -486,7 +486,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 姓名 */}
                   <div className="col-sm-6">
                     <div className="mb-4">
-                      <label className="form-label">姓名</label>
+                      <label className="form-label required-field">姓名</label>
                       <input
                         type="text"
                         className={`form-control ${
@@ -515,7 +515,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 品種 */}
                   <div className="col">
                     <div className="mb-4">
-                      <label className="form-label">品種</label>
+                      <label className="form-label required-field">品種</label>
                       <select
                         className={`form-select ${
                           errors.specieId ? "is-invalid" : ""
@@ -544,7 +544,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 生日 */}
                   <div className="col-sm-6">
                     <div className="mb-4">
-                      <label className="form-label">生日</label>
+                      <label className="form-label required-field">生日</label>
                       <div className="input-group">
                         <input
                           type="date"
@@ -604,7 +604,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 體重 */}
                   <div className="col-sm-6">
                     <div className="mb-4">
-                      <label className="form-label">體重</label>
+                      <label className="form-label required-field">體重</label>
                       <div className="input-group">
                         <input
                           type="number"
@@ -638,7 +638,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 血型 */}
                   <div className="col">
                     <div className="mb-4">
-                      <label className="form-label">血型</label>
+                      <label className="form-label required-field">血型</label>
                       <input
                         type="text"
                         className={`form-control ${
@@ -657,7 +657,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 性別 */}
                   <div className="col-sm-6">
                     <div className="mb-4">
-                      <label className="form-label">性別</label>
+                      <label className="form-label required-field">性別</label>
                       <select
                         className={`form-select ${
                           errors.gender ? "is-invalid" : ""
@@ -678,7 +678,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                   {/* 是否已結紮 */}
                   <div className="col">
                     <div className="mb-4">
-                      <label className="form-label">是否已結紮</label>
+                      <label className="form-label required-field">是否已結紮</label>
                       <div className="text-grey-scale-2 mt-2">
                         <div className="form-check form-check-inline lh-15">
                           <input
@@ -726,7 +726,7 @@ function PetsModal({ speciesData, modalType, petData, userId, getPetsData }) {
                 {/* ====== */}
                 <div className="row mb-4">
                   <div className="col-sm-6">
-                    <label className="form-label">是否插入晶片</label>
+                    <label className="form-label required-field">是否插入晶片</label>
                     <div className="text-grey-scale-2 mt-2">
                       <div className="form-check form-check-inline lh-15">
                         <input

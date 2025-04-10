@@ -129,40 +129,46 @@ const VetManagementPage = () => {
             </tr>
           </thead>
           <tbody>
-            {clinicData.slice(0, 10)?.map((data) => {
-              return (
-                <tr key={data.id} className="fs-5">
-                  <td>{data.name}</td>
-                  <td>{data.city}</td>
-                  <td>{data.district}</td>
-                  <td>
-                    {data.isEnabled ? (
-                      <span className="text-success">啟用</span>
-                    ) : (
-                      <span>未啟用</span>
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => handleStatus(data.id, "enable")}
-                      className="btn btn-outline-primary me-2"
-                      disabled={data.isEnabled}
-                    >
-                      啟用
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleStatus(data.id, "disable")}
-                      className="btn btn-outline-danger"
-                      disabled={!data.isEnabled}
-                    >
-                      停用
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {clinicData.length > 0 ? (
+              clinicData.slice(0, 10)?.map((data) => {
+                return (
+                  <tr key={data.id} className="fs-5">
+                    <td>{data.name}</td>
+                    <td>{data.city}</td>
+                    <td>{data.district}</td>
+                    <td>
+                      {data.isEnabled ? (
+                        <span className="text-success">啟用</span>
+                      ) : (
+                        <span>未啟用</span>
+                      )}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => handleStatus(data.id, "enable")}
+                        className="btn btn-outline-primary me-2"
+                        disabled={data.isEnabled}
+                      >
+                        啟用
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleStatus(data.id, "disable")}
+                        className="btn btn-outline-danger"
+                        disabled={!data.isEnabled}
+                      >
+                        停用
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center text-tertiary fs-5 p-4">查無符合篩選條件的醫院</td>
+              </tr>
+            )}
           </tbody>
         </table>
 

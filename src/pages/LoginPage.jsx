@@ -32,7 +32,7 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error("登入失敗:", error);
-      alert("登入失敗，請檢查帳號密碼是否正確");
+      toast("登入失敗，請檢查帳號密碼是否正確", { className: "toast-error" });
     }
   };
 

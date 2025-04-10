@@ -65,3 +65,9 @@ body::-webkit-scrollbar-track {
   height: 0.25rem;
   background-color: $text-secondary;
 }
+
+.required-field::after {
+  padding-left: 5px;
+  color: #f85149;
+  content: "*";
+}

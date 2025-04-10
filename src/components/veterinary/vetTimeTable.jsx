@@ -1,5 +1,5 @@
-import vetLogo from "@/assets/images/veterinary/vetlogo.png"
-import phoneIcon from "@/assets/images/veterinary/icon.png"
+import vetLogo from "@/assets/images/veterinary/vetlogo.png";
+import phoneIcon from "@/assets/images/veterinary/icon.png";
 
 const formatVetName = (name) => {
   const suffixes = ["犬專科醫院", "動物醫院", "獸醫院"];
@@ -31,11 +31,7 @@ const VetTimeTable = ({ clinicData }) => {
           <div className="timeTable-L d-flex flex-column justify-content-center align-items-center">
             <div className="VeterinaryInfo d-flex flex-column justify-content-center align-items-center">
               <div className="d-flex align-items-center mb-4 m-50-5">
-                <img
-                  src={vetLogo}
-                  alt="vetlogo"
-                  className="mr-8 vetlogo"
-                />
+                <img src={vetLogo} alt="vetlogo" className="mr-8 vetlogo" />
                 <span
                   className={`d-flex flex-wrap  roboto ${
                     isLongName ? "fz-28" : "fz-32"
@@ -54,9 +50,12 @@ const VetTimeTable = ({ clinicData }) => {
                   className="phoneIcon mr-20"
                   alt="phone icon"
                 />
-                <h5 className="text-secondary roboto fz-32 lh-38-4 fw-600">
+                <a
+                  href={`tel:+886-${clinicData.tel.replace("0", "")}`}
+                  className="text-secondary roboto fz-32 lh-38-4 fw-600"
+                >
                   {clinicData.tel}
-                </h5>
+                </a>
               </div>
             </div>
             <span className="lh-22 fz-14 mt-auto text-disabled roboto fw-400">
