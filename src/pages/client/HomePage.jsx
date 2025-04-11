@@ -17,7 +17,11 @@ const sections = [
 const Sections = () => (
   <div className="background-pattern">
     {sections.map(({ title, id, Component }) => (
-      <section key={id} className={id} id={id}>
+      <section
+        key={id}
+        className={id === "featured-clinic" ? `${id} container` : id}
+        id={id}
+      >
         <div className="section-title" data-aos="flip-left">
           <h3>{title}</h3>
         </div>

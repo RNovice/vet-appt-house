@@ -10,15 +10,14 @@ import Icon from "./Icon";
 import { computedTo } from "../../utils/common";
 import { useAuth } from "@/context/AuthContext";
 
-const linkPathFullback = [
+const linkPathFallback = [
   { name: "搜尋獸醫", path: "/search" },
   { name: "快速預約", path: "/quick" },
-  { name: "最新消息", path: "/#news" },
   { name: "關於我們", path: "/about-us" },
   { name: "寵物管理", path: "/user/pets" },
 ];
 
-const Navbar = ({ linkPathList = linkPathFullback }) => {
+const Navbar = ({ linkPathList = linkPathFallback }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isAboveHeader, setIsAboveHeader] = useState(true);
@@ -115,16 +114,25 @@ const Navbar = ({ linkPathList = linkPathFullback }) => {
           id="navbarNav"
         >
           <ul className="navbar-nav mx-auto">
-            {linkPathList.map(({ name, path }, i) => (
-              <li className="tab nav-item" key={`nav-link-${i}`}>
-                <NavLink
-                  className="text-primary h6 d-block"
-                  to={computedTo(path, location)}
-                >
-                  {name}
-                </NavLink>
-              </li>
-            ))}
+            {linkPathList.map(({ name, path }, i) => {
+              const to = computedTo(path, location);
+              return (
+                <li className="tab nav-item" key={`nav-link-${i}`}>
+                  <NavLink
+                    className={({ isActive }) => {
+                      const className = "text-primary h6 d-block";
+                      if (typeof to === "string" && to !== location.pathname) {
+                        return className;
+                      }
+                      return (isActive ? "active " : "") + className;
+                    }}
+                    to={to}
+                  >
+                    {name}
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
           {isLogin ? (
             location.pathname === "/user" ? (

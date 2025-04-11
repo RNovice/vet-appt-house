@@ -97,6 +97,10 @@
       padding: 0.75rem 2.5rem;
       text-decoration: none;
     }
+    .active {
+      font-weight: bolder;
+      color: $text-secondary !important;
+    }
     &:hover::after,
     &:active::after,
     &.selected::after {

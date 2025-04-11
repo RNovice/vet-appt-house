@@ -72,7 +72,7 @@ const Redirect = () => {
     const applyLastAppointment = async (userId) => {
       try {
         const { data } = await api(
-          `/appointments?userId=${userId}&_expand=pet&_expand=vetClinic&_expand=user`
+          `/appointments?userId=${userId}&_expand=vetClinic&_expand=user`
         );
 
         if (!data.length) throw new Error("No appointment history");

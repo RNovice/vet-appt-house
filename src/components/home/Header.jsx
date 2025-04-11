@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="home-header hv100-with-nav bg-secondary d-flex align-items-end">
-      <div className="container flex-column gap-8 align-items-center mx-auto">
+      <div className="container flex-column gap-7 align-items-center mx-auto">
         <div className="content flex-column align-items-center">
           <div className="title flex-column align-items-center">
             <img

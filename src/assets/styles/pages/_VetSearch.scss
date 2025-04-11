@@ -18,7 +18,7 @@
     border-radius: 1.5rem;
     display: grid;
     gap: 0.5rem 1.5rem;
-    grid-template-columns: 180px 180px minmax(180px, 1fr) 40px;
+    grid-template-columns: 180px 180px minmax(180px, 1fr) 38px;
     grid-template-areas:
       "item1 item2 item3 button"
       "item4 item5 item6 button";

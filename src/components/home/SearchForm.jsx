@@ -173,12 +173,12 @@ const SearchForm = () => {
           <span className="h6">其他需求</span>
           <div className="d-flex flex-wrap gap-1d5">
             {[
-              "24HR營業",
               "夜間急診",
               "現場掛號",
               "電話預約",
               "停車空間",
               "特寵診療",
+              "24小時營業",
             ].map((label, i) => (
               <label
                 className="custom-checkbox d-flex align-items-center gap-2"

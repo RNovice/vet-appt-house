@@ -163,8 +163,8 @@ export default function BookingPage() {
               })),
             },
             user: {
-              userId: userData?.id || "", //登入功能完成後修改
-              userName: userData?.name || "", //登入功能完成後修改
+              userId: userData?.id || "",
+              userName: userData?.name || "",
             },
           });
         } catch {
@@ -414,19 +414,27 @@ export default function BookingPage() {
               <label className="form-label m-0" htmlFor="booking-page-pet-name">
                 寵物名稱
               </label>
-              <select
-                {...register("petId")} //可匿名
-                /* {...register("petId", { required: true })} */
-                className="form-select mb-2"
-                id="booking-page-pet-name"
-              >
-                <option value="">請選擇寵物</option>
-                {state.pet.petOptions.map((pet) => (
-                  <option key={pet.id} value={pet.id}>
-                    {pet.petName}
-                  </option>
-                ))}
-              </select>
+              {state.pet?.petOptions?.length > 0 ? (
+                <select
+                  {...register("petId")}
+                  className="form-select mb-2"
+                  id="booking-page-pet-name"
+                >
+                  <option value="">請選擇寵物</option>
+                  {state.pet.petOptions.map((pet) => (
+                    <option key={pet.id} value={pet.id}>
+                      {pet.petName}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type="text"
+                  className="input-text-primary mb-2"
+                  id="booking-page-pet-name"
+                  {...register("petId")}
+                />
+              )}
             </div>
             <div className="d-flex gap-2 mt-5">
               <button
@@ -495,12 +503,10 @@ export default function BookingPage() {
                   <span>寵物名稱</span>
                   <span id="pet-name" className="form-control-plaintext">
                     {state.appointment.submitData.petId
-                      ? state.pet.petOptions.map((pet) => {
-                          if (pet.id == state.appointment.submitData.petId) {
-                            return pet.petName;
-                          }
-                        })
-                      : "未選擇"}
+                      ? state.pet.petOptions.find(
+                          (pet) => pet.id == state.appointment.submitData.petId
+                        )?.petName || state.appointment.submitData.petId
+                      : "未填選"}
                   </span>
                 </div>
               </div>

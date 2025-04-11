@@ -30,6 +30,12 @@
     @include media-breakpoint-down(md) {
       flex-direction: column;
     }
+    .btn-primary:hover {
+      background-color: #3c3c3c;
+    }
+    .btn-secondary:hover {
+      background-color: #fff597;
+    }
   }
 
   .hero-container {

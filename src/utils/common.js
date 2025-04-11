@@ -36,7 +36,7 @@ export const toQueryString = (data) => {
 export const otherRequireFieldNameQuery = {
   "夜間急診": "hasEmergency",
   "特寵診療": "hasExoticPetTreat",
-  "24HR營業": "isAllDay",
+  "24小時營業": "isAllDay",
   "現場預約": "hasWalkInAppt",
   "到府診療": "HomeVisit",
   "電話預約": "hasCallBooking",
@@ -66,10 +66,4 @@ export const toApiQueryString = (data) => {
 }
 
 export const computedTo = (path, location) =>
-  path === "/search"
-    ? location.pathname === "/"
-      ? "/#find-vet"
-      : location.pathname === "/search/result"
-        ? location
-        : path
-    : path;
+  path === "/search" && location?.pathname === "/search/result" ? location : path;
