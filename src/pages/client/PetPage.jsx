@@ -8,11 +8,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Icon from "@/components/common/Icon";
 import api from "@/services/api";
-import Avatar from "../components/common/Avatar";
+import Avatar from "../../components/common/Avatar";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import PetsModal from "../components/user/PetsModal";
+import PetsModal from "../../components/user/PetsModal";
 import { Modal } from "bootstrap";
 
 function getAge(dateString) {
@@ -117,8 +117,8 @@ const PetPage = () => {
       try {
         const { data } = await api("/species");
         setSpecies(data);
-      } catch (err) {
-        console.error("取得物種資料失敗", err);
+      } catch {
+        console.error("取得物種資料失敗");
       }
     })();
   }, []);

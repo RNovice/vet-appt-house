@@ -1,4 +1,4 @@
-import "@/assets/styles/component_import_styles/HamsterWheel.scss";
+import "@/assets/styles/components/_HamsterWheel.scss";
 
 const HamsterWheel = () => {
   return (

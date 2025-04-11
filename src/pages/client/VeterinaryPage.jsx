@@ -1,10 +1,10 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import PetsMarquee from "../components/veterinary/PetsMarquee";
-import VetServices from "../components/veterinary/VetServiceCards";
-import VetTimeTable from "../components/veterinary/VetTimeTable";
-import api from "../services/api";
-import VetHeader from "../components/veterinary/VetHeader";
+import PetsMarquee from "../../components/veterinary/PetsMarquee";
+import VetServices from "../../components/veterinary/VetServiceCards";
+import VetTimeTable from "../../components/veterinary/VetTimeTable";
+import api from "../../services/api";
+import VetHeader from "../../components/veterinary/VetHeader";
 
 const VeterinaryPage = () => {
   const params = useParams();
@@ -29,7 +29,7 @@ const VeterinaryPage = () => {
     } catch (err) {
       err.response?.data?.error === "Not found"
         ? navigate("/404")
-        : console.error("Error: ", err);
+        : console.error("獸醫院查詢失敗");
     }
   };
 

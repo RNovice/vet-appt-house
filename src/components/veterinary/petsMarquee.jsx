@@ -11,7 +11,7 @@ const PetsMarquee = () => (
           <span className="marqueeItem me-4" key={i}>
             <img
               src={image}
-              className="marqueeImg rounded-circle"
+              className="marqueeImg rounded-circle object-fit-cover"
               alt={`pet-${i + 1}`}
             />
           </span>

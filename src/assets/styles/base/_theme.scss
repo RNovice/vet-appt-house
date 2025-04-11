@@ -275,19 +275,6 @@ label:has(input.error),
   }
 }
 
-// RWD
-@mixin mobile {
-  @media (max-width: $breakpoint) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: $breakpoint) {
-    @content;
-  }
-}
-
 // icon
 .icon {
   display: inline-block;

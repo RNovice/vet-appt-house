@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../../assets/styles/component_import_styles/Cursor.scss"
+import "@/assets/styles/components/_Cursor.scss"
 
 const Cursor = () => {
   const [footprints, setFootprints] = useState([]);

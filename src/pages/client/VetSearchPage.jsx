@@ -4,12 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import { useMobile } from "@/context/MobileContext";
 import DropDownList from "@/components/common/DropDownList";
 import DatePicker from "@/components/common/DatePicker";
-import Paginator from "../components/common/Paginator";
+import Paginator from "../../components/common/Paginator";
 import Icon from "@/components/common/Icon";
 import { cities, cityQueryDistricts as districts } from "@/utils/constants";
 import { toQueryString, toApiQueryString } from "@/utils/common";
 import api from "@/services/api";
-import HamsterWheel from "../components/common/HamsterWheel";
+import HamsterWheel from "../../components/common/HamsterWheel";
 
 const cityOptions = cities.map(({ city }) => ({ label: city, value: city }));
 
@@ -126,8 +126,8 @@ const VetSearchPage = () => {
         const resultEle = document.querySelector(".clinic-results");
         resultEle && resultEle.scrollIntoView({ behavior: "smooth" });
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
+      console.error("獸醫院查詢失敗");
     }
   };
 
@@ -207,7 +207,7 @@ const VetSearchPage = () => {
             />
           </div>
           <button
-            className="grid-button btn-quaternary fs-6 justify-content-center align-items-center gap-1"
+            className="grid-button btn-quaternary fs-6 justify-content-center align-items-center gap-1 border-0"
             type="submit"
           >
             搜尋
@@ -255,12 +255,12 @@ const VetSearchPage = () => {
           </div>
           <div className="grid-item-6 checkbox-group d-flex flex-wrap">
             {[
-              "24HR營業",
               "夜間急診",
               "現場掛號",
               "電話預約",
               "停車空間",
               "特寵診療",
+              "24小時營業",
             ].map((label, i) => (
               <label
                 className="custom-checkbox d-flex align-items-center gap-1"
@@ -283,7 +283,7 @@ const VetSearchPage = () => {
               </label>
             ))}
             <button
-              className="btn-2 btn-quaternary fs-6 justify-content-center align-items-center gap-1"
+              className="btn-2 btn-quaternary fs-6 justify-content-center align-items-center gap-1 border-0"
               type="submit"
             >
               搜尋
@@ -320,7 +320,7 @@ const VetSearchPage = () => {
                     <div className="tags d-flex flex-wrap gap-1">
                       {clinic.tags?.map((tag) => (
                         <span key={tag} className="tag">
-                          {tag}
+                          {tag.replace("HR", "小時")}
                         </span>
                       ))}
                     </div>

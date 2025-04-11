@@ -1,4 +1,4 @@
-import "@/assets/styles/PaginationAdmin.scss";
+import "@/assets/styles/components/PaginationAdmin.scss"
 
 const PaginationAdmin = ({
   totalPages,
@@ -20,7 +20,6 @@ const PaginationAdmin = ({
   }
 
   const handleCurrentPage = (index) => {
-    console.log("handlePageIndex pageIndex", index)
     setCurrentPage(index)
     handlePageChange(index)
   }

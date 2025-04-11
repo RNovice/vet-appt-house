@@ -1,4 +1,4 @@
-import Icon from "../components/common/Icon";
+import Icon from "../../components/common/Icon";
 
 const AboutUs = () => {
   return (
@@ -29,7 +29,12 @@ const AboutUs = () => {
           <hr />
           <p className="fs-6">如需更多資訊，我們隨時為您解答任何疑問</p>
           <ul className="fs-6">
-            <li>電話： 02 - 51456722</li>
+            <li>
+              電話：{" "}
+              <a className="text-primary" href="tel:+886-2-51456722">
+                02 - 51456722
+              </a>
+            </li>
             <li>電子郵件： vet.appt.house@gmail.com</li>
             <li>地址： 台北市玉里鄉長壽東路五段145號</li>
             <li className="text-secondary mt-2 d-flex align-items-center gap-3">

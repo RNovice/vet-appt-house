@@ -6,7 +6,7 @@
     height: 400px;
     padding-block: 200px 142px;
     margin-top: calc($nav-height * -1);
-    @include mobile {
+    @include media-breakpoint-down(md) {
       background-image: url("@/assets/images/pet/pet-bg-mobile.png");
       height: 200px;
       padding-block: 100px 64px;
@@ -15,10 +15,10 @@
   .pet-list {
     background-color: $bg-primary;
     padding: 60px 160px;
-    @media (max-width: $break-lg) {
+    @include media-breakpoint-down(lg) {
       padding-inline: 64px;
     }
-    @include mobile {
+    @include media-breakpoint-down(md) {
       background-color: $bg-secondary;
       padding: 24px 12px 60px;
       display: flex;
@@ -38,14 +38,14 @@
       border-radius: 40px;
       background-color: $grey-scale-6;
       box-shadow: 0px 5px 5px 0px #0001;
-      @media (max-width: $break-xxl) {
+      @include media-breakpoint-down(xl) {
         flex-direction: column;
         margin-left: 12%;
       }
-      @media (max-width: $break-xl) {
+      @include media-breakpoint-down(xl) {
         margin-left: 0;
       }
-      @include mobile {
+      @include media-breakpoint-down(md) {
         box-shadow: none;
         padding: 16px;
         border-radius: 20px;
@@ -56,7 +56,7 @@
         min-width: 392px !important;
         width: 392px !important;
         aspect-ratio: 10/9;
-        @media (max-width: $break-lg) {
+        @include media-breakpoint-down(lg) {
           width: 319px !important;
           height: 223px !important;
           min-width: 319px !important;
@@ -69,21 +69,21 @@
         width: 392px;
         padding-block: 16px;
         gap: 24px;
-        @media (max-width: $break-xxl) {
+        @include media-breakpoint-down(xl) {
           width: auto;
         }
-        @include mobile {
+        @include media-breakpoint-down(md) {
           padding: 0;
           gap: 12px;
         }
         .detail {
           gap: 12px;
-          @include mobile {
+          @include media-breakpoint-down(md) {
             gap: 4px;
           }
           .field {
             gap: 4px;
-            @include mobile {
+            @include media-breakpoint-down(md) {
               gap: 0;
             }
           }
@@ -92,7 +92,7 @@
           font-family: Roboto;
           font-size: 14px;
           line-height: 22px;
-          @include mobile {
+          @include media-breakpoint-down(md) {
             font-size: 0.875rem !important;
             line-height: 1.375rem;
           }
@@ -100,7 +100,7 @@
       }
       .title {
         gap: 4px;
-        @include mobile {
+        @include media-breakpoint-down(md) {
           gap: 0;
           .specie {
             font-size: 0.875rem !important;
@@ -115,7 +115,7 @@
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: 100%;
-        @include mobile {
+        @include media-breakpoint-down(md) {
           font-size: 1.25rem !important;
           line-height: 1.5rem;
           font-family: "Roboto";
@@ -128,7 +128,7 @@
         padding: 8px 12px;
         display: flex;
         gap: 8px;
-        @include mobile {
+        @include media-breakpoint-down(md) {
           display: none;
         }
       }
@@ -143,7 +143,7 @@
           background-color: $bg-tertiary;
           color: $grey-scale-6;
         }
-        @include mobile {
+        @include media-breakpoint-down(md) {
           display: flex;
         }
       }

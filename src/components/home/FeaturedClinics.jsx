@@ -146,8 +146,8 @@ const FeaturedClinics = () => {
                   setIsBeginning(swiper.isBeginning);
                   setIsEnd(swiper.isEnd);
                 });
-              } catch (err) {
-                console.log(err);
+              } catch {
+                console.error('swiper 錯誤');
               }
             }}
           >

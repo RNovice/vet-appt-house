@@ -18,12 +18,11 @@ const UserAppointments = () => {
   // 使用 useCallback 包裝 API 調用函數
   const fetchAppointments = useCallback(async () => {
     try {
-      const url = `${BACKEND_HOST}/appointments?userId=${userId}&_expand=user&_expand=vetClinic&_expand=pet`;
+      const url = `${BACKEND_HOST}/appointments?userId=${userId}&_expand=user&_expand=vetClinic`;
       const res = await axios.get(url);
-      //console.log("API Response:", res.data);
       setAppointmentsData(res.data);
-    } catch (err) {
-      console.error("取得預約資料失敗", err);
+    } catch(err) {
+      console.error("取得預約資料失敗",err);
     }
   }, []); // 空依賴陣列，因為這個函數不依賴任何外部變數
 

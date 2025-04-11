@@ -13,7 +13,7 @@
     }
   }
 
-  @media (max-width: $break-lg) {
+  @include media-breakpoint-down(lg) {
     .collapse-content {
       display: none;
     }
@@ -96,6 +96,10 @@
     a {
       padding: 0.75rem 2.5rem;
       text-decoration: none;
+    }
+    .active {
+      font-weight: bolder;
+      color: $text-secondary !important;
     }
     &:hover::after,
     &:active::after,

@@ -29,8 +29,8 @@ const UserPets = () => {
         const url = `${BACKEND_HOST}/species`;
         const res = await axios.get(url);
         setSpeciesData(res.data);
-      } catch (err) {
-        console.log("取得物種資料失敗", err);
+      } catch {
+        console.error("取得物種資料失敗");
       }
     })();
   }, []);
@@ -98,7 +98,7 @@ const UserPets = () => {
           ) : (
             <>
               <div className="row g-3">
-                <div className="col-12 col-lg-1 order-1">
+                <div className="col-lg-1 order-1">
                   {/* 新增寵物按鈕-mobile */}
                   <div onClick={() => openModal("new")} className="h-100">
                     <div className="add-pet card p-3 rounded-4 border-0 h-100">

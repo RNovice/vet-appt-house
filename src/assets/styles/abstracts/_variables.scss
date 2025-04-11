@@ -38,12 +38,6 @@ $line-primary: $primary-blue-5;
 $line-secondary: $primary-blue-6;
 $line-error: $error-1;
 
-$break-sm: 576px;
-$break-md: 768px;
-$break-lg: 992px;
-$break-xl: 1200px;
-$break-xxl: 1400px;
-$breakpoint: $break-md;
 //nav py-1  + logo 44px
 $nav-height: calc(0.5rem * 2 + 44px);
 $hv100-with-nav: calc(100vh - $nav-height);

@@ -1,19 +1,19 @@
 import { createHashRouter, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import AdminLayout from "../layouts/AdminLayout";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import VeterinaryPage from "../pages/VeterinaryPage";
-import UserPage from "../pages/UserPage";
-import PetPage from "../pages/PetPage";
 import ProtectedRoute from "./ProtectedRoute";
-import BookingPage from "../pages/BookingPage";
-import VetSearchPage from "../pages/VetSearchPage";
+import HomePage from "../pages/client/HomePage";
+import VeterinaryPage from "../pages/client/VeterinaryPage";
+import UserPage from "../pages/client/UserPage";
+import PetPage from "../pages/client/PetPage";
+import BookingPage from "../pages/client/BookingPage";
+import VetSearchPage from "../pages/client/VetSearchPage";
+import AboutUs from "../pages/client/AboutUs";
+import Redirect from "../pages/client/Redirect";
+import DashboardPage from "../pages/admin/DashboardPage";
+import VetManagementPage from "../pages/admin/VetManagementPage";
+import LoginPage from "../pages/LoginPage";
 import NotFound from "../pages/NotFound";
-import AboutUs from "../pages/AboutUs";
-import Redirect from "../pages/Redirect";
-import DashboardPage from "../pages/DashboardPage";
-import VetManagementPage from "../pages/VetManagementPage";
 
 const createRouter =
   process.env.NODE_ENV === "production"

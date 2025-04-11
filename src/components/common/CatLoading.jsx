@@ -1,4 +1,4 @@
-import "@/assets/styles/component_import_styles/CatLoading.scss";
+import "@/assets/styles/components/_CatLoading.scss";
 
 const CatLoading = ({
   size = 200,

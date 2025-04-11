@@ -1,8 +1,8 @@
-import FeaturedClinics from "../components/home/FeaturedClinics";
-import Header from "../components/home/Header";
-import News from "../components/home/News";
-import SearchForm from "../components/home/SearchForm";
-import Services from "../components/home/Services";
+import FeaturedClinics from "../../components/home/FeaturedClinics";
+import Header from "../../components/home/Header";
+import News from "../../components/home/News";
+import SearchForm from "../../components/home/SearchForm";
+import Services from "../../components/home/Services";
 
 const sections = [
   { title: "我們的服務", id: "site-services", Component: Services },
@@ -17,7 +17,11 @@ const sections = [
 const Sections = () => (
   <div className="background-pattern">
     {sections.map(({ title, id, Component }) => (
-      <section key={id} className={id} id={id}>
+      <section
+        key={id}
+        className={id === "featured-clinic" ? `${id} container` : id}
+        id={id}
+      >
         <div className="section-title" data-aos="flip-left">
           <h3>{title}</h3>
         </div>
